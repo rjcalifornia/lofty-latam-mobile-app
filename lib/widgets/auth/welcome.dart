@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/resources/views/utils/buttons.dart';
+import 'package:home_management_app/widgets/utils/buttons.dart';
 
-class AuthenticationPage extends StatefulWidget {
-  const AuthenticationPage({super.key});
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key});
 
   @override
-  State<AuthenticationPage> createState() => _AuthenticationPageState();
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _AuthenticationPageState extends State<AuthenticationPage> {
+class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

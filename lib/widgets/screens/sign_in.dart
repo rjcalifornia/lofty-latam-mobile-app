@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:home_management_app/Http/Controllers/LoginController.dart';
+import 'package:home_management_app/bloc/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,10 +15,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<LoginController>(context);
+    final bloc = Provider.of<LoginBloc>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context)),
+      ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -34,6 +42,29 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height / 3.8,
+                    width: MediaQuery.of(context).size.width / 1,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                    child: Column(
+                      children: [
+                        Flexible(
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                left: 0,
+                                bottom: 0,
+                                child: Container(),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 12,
                   ),
