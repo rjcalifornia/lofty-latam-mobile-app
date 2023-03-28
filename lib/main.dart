@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:home_management_app/bloc/login_bloc.dart';
-import 'package:home_management_app/widgets/auth/login.dart';
-import 'package:home_management_app/widgets/screens/sign_in.dart';
+import 'package:home_management_app/Http/Controllers/LoginController.dart';
+import 'package:home_management_app/resources/views/auth/login.dart';
+import 'package:home_management_app/resources/views/screens/sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          Provider<LoginBloc>(
-            create: (_) => LoginBloc(),
+          Provider<LoginController>(
+            create: (_) => LoginController(),
             dispose: (_, bloc) => bloc.dispose(),
           ),
         ],

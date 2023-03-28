@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:home_management_app/bloc/login_bloc.dart';
+import 'package:home_management_app/Http/Controllers/LoginController.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<LoginBloc>(context);
+    final bloc = Provider.of<LoginController>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),

@@ -36,6 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   rxdart: ^0.27.7
   provider: ^6.0.5
+  http: ^0.13.5
+  shared_preferences: ^2.0.20
+  intl: ^0.18.0
+  flutter_native_splash: ^2.2.9
+  flutter_launcher_icons: ^0.11.0
+  loading_gifs: ^0.3.0
 
 dev_dependencies:
   flutter_test:

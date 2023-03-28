@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/widgets/utils/buttons.dart';
+import 'package:home_management_app/resources/views/utils/buttons.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({super.key});

@@ -1,10 +1,13 @@
 // ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-import 'package:home_management_app/validators/validators.dart';
+import 'package:home_management_app/Http/validators/validators.dart';
 
-class LoginBloc with Validators {
+class LoginController with Validators {
   final _usernameController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
   final _formKey = GlobalKey<FormState>();
@@ -30,27 +33,52 @@ class LoginBloc with Validators {
         return false;
       });
 
-  // Event handlers
-
   Function(String) get usernameChanged => _usernameController.sink.add;
   Function(String) get passwordChanged => _passwordController.sink.add;
+
+  // Event handlers
+
+  String? get getUsername => _usernameController.value;
+  String? get getPassword => _passwordController.value;
+
+  //Clear login form
+  void destroyLogin() {
+    passwordChanged('');
+    usernameChanged('');
+  }
 
   // Submit function
   submit(var context) async {
     try {
-      final username = _usernameController.value;
-      final password = _passwordController.value;
-      print(password);
-      print(username);
+      print(getPassword);
+      print(getUsername);
       // Perform login logic here using username and password
+      var appAuthJson = await http.post(
+          Uri.parse("authEndpoint " + 'v1/representantes/authentication'),
+          body: json.encode(
+              {"username": "$getUsername", "password": password.toString()}),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          });
+
+      var auth = json.decode(appAuthJson.body);
+
+      //print(appAuthJson.statusCode.toString());
+      var status = appAuthJson.statusCode.toString();
     } catch (e) {}
   }
 
   // Clean up
-  void dispose() {
+  dispose() {
     _usernameController.close();
     _passwordController.close();
     _usernameErrorController.close();
     _passwordErrorController.close();
+  }
+
+  removeLocal(var context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    destroyLogin();
   }
 }
