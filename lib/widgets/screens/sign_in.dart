@@ -57,7 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 right: 0,
                                 left: 0,
                                 bottom: 0,
-                                child: Container(),
+                                child: Image.asset(
+                                  "assets/img/pagofacil.png",
+                                  height: 100,
+                                ),
                               )
                             ],
                           ),

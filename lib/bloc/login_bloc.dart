@@ -72,7 +72,10 @@ class LoginBloc with Validators {
 
       if (status == "200") {
         SharedPreferences prefs = await SharedPreferences.getInstance();
+        var firstName = auth["user"]["name"].split(' ')[0];
         prefs.setString("access_token", auth["access_token"]);
+        prefs.setString("first_name", firstName);
+        prefs.setString("last_name", auth["user"]["lastname"]);
         Route route = MaterialPageRoute(builder: (context) => HomeScreen());
         Navigator.pushReplacement(context, route);
       } else {

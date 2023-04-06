@@ -22,8 +22,8 @@ class _WelcomePageState extends State<WelcomePage> {
               top: 0,
               right: 0,
               left: 0,
-              child: Image.network(
-                "https://cdn.pixabay.com/photo/2015/07/15/11/49/housing-846056_1280.jpg",
+              child: Image.asset(
+                "assets/img/main.jpg",
                 fit: BoxFit.fitHeight,
               )),
           Container(
@@ -31,6 +31,10 @@ class _WelcomePageState extends State<WelcomePage> {
             child: Column(
               children: <Widget>[
                 Spacer(),
+                Image.asset(
+                  "assets/img/pagofacil.png",
+                  height: 120,
+                ),
                 Text(
                   "PagoFácil",
                   style: TextStyle(
@@ -52,7 +56,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     border: Border.all(
                       color: Colors.transparent,
                     ),
-                    buttonText: "Crear una cuenta",
+                    buttonText: "Registrarse",
                     route: "signup"),
                 SizedBox(
                   height: 11,
