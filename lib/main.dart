@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/widgets/screens/app.dart';
+import 'package:home_management_app/ui/screens/app.dart';
 import 'package:provider/provider.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
-import 'package:home_management_app/widgets/auth/welcome.dart';
-import 'package:home_management_app/widgets/screens/sign_in.dart';
+import 'package:home_management_app/ui/auth/welcome.dart';
+import 'package:home_management_app/ui/screens/sign_in.dart';
 
 void main() {
   runApp(const MyApp());

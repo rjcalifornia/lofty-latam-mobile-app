@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_management_app/bloc/login_bloc.dart';
-import 'package:home_management_app/widgets/screens/home.dart';
-import 'package:home_management_app/widgets/screens/notifications.dart';
-import 'package:home_management_app/widgets/screens/profile.dart';
+import 'package:home_management_app/ui/screens/home.dart';
+import 'package:home_management_app/ui/screens/notifications.dart';
+import 'package:home_management_app/ui/screens/profile.dart';
 
 class AppPage extends StatefulWidget {
   const AppPage({super.key});

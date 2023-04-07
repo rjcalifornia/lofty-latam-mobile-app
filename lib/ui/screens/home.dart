@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/ui/widgets/properties_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String firstName = '';
 
-  Future<Null> getSharedPrefs() async {
+  Future<void> getSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState(() {
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     .apply(color: const Color(0xff071d40), fontWeightDelta: 2),
               ),
               const SizedBox(
-                height: 15.0,
+                height: 26.0,
               ),
               Container(
                 padding: const EdgeInsets.all(25.0),
@@ -101,6 +102,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 1,
+                child: ListView.builder(
+                    itemCount: 12,
+                    itemBuilder: (ctx, id) {
+                      return PropertiesContainer(id: id);
+                    }),
               )
             ],
           ),

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/widgets/utils/buttons.dart';
+import 'package:home_management_app/ui/utils/buttons.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});

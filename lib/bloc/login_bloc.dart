@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
-import 'package:home_management_app/widgets/screens/app.dart';
+import 'package:home_management_app/ui/screens/app.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
