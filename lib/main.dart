@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/widgets/screens/home.dart';
+import 'package:home_management_app/widgets/screens/app.dart';
 import 'package:provider/provider.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
@@ -42,13 +42,16 @@ class MyApp extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 ));
               } else if (snapshot.hasData && snapshot.data == true) {
-                return const HomeScreen();
+                return const AppPage();
               } else {
                 return const WelcomePage();
               }
             },
           ),
-          routes: {'signin': (context) => LoginScreen()},
+          routes: {
+            'signin': (context) => LoginScreen(),
+            'home': (context) => AppPage()
+          },
         ));
   }
 }

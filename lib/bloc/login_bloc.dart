@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
-import 'package:home_management_app/widgets/screens/home.dart';
+import 'package:home_management_app/widgets/screens/app.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -76,8 +76,9 @@ class LoginBloc with Validators {
         prefs.setString("access_token", auth["access_token"]);
         prefs.setString("first_name", firstName);
         prefs.setString("last_name", auth["user"]["lastname"]);
-        Route route = MaterialPageRoute(builder: (context) => HomeScreen());
-        Navigator.pushReplacement(context, route);
+        Route route = MaterialPageRoute(builder: (context) => AppPage());
+        //Navigator.pushReplacement(context, route);
+        Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
       } else {
         showDialog(
             barrierDismissible: false,

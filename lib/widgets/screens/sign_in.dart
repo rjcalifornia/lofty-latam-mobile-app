@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height / 3.8,
+                    height: MediaQuery.of(context).size.height / 4.2,
                     width: MediaQuery.of(context).size.width / 1,
                     margin:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -61,22 +61,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                   "assets/img/pagofacil.png",
                                   height: 100,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 12,
+                  Text(
+                    "PagoFácil",
+                    style: TextStyle(
+                      color: Color(0xff313945),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 31,
+                    ),
                   ),
                   Text(
-                    'Bienvenido',
+                    "Simplificando pagos",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 80, 85, 89),
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.normal),
+                      color: Color(0xff313945),
+                      fontSize: 21,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
                   ),
                   Container(
                     width: width < 800
@@ -141,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     bloc.submit(context);
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    primary: Color(0xff6633CC),
+                                    primary: Color(0xff313945),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
