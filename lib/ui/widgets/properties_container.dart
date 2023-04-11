@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class PropertiesContainer extends StatelessWidget {
   final int id;
-  const PropertiesContainer({super.key, required this.id});
+  final property;
+  const PropertiesContainer(
+      {super.key, required this.id, required this.property});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class PropertiesContainer extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "Nombre de la Propiedad",
+                        "${property[id]['name']}",
                         style: Theme.of(context)
                             .textTheme
                             .subtitle2!
@@ -57,12 +59,19 @@ class PropertiesContainer extends StatelessWidget {
           height: 14,
         ),
         Row(
-          children: const <Widget>[
-            Text("Dirección de la propiedad",
-                style: (TextStyle(color: Color.fromARGB(255, 151, 155, 156))))
+          children: <Widget>[
+            Expanded(
+                child: Column(
+              children: [
+                Text("${property[id]['address']}",
+                    style: (const TextStyle(
+                        color: Color.fromARGB(255, 151, 155, 156))))
+              ],
+            ))
           ],
         ),
         const SizedBox(height: 3),
+        /*
         Row(
           children: const <Widget>[
             Text(
@@ -70,7 +79,7 @@ class PropertiesContainer extends StatelessWidget {
               style: (TextStyle(color: Color.fromARGB(255, 151, 155, 156))),
             )
           ],
-        ),
+        ),*/
         const SizedBox(height: 6),
         const Divider(
           height: 21,
