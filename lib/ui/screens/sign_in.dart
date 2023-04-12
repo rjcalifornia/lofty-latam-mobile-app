@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height / 4.2,
+                    height: MediaQuery.of(context).size.height / 5.6,
                     width: MediaQuery.of(context).size.width / 1,
                     margin:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 left: 0,
                                 bottom: 0,
                                 child: Image.asset(
-                                  "assets/img/pagofacil.png",
+                                  "assets/img/lofty.png",
                                   height: 100,
                                 ),
                               ),
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Text(
-                    "PagoFácil",
+                    "Lofty",
                     style: TextStyle(
                       color: Color(0xff313945),
                       fontWeight: FontWeight.bold,
@@ -136,6 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           stream: bloc.submitCheck,
                           builder: (ctx, AsyncSnapshot snapshot) {
                             if (!snapshot.hasData) {
+                              // ignore: avoid_unnecessary_containers
                               return Container(
                                 child: Column(
                                   children: [
@@ -145,16 +146,27 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             } else {
                               return ElevatedButton(
-                                  onPressed: () {
-                                    bloc.submit(context);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Color(0xff313945),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
+                                onPressed: () {
+                                  bloc.submit(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xffff385c),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
-                                  child: Text("Ingresar"));
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.login, size: 28),
+                                    const SizedBox(width: 8),
+                                    Text("Ingresar",
+                                        style: TextStyle(fontSize: 22)),
+                                  ],
+                                ),
+                              );
                             }
                           },
                         )

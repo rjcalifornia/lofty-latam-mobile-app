@@ -32,16 +32,22 @@ class _WelcomePageState extends State<WelcomePage> {
               children: <Widget>[
                 Spacer(),
                 Image.asset(
-                  "assets/img/pagofacil.png",
+                  "assets/img/lofty.png",
                   height: 120,
                 ),
+                SizedBox(
+                  height: 12,
+                ),
                 Text(
-                  "PagoFácil",
+                  "Lofty",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 31,
                   ),
+                ),
+                SizedBox(
+                  height: 4,
                 ),
                 Text(
                   "Simplificando pagos",
@@ -52,7 +58,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 Spacer(),
                 CustomAuthButtons(
-                    buttonColor: Color(0xff313945),
+                    buttonColor: const Color(0xffff385c),
                     border: Border.all(
                       color: Colors.transparent,
                     ),

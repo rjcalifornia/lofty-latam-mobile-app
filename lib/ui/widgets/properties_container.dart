@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class PropertiesContainer extends StatelessWidget {
   final int id;
+  // ignore: prefer_typing_uninitialized_variables
   final property;
   const PropertiesContainer(
       {super.key, required this.id, required this.property});
@@ -65,7 +66,8 @@ class PropertiesContainer extends StatelessWidget {
               children: [
                 Text("${property[id]['address']}",
                     style: (const TextStyle(
-                        color: Color.fromARGB(255, 151, 155, 156))))
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 143, 145, 145))))
               ],
             ))
           ],
