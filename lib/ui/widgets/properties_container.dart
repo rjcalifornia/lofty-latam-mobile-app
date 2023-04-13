@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class PropertiesContainer extends StatelessWidget {
   final int id;
   // ignore: prefer_typing_uninitialized_variables
+  final token;
   final property;
   const PropertiesContainer(
-      {super.key, required this.id, required this.property});
+      {super.key,
+      required this.id,
+      required this.property,
+      required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +30,10 @@ class PropertiesContainer extends StatelessWidget {
                   image: DecorationImage(
                       colorFilter: ColorFilter.mode(
                           Colors.grey.withOpacity(.3), BlendMode.srcOver),
-                      image: const NetworkImage(
-                          "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_1280.jpg"),
+                      image: NetworkImage(
+                          property[id]['property_pictures']['image_link_name']
+                              .toString(),
+                          headers: {'Authorization': 'Bearer $token'}),
                       fit: BoxFit.cover),
                 ),
                 child: Container(

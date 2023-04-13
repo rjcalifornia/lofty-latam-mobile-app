@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool loader = false;
   Future? getProperties;
   int? countProperties;
+  String? accessToken;
 
   Future<bool> _getPropertiesList() async {
     final propertiesList = await _propertiesBloc.getPropertiesList();
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     setState(() {
       firstName = prefs.getString("first_name").toString();
+      accessToken = prefs.getString("access_token").toString();
     });
   }
 
@@ -100,7 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   itemCount: listProperties?.length,
                                   itemBuilder: (ctx, i) {
                                     return PropertiesContainer(
-                                        id: i, property: listProperties);
+                                      id: i,
+                                      property: listProperties,
+                                      token: accessToken,
+                                    );
                                   }),
                             )
                           : const Text('No se encontraron datos'),
