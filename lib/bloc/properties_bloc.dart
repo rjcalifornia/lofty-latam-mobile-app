@@ -20,4 +20,10 @@ class PropertiesBloc {
     final propertiesList = json.decode(propertiesJson.body);
     return propertiesList;
   }
+
+  Future getLandlordName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return '${prefs.getString("first_name")} ${prefs.getString("last_name")}';
+  }
 }
