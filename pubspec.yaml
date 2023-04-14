@@ -42,6 +42,7 @@ dependencies:
   flutter_native_splash: ^2.2.9
   flutter_launcher_icons: ^0.11.0
   loading_gifs: ^0.3.0
+  loading_animation_widget: ^1.2.0+4
 
 dev_dependencies:
   flutter_test:

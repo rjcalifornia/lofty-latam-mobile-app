@@ -3,6 +3,7 @@ import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/ui/widgets/home_options_container.dart';
 import 'package:home_management_app/ui/widgets/properties_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -117,8 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
               //here
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: const Color(0xffff385c), size: 40),
             );
           }
         }),
