@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: Theme.of(context)
                   .textTheme
                   .headline4!
-                  .apply(color: const Color(0xff071d40), fontWeightDelta: 1),
+                  .apply(color: const Color(0xff000000), fontWeightDelta: 1),
             ),
             SizedBox(
               height: 12,
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return Text(
                   snapshot.data.toString(),
                   style: Theme.of(context).textTheme.headline4!.apply(
-                      color: const Color(0xff071d40), fontWeightDelta: 1),
+                      color: const Color(0xff000000), fontWeightDelta: 1),
                 );
               },
             ),
@@ -80,7 +80,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text(
               "Configuración",
               style: Theme.of(context).textTheme.headline5,
-            )
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: ListView(
+                  children: const [
+                    ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text('Perfil'),
+                      trailing: Icon(Icons.chevron_right_outlined),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.password),
+                      title: Text('Cambiar contraseña'),
+                      trailing: Icon(Icons.chevron_right_outlined),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.settings),
+                      title: Text('Preferencias'),
+                      trailing: Icon(Icons.chevron_right_outlined),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.logout),
+                      title: Text('Cerrar Sesion'),
+                      trailing: Icon(Icons.chevron_right_outlined),
+                    )
+                  ],
+                ))
           ],
         ),
       ),
