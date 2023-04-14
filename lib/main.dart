@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/ui/screens/app.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Scaffold(
                     body: Center(
-                  child: CircularProgressIndicator(),
+                  child: LoadingAnimationWidget.threeArchedCircle(
+                      color: const Color(0xffff385c), size: 26),
                 ));
               } else if (snapshot.hasData && snapshot.data == true) {
                 return const AppPage();
