@@ -51,80 +51,81 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-      },
-      child: FutureBuilder(
-        future: getProperties,
-        builder: ((context, snapshot) {
-          if (snapshot.hasData) {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                  top: 30, bottom: 18, left: 20, right: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Hola,",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .apply(color: Colors.grey[500]),
-                  ),
-                  Text(
-                    firstName.toString(),
-                    style: Theme.of(context).textTheme.headline5!.apply(
-                        color: const Color(0xff071d40), fontWeightDelta: 2),
-                  ),
-                  const SizedBox(
-                    height: 26.0,
-                  ),
-                  HomeOptionsContainer(
-                      countProperties: countProperties.toString()),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    "Propiedades",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .apply(color: Colors.black),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    children: [
-                      listProperties?.isEmpty == false
-                          ? SizedBox(
-                              height: MediaQuery.of(context).size.height / 1,
-                              child: ListView.builder(
-                                  itemCount: listProperties?.length,
-                                  itemBuilder: (ctx, i) {
-                                    return PropertiesContainer(
-                                      id: i,
-                                      property: listProperties,
-                                      token: accessToken,
-                                    );
-                                  }),
-                            )
-                          : const Text('No se encontraron datos'),
-                    ],
-                  )
-                  //another
-                ],
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          padding:
+              const EdgeInsets.only(top: 30, bottom: 18, left: 20, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Hola,",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .apply(color: Colors.grey[500]),
               ),
-              //here
-            );
-          } else {
-            return Center(
-              child: LoadingAnimationWidget.staggeredDotsWave(
-                  color: const Color(0xffff385c), size: 40),
-            );
-          }
-        }),
-      ),
-    );
+              Text(
+                firstName.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .apply(color: const Color(0xff071d40), fontWeightDelta: 2),
+              ),
+              const SizedBox(
+                height: 26.0,
+              ),
+              HomeOptionsContainer(countProperties: countProperties.toString()),
+              const SizedBox(
+                height: 40,
+              ),
+              Text(
+                "Propiedades",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .apply(color: Colors.black),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+
+              FutureBuilder(
+                  future: getProperties,
+                  builder: ((context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: [
+                          listProperties?.isEmpty == false
+                              ? SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 1,
+                                  child: ListView.builder(
+                                      itemCount: listProperties?.length,
+                                      itemBuilder: (ctx, i) {
+                                        return PropertiesContainer(
+                                          id: i,
+                                          property: listProperties,
+                                          token: accessToken,
+                                        );
+                                      }),
+                                )
+                              : const Text('No se encontraron datos'),
+                        ],
+                      );
+                    } else {
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: const Color(0xffff385c), size: 28),
+                      );
+                    }
+                  })),
+              //another
+            ],
+          ),
+          //here
+        ));
   }
 }

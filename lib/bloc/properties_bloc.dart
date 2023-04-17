@@ -21,9 +21,16 @@ class PropertiesBloc {
     return propertiesList;
   }
 
-  Future getLandlordName() async {
+  Future getUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    // ignore: prefer_typing_uninitialized_variables
+    Map<String, dynamic> user = {};
 
-    return '${prefs.getString("first_name")} ${prefs.getString("last_name")}';
+    user['firstName'] = prefs.getString('first_name');
+    user['lastName'] = prefs.getString('last_name');
+    user['rolName'] = prefs.getString('role_name');
+
+    return user;
+    //return '${prefs.getString("first_name")} ${prefs.getString("last_name")}';
   }
 }

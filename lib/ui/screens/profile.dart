@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -55,24 +56,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 12,
             ),
             FutureBuilder(
-              future: _propertiesBloc.getLandlordName(),
-              builder: (context, snapshot) {
-                return Text(
-                  snapshot.data.toString(),
-                  style: Theme.of(context).textTheme.headline4!.apply(
-                      color: const Color(0xff000000), fontWeightDelta: 1),
-                );
+              future: _propertiesBloc.getUserDetails(),
+              builder: (context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasData) {
+                  var data = snapshot.data as Map<String, dynamic>;
+                  var fullName = "${data['firstName']} ${data['lastName']}";
+                  var rolName = "${data['rolName']}";
+
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(fullName,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4!
+                                  .apply(
+                                      color: const Color(0xff000000),
+                                      fontWeightDelta: 1)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            rolName,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .apply(color: Colors.grey[700]),
+                          ),
+                        ],
+                      )
+                    ],
+                  );
+                } else {
+                  return SizedBox(
+                    height: 28,
+                    child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: const Color(0xffff385c), size: 22),
+                  );
+                }
               },
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Arrendador",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .apply(color: Colors.grey[700]),
             ),
             SizedBox(
               height: 28,
