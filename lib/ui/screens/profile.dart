@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
+import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,11 +15,16 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final PropertiesBloc _propertiesBloc = PropertiesBloc();
-
   String? firstName;
+  late String fullName;
+  late String rolType;
 
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+    fullName = UserPreferences.getFullName() ?? "Falló obtener FullName";
+    rolType = UserPreferences.getRolType() ?? "Falló obtener RolType";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,52 +62,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(
               height: 12,
             ),
-            FutureBuilder(
-              future: _propertiesBloc.getUserDetails(),
-              builder: (context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.hasData) {
-                  var data = snapshot.data as Map<String, dynamic>;
-                  var fullName = "${data['firstName']} ${data['lastName']}";
-                  var rolName = "${data['rolName']}";
-
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(fullName,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .apply(
-                                      color: const Color(0xff000000),
-                                      fontWeightDelta: 1)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            rolName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .apply(color: Colors.grey[700]),
-                          ),
-                        ],
-                      )
-                    ],
-                  );
-                } else {
-                  return SizedBox(
-                    height: 28,
-                    child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: const Color(0xffff385c), size: 22),
-                  );
-                }
-              },
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(fullName,
+                        style: Theme.of(context).textTheme.headline4!.apply(
+                            color: const Color(0xff000000),
+                            fontWeightDelta: 1)),
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      rolType,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .apply(color: Colors.grey[700]),
+                    ),
+                  ],
+                )
+              ],
             ),
             SizedBox(
               height: 28,

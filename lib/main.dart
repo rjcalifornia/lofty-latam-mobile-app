@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,9 @@ import 'package:home_management_app/bloc/login_bloc.dart';
 import 'package:home_management_app/ui/auth/welcome.dart';
 import 'package:home_management_app/ui/screens/sign_in.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences.init();
   runApp(const MyApp());
 }
 

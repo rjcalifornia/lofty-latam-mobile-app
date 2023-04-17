@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
+import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/ui/widgets/home_options_container.dart';
 import 'package:home_management_app/ui/widgets/properties_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,12 +15,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final PropertiesBloc _propertiesBloc = PropertiesBloc();
-  String firstName = '';
   List? listProperties;
   bool loader = false;
   Future? getProperties;
   int? countProperties;
-  String? accessToken;
+  late String accessToken;
+  late String displayName;
 
   Future<bool> _getPropertiesList() async {
     final propertiesList = await _propertiesBloc.getPropertiesList();
@@ -32,19 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return loader;
   }
 
-  Future<void> getSharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      firstName = prefs.getString("first_name").toString();
-      accessToken = prefs.getString("access_token").toString();
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    getSharedPrefs();
+    displayName =
+        UserPreferences.getDisplayName() ?? "Falló obtener DisplayName";
+
+    accessToken =
+        UserPreferences.getAccessToken() ?? "Falló obtener AccessToken";
+
     getProperties = _getPropertiesList();
   }
 
@@ -68,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     .apply(color: Colors.grey[500]),
               ),
               Text(
-                firstName.toString(),
+                displayName.toString(),
                 style: Theme.of(context)
                     .textTheme
                     .headline5!
