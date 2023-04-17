@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/config/env.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +18,22 @@ class PropertiesBloc {
 
     final propertiesList = json.decode(propertiesJson.body);
     return propertiesList;
+  }
+
+  Future getPropertyDetails(id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    var propertyJson = await http
+        .get(Uri.parse('${authEndpoint}api/v1/property/$id/view'), headers: {
+      "Accept": "application/json",
+      'Authorization': 'Bearer $accessToken',
+    });
+
+    final propertyMap = json.decode(propertyJson.body);
+
+    final property = Property.fromJson(propertyMap);
+    return property;
   }
 
   Future getUserDetails() async {

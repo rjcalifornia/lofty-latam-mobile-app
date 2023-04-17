@@ -27,7 +27,7 @@ class _AppPageState extends State<AppPage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
           backgroundColor: const Color(0xfff5f6f5),
