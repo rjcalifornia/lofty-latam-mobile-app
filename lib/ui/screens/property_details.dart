@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/models/Property.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PropertyDetailsScreen extends StatefulWidget {
   final id;
@@ -17,6 +18,7 @@ class PropertyDetailsScreen extends StatefulWidget {
 class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   final PropertiesBloc _propertiesBloc = PropertiesBloc();
   bool loader = false;
+  Future? getDetails;
 
   Property? propertyDetails;
   Future<bool> _getProperty() async {
@@ -33,7 +35,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _getProperty();
+    getDetails = _getProperty();
   }
 
   @override
@@ -49,80 +51,92 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                 right: 0,
                 left: 0,
                 bottom: 50,
-                child: SingleChildScrollView(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height / 2,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            left: 0,
-                            bottom: 150,
-                            child: Container(
-                              alignment: Alignment.topCenter,
-                              color: const Color(0xffff385c),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15.0),
-                              child: Row(children: [
-                                IconButton(
-                                  icon: const Icon(Icons.arrow_back,
-                                      color: Colors.white),
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  propertyDetails!.name.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .apply(
-                                          color: Colors.white,
-                                          fontWeightDelta: 2),
-                                )
-                              ]),
-                            ),
-                          ),
-                          Positioned(
-                            left: 0,
-                            right: 0,
-                            bottom: 15,
-                            child: Container(
-                              margin: const EdgeInsets.all(25.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 5.0,
-                                    offset: Offset(0, 5),
+                child: FutureBuilder(
+                  future: getDetails,
+                  builder: ((context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SingleChildScrollView(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height / 2,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  left: 0,
+                                  bottom: 150,
+                                  child: Container(
+                                    alignment: Alignment.topCenter,
+                                    color: const Color(0xffff385c),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    child: Row(children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.arrow_back,
+                                            color: Colors.white),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        propertyDetails!.name.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .apply(
+                                                color: Colors.white,
+                                                fontWeightDelta: 2),
+                                      )
+                                    ]),
                                   ),
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25.0),
-                                child: Image.network(
-                                  propertyDetails!
-                                      .propertyPictures!.imageLinkName
-                                      .toString(),
-                                  headers: {
-                                    'Authorization':
-                                        'Bearer $widget.accessToken'
-                                  },
-                                  fit: BoxFit.cover,
                                 ),
-                              ),
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 15,
+                                  child: Container(
+                                    margin: const EdgeInsets.all(25.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 5.0,
+                                          offset: Offset(0, 5),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      child: Image.network(
+                                        propertyDetails!
+                                            .propertyPictures!.imageLinkName
+                                            .toString(),
+                                        headers: {
+                                          'Authorization':
+                                              'Bearer $widget.accessToken'
+                                        },
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
+                          )
                         ],
-                      ),
-                    )
-                  ],
-                )),
+                      ));
+                    } else {
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: const Color(0xffff385c), size: 28),
+                      );
+                    }
+                  }),
+                ),
               ),
             ],
           ),
