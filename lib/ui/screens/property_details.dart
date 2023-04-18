@@ -126,6 +126,40 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                 ),
                               ],
                             ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16), // Add horizontal padding
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.gps_fixed,
+                                        color: Color(0xff000000),
+                                      ),
+                                      const SizedBox(
+                                          width:
+                                              8), // Add some spacing between the icon and text
+                                      Expanded(
+                                        child: Text(
+                                          propertyDetails!.address.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1!
+                                              .apply(
+                                                  color:
+                                                      const Color(0xff000000)),
+                                          softWrap:
+                                              true, // Allow the text to wrap to the next line
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ));
@@ -138,6 +172,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                   }),
                 ),
               ),
+
+              //ending
             ],
           ),
         ),

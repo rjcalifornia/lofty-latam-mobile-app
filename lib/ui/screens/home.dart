@@ -61,19 +61,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headline4!
-                    .apply(color: Colors.grey[500]),
+                    .copyWith(color: Colors.grey),
               ),
               Text(
                 displayName.toString(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .apply(color: const Color(0xff071d40), fontWeightDelta: 2),
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                    color: const Color(0xff071d40),
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 26.0,
               ),
-              HomeOptionsContainer(countProperties: countProperties.toString()),
+              HomeOptionsContainer(
+                countProperties: countProperties.toString(),
+                getProperties: getProperties,
+              ),
               const SizedBox(
                 height: 40,
               ),
@@ -96,8 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           listProperties?.isEmpty == false
                               ? SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 1,
+                                  height: MediaQuery.of(context).size.height,
                                   child: ListView.builder(
                                       itemCount: listProperties?.length,
                                       itemBuilder: (ctx, i) {
