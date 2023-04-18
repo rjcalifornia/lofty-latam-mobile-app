@@ -129,58 +129,94 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Row(
+                            padding: const EdgeInsets.only(
+                                top: 4, bottom: 18, left: 22, right: 22),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(
-                                    child: Text(
-                                  propertyDetails!.name.toString(),
+                                Row(children: [
+                                  Expanded(
+                                      child: Text(
+                                    propertyDetails!.name.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                            color: BrandColors.rausch,
+                                            fontWeight: FontWeight.bold),
+                                  )),
+                                ]),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.map,
+                                            color: BrandColors.foggy,
+                                          ),
+                                          const SizedBox(
+                                              width:
+                                                  8), // Add some spacing between the icon and text
+
+                                          Expanded(
+                                            child: Text(
+                                              propertyDetails!.address
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .apply(
+                                                      color: BrandColors.foggy),
+                                              softWrap:
+                                                  true, // Allow the text to wrap to the next line
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.home_filled,
+                                      color: BrandColors.foggy,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      "Tipo Alojamiento: Alquiler Extendido",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .apply(color: BrandColors.foggy),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Text(
+                                  "Descripción",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
                                       .copyWith(
                                           color: BrandColors.hof,
-                                          fontWeight: FontWeight.bold),
-                                )),
+                                          fontWeight: FontWeight.w400),
+                                )
                               ],
                             ),
                           ),
                           const SizedBox(
                             height: 8,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16), // Add horizontal padding
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.map,
-                                        color: BrandColors.foggy,
-                                      ),
-                                      const SizedBox(
-                                          width:
-                                              8), // Add some spacing between the icon and text
-
-                                      Expanded(
-                                        child: Text(
-                                          propertyDetails!.address.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium!
-                                              .apply(color: BrandColors.foggy),
-                                          softWrap:
-                                              true, // Allow the text to wrap to the next line
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ));
                     } else {

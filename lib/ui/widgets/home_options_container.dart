@@ -26,7 +26,7 @@ class HomeOptionsContainer extends StatelessWidget {
             padding: const EdgeInsets.all(11.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
-              color: BrandColors.rausch.withOpacity(.24),
+              color: BrandColors.rausch.withOpacity(.3),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
