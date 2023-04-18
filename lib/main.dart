@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -34,9 +35,11 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-              fontFamily: 'Roboto',
-              primarySwatch: Colors.blue,
-              backgroundColor: Color(0xfff5f6f5)),
+            textTheme: GoogleFonts.manropeTextTheme(),
+            scaffoldBackgroundColor: Colors.white,
+            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+                .copyWith(background: Colors.white),
+          ),
           home: FutureBuilder(
             future: loginBloc.checkAccessTokenValidity(),
             builder: (context, snapshot) {

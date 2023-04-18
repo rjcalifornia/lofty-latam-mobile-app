@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
+import 'package:home_management_app/global.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -40,8 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               "Perfil",
               style: Theme.of(context)
                   .textTheme
-                  .headline4!
-                  .apply(color: const Color(0xff000000), fontWeightDelta: 1),
+                  .headlineMedium!
+                  .apply(color: Colors.black, fontWeightDelta: 1),
             ),
             SizedBox(
               height: 12,
@@ -65,9 +66,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   children: [
                     Text(fullName,
-                        style: Theme.of(context).textTheme.headline4!.apply(
-                            color: const Color(0xff000000),
-                            fontWeightDelta: 1)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .apply(color: Colors.black, fontWeightDelta: 1)),
                   ],
                 ),
                 SizedBox(
@@ -80,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge!
-                          .apply(color: Colors.grey[700]),
+                          .apply(color: BrandColors.hof),
                     ),
                   ],
                 )
@@ -91,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Text(
               "Configuración",
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             SizedBox(
               height: 18,

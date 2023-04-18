@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -71,7 +72,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   bottom: 150,
                                   child: Container(
                                     alignment: Alignment.topCenter,
-                                    color: const Color(0xffff385c),
+                                    color: const Color(0xffFF5A5F),
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 15.0),
                                     child: Row(children: [
@@ -128,6 +129,26 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                             ),
                           ),
                           Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  propertyDetails!.name.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          color: BrandColors.hof,
+                                          fontWeight: FontWeight.bold),
+                                )),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16), // Add horizontal padding
                             child: Row(
@@ -136,21 +157,20 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   child: Row(
                                     children: [
                                       const Icon(
-                                        Icons.gps_fixed,
-                                        color: Color(0xff000000),
+                                        Icons.map,
+                                        color: BrandColors.foggy,
                                       ),
                                       const SizedBox(
                                           width:
                                               8), // Add some spacing between the icon and text
+
                                       Expanded(
                                         child: Text(
                                           propertyDetails!.address.toString(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle1!
-                                              .apply(
-                                                  color:
-                                                      const Color(0xff000000)),
+                                              .titleMedium!
+                                              .apply(color: BrandColors.foggy),
                                           softWrap:
                                               true, // Allow the text to wrap to the next line
                                         ),

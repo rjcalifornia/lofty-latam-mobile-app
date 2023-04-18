@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/screens/home.dart';
 import 'package:home_management_app/ui/screens/notifications.dart';
 import 'package:home_management_app/ui/screens/profile.dart';
@@ -30,7 +31,7 @@ class _AppPageState extends State<AppPage> {
     //double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-          backgroundColor: const Color(0xfff5f6f5),
+          backgroundColor: Colors.white,
           body: _screens.elementAt(_currentIndex),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
@@ -53,7 +54,7 @@ class _AppPageState extends State<AppPage> {
                 backgroundColor: Colors.pink,
               ),
             ],
-            selectedItemColor: const Color(0xffff385c),
+            selectedItemColor: BrandColors.rausch,
           )),
     );
   }

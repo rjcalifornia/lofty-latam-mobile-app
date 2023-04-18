@@ -42,7 +42,7 @@ class HomeOptionsContainer extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 11.0),
-                    primary: const Color(0xff071d40),
+                    backgroundColor: const Color(0xff071d40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9.0),
                       side: const BorderSide(color: Colors.white),

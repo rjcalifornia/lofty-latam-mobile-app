@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/widgets/home_options_container.dart';
 import 'package:home_management_app/ui/widgets/properties_container.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -60,14 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Hola,",
                 style: Theme.of(context)
                     .textTheme
-                    .headline4!
-                    .copyWith(color: Colors.grey),
+                    .headlineMedium!
+                    .copyWith(color: BrandColors.foggy),
               ),
               Text(
                 displayName.toString(),
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                    color: const Color(0xff071d40),
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium!
+                    .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 26.0,
@@ -83,11 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Propiedades",
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .apply(color: Colors.black),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
 
               FutureBuilder(
@@ -115,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else {
                       return Center(
                         child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: const Color(0xffff385c), size: 28),
+                            color: BrandColors.arches, size: 28),
                       );
                     }
                   })),

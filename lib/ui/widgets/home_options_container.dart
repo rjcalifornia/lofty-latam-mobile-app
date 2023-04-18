@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/global.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeOptionsContainer extends StatelessWidget {
@@ -25,7 +26,7 @@ class HomeOptionsContainer extends StatelessWidget {
             padding: const EdgeInsets.all(11.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
-              color: const Color(0xffff385c).withOpacity(.24),
+              color: BrandColors.rausch.withOpacity(.24),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +54,7 @@ class HomeOptionsContainer extends StatelessWidget {
                       );
                     } else {
                       return LoadingAnimationWidget.waveDots(
-                          color: const Color(0xffff385c), size: 26);
+                          color: BrandColors.arches, size: 26);
                     }
                   }),
                 ),
@@ -65,7 +66,7 @@ class HomeOptionsContainer extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    primary: Color(0xffff385c),
+                    backgroundColor: BrandColors.rausch,
                   ),
                   onPressed: () {
                     /*

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/screens/property_details.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -80,10 +81,10 @@ class PropertiesContainer extends StatelessWidget {
                                   "${property[id]['name']}",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .subtitle2!
-                                      .apply(
+                                      .titleSmall!
+                                      .copyWith(
                                           color: Colors.white,
-                                          fontWeightDelta: 2),
+                                          fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -92,7 +93,7 @@ class PropertiesContainer extends StatelessWidget {
                       ));
                 } else {
                   return LoadingAnimationWidget.staggeredDotsWave(
-                      color: const Color(0xffff385c), size: 26);
+                      color: BrandColors.arches, size: 26);
                 }
               },
             ),
@@ -105,9 +106,7 @@ class PropertiesContainer extends StatelessWidget {
                     child: Column(
                   children: [
                     Text("${property[id]['address']}",
-                        style: (const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 143, 145, 145))))
+                        style: const TextStyle(color: BrandColors.foggy))
                   ],
                 ))
               ],
@@ -125,7 +124,7 @@ class PropertiesContainer extends StatelessWidget {
             const SizedBox(height: 6),
             const Divider(
               height: 21,
-              color: Color.fromARGB(255, 151, 155, 156),
+              color: BrandColors.hof,
             ),
             const SizedBox(height: 6),
           ],

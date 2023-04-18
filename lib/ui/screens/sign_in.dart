@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/global.dart';
 import 'package:provider/provider.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
@@ -71,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Lofty",
                     style: TextStyle(
-                      color: Color(0xff313945),
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 31,
                     ),
@@ -79,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Simplificando pagos",
                     style: TextStyle(
-                      color: Color(0xff313945),
+                      color: Colors.black,
                       fontSize: 21,
                     ),
                   ),
@@ -150,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   bloc.submit(context);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xffff385c),
+                                  backgroundColor: BrandColors.arches,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),

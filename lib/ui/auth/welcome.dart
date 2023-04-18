@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/utils/buttons.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 Spacer(),
                 CustomAuthButtons(
-                    buttonColor: const Color(0xffff385c),
+                    buttonColor: BrandColors.arches,
                     border: Border.all(
                       color: Colors.transparent,
                     ),
