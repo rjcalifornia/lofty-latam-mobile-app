@@ -12,6 +12,7 @@ class Property {
   bool? hasDinningRoom;
   bool? hasSink;
   bool? hasFridge;
+  bool? hasWifi;
   bool? hasTv;
   bool? hasFurniture;
   bool? hasGarage;
@@ -36,6 +37,7 @@ class Property {
       this.hasDinningRoom,
       this.hasSink,
       this.hasFridge,
+      this.hasWifi,
       this.hasTv,
       this.hasFurniture,
       this.hasGarage,
@@ -60,6 +62,7 @@ class Property {
     hasDinningRoom = json['has_dinning_room'];
     hasSink = json['has_sink'];
     hasFridge = json['has_fridge'];
+    hasWifi = json['has_wifi'];
     hasTv = json['has_tv'];
     hasFurniture = json['has_furniture'];
     hasGarage = json['has_garage'];
@@ -95,6 +98,7 @@ class Property {
     data['has_dinning_room'] = this.hasDinningRoom;
     data['has_sink'] = this.hasSink;
     data['has_fridge'] = this.hasFridge;
+    data['has_wifi'] = this.hasWifi;
     data['has_tv'] = this.hasTv;
     data['has_furniture'] = this.hasFurniture;
     data['has_garage'] = this.hasGarage;
