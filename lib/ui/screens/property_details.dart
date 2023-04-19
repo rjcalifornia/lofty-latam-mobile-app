@@ -41,6 +41,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool? hasKitchen = propertyDetails?.hasKitchen;
+    bool? hasDinningRoom = propertyDetails?.hasDinningRoom;
     return GestureDetector(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -210,7 +212,39 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       .copyWith(
                                           color: BrandColors.hof,
                                           fontWeight: FontWeight.w400),
-                                )
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  "Lo que ofrece este lugar:",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        color: BrandColors.foggy,
+                                      ),
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                if (hasKitchen == true)
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.dining_outlined,
+                                        color: BrandColors.foggy,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        'Cocina',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(color: BrandColors.foggy),
+                                      ),
+                                    ],
+                                  ),
                               ],
                             ),
                           ),
