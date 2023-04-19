@@ -66,10 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Text(
                 displayName.toString(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    color: BrandColors.loft, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 26.0,

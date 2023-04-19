@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
+import 'package:home_management_app/ui/widgets/home_services_container.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PropertyDetailsScreen extends StatefulWidget {
@@ -41,8 +42,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool? hasKitchen = propertyDetails?.hasKitchen;
-    bool? hasDinningRoom = propertyDetails?.hasDinningRoom;
     return GestureDetector(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -53,7 +52,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                 top: 0,
                 right: 0,
                 left: 0,
-                bottom: 50,
+                bottom: 0,
                 child: FutureBuilder(
                   future: getDetails,
                   builder: ((context, snapshot) {
@@ -84,15 +83,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         onPressed: () => Navigator.pop(context),
                                       ),
                                       const Spacer(),
-                                      Text(
-                                        propertyDetails!.name.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium!
-                                            .apply(
-                                                color: Colors.white,
-                                                fontWeightDelta: 2),
-                                      )
                                     ]),
                                   ),
                                 ),
@@ -182,74 +172,11 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 8,
+                                HomeServicesContainer(
+                                  propertyDetails: propertyDetails,
                                 ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.home_filled,
-                                      color: BrandColors.foggy,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      "Tipo Alojamiento: Alquiler Extendido",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .apply(color: BrandColors.foggy),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Text(
-                                  "Descripción",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                          color: BrandColors.hof,
-                                          fontWeight: FontWeight.w400),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  "Lo que ofrece este lugar:",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        color: BrandColors.foggy,
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: 2,
-                                ),
-                                if (hasKitchen == true)
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.dining_outlined,
-                                        color: BrandColors.foggy,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        'Cocina',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(color: BrandColors.foggy),
-                                      ),
-                                    ],
-                                  ),
                               ],
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
                           ),
                         ],
                       ));

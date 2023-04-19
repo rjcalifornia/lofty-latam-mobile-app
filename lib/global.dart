@@ -5,5 +5,6 @@ class BrandColors {
       babu = Color(0xff00A699),
       arches = Color(0xffFC642D),
       hof = Color(0xff484848),
-      foggy = Color(0xff767676);
+      foggy = Color(0xff767676),
+      loft = Color(0xff2e2d2d);
 }
