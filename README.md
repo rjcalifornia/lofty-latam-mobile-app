@@ -1,4 +1,4 @@
-# PagoFácil - App para administración de alquileres
+# Lofty - Simplificando pagos
 
 ### Prerequisitos Ambiente de desarrollo
  
@@ -20,11 +20,11 @@
 
 ## Graficos
 
-- Iconos royalty free descargados de [Flaticon](https://www.flaticon.com/)
-- Imagenes royalty free descargadas de [Pixabay](https://pixabay.com/)
+- Iconos royalty free descargados con cuenta premium de [Flaticon](https://www.flaticon.com/)
+- Imagenes royalty free descargadas con cuenta premium de [Pixabay](https://pixabay.com/)
 
 ## Informacion Adicional:
 
 ![alt text](https://raw.githubusercontent.com/flutter/website/archived-master/src/_assets/image/flutter-lockup-bg.jpg "Flutter")
 
-<b>Version 3.0.5</b> 
+<b>Version 3.7.11</b> 
