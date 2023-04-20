@@ -139,7 +139,72 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   )),
                                 ]),
                                 const SizedBox(
-                                  height: 8,
+                                  height: 12,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Column(
+                                      children: [
+                                        Text(
+                                          "${propertyDetails!.bedrooms}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: BrandColors.loft,
+                                                  fontSize: 16),
+                                        ),
+                                        Text("Cuartos",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: BrandColors.loft,
+                                                    fontSize: 16)),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("${propertyDetails!.beds}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: BrandColors.loft,
+                                                    fontSize: 16)),
+                                        Text("Camas",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: BrandColors.loft,
+                                                    fontSize: 16)),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("${propertyDetails!.bathrooms}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: BrandColors.loft,
+                                                    fontSize: 16)),
+                                        Text("Baños",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    color: BrandColors.loft,
+                                                    fontSize: 16)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 12,
                                 ),
                                 Row(
                                   children: [
