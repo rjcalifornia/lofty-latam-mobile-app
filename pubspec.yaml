@@ -82,6 +82,7 @@ flutter:
      - assets/img/lofty.png
      - assets/img/generic_avatar.png
      - assets/img/home_banner.png
+     - assets/img/contract.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

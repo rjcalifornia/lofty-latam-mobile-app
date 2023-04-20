@@ -44,7 +44,7 @@ class HomeServicesContainer extends StatelessWidget {
           height: 16,
         ),
         Text(
-          "Lo que ofrece este lugar",
+          "Amenidades",
           style: Theme.of(context)
               .textTheme
               .titleLarge!

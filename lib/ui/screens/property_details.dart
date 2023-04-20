@@ -240,6 +240,112 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                 HomeServicesContainer(
                                   propertyDetails: propertyDetails,
                                 ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Text(
+                                  "Contratos",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          color: BrandColors.loft,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                Container(
+                                  height: 150,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 15),
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          propertyDetails!.leases!.length,
+                                      itemBuilder: (ctx, i) {
+                                        return GestureDetector(
+                                            onTap: () {},
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 9.0),
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              9),
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            BrandColors.rausch,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(9),
+                                                      ),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Image.asset(
+                                                                    "assets/img/contract.png",
+                                                                    height: 80,
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.person,
+                                                          color:
+                                                              BrandColors.foggy,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 4,
+                                                        ),
+                                                        Text(
+                                                          "${propertyDetails!.leases![i].tenantId!.name} ${propertyDetails!.leases![i].tenantId!.lastname}",
+                                                          style: const TextStyle(
+                                                              color: BrandColors
+                                                                  .foggy),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons
+                                                              .check_circle_outline_rounded,
+                                                          color: BrandColors
+                                                              .rausch,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 4,
+                                                        ),
+                                                        Text(
+                                                          "\$${propertyDetails!.leases![i].price}",
+                                                          style: const TextStyle(
+                                                              color: BrandColors
+                                                                  .loft,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
+                                                )));
+                                      }),
+                                )
                               ],
                             ),
                           ),
