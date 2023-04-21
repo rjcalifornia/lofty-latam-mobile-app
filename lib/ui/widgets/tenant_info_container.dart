@@ -62,34 +62,6 @@ class TenantInfoContainer extends StatelessWidget {
         ),
         Row(
           children: [
-            Expanded(
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.location_on_outlined,
-                    color: BrandColors.foggy,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      lease!.propertyId!.address.toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .apply(color: BrandColors.foggy),
-                      softWrap: true, // Allow the text to wrap to the next line
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 4,
-        ),
-        Row(
-          children: [
             const Icon(
               Icons.phone_outlined,
               color: BrandColors.foggy,
@@ -162,7 +134,7 @@ class TenantInfoContainer extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 12,
+          height: 14,
         ),
         Container(
             height: MediaQuery.of(context).size.height / 2,
@@ -170,15 +142,15 @@ class TenantInfoContainer extends StatelessWidget {
               itemCount: lease!.payments!.length,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (ctx, i) {
                 return GestureDetector(
                   onTap: () {},
                   child: ListView(
-                    padding:
-                        EdgeInsets.only(left: 4, right: 4, bottom: 0, top: 0),
+                    padding: const EdgeInsets.only(
+                        left: 4, right: 4, bottom: 0, top: 0),
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 9.0),
