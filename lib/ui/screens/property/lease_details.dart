@@ -6,6 +6,7 @@ import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
+import 'package:home_management_app/ui/widgets/tenant_info_container.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LeaseDetailsScreen extends StatefulWidget {
@@ -78,24 +79,8 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Column(
                       children: [
-                        Center(
-                          child: Column(children: [
-                            Text(
-                                "${lease!.tenantId!.name} ${lease!.tenantId!.lastname}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                        color: BrandColors.loft,
-                                        fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              "Arrendatario",
-                              style: TextStyle(color: BrandColors.foggy),
-                            )
-                          ]),
+                        TenantInfoContainer(
+                          lease: lease,
                         ),
                       ],
                     ),
