@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/screens/property_details.dart';
+import 'package:home_management_app/ui/screens/property/property_details.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PropertiesContainer extends StatelessWidget {

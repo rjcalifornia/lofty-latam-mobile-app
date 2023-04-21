@@ -1,3 +1,4 @@
+import 'package:home_management_app/models/Payments.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/config/env.dart';
 
@@ -35,6 +36,32 @@ class PropertiesBloc {
     final property = Property.fromJson(propertyMap);
     return property;
   }
+
+  Future getPayments(leaseId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    var paymentsJson = await http.get(
+        Uri.parse('${authEndpoint}api/v1/payments/$leaseId/history'),
+        headers: {
+          "Accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        });
+
+    final paymentsParsed =
+        json.decode(paymentsJson.body).cast<Map<String, dynamic>>();
+
+    return paymentsParsed
+        .map<Payments>((json) => Payments.fromJson(json))
+        .toList();
+
+    //print(paymentsMap);
+    //final payments = Payments.fromJson(paymentsMap);
+
+    // return payments;
+  }
+
+  Future getLeaseDetails(leaseId) async {}
 
   Future getUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

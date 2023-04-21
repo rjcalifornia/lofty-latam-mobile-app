@@ -27,7 +27,7 @@ class HomeServicesContainer extends StatelessWidget {
         Row(
           children: [
             const Icon(
-              Icons.home_filled,
+              Icons.home_outlined,
               color: BrandColors.foggy,
             ),
             const SizedBox(width: 8),
