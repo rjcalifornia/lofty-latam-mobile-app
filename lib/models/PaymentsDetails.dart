@@ -1,5 +1,5 @@
 // ignore_for_file: file_names, unnecessary_this, unnecessary_new, unnecessary_question_mark, prefer_void_to_null, prefer_collection_literals
-class Payments {
+class PaymentsDetails {
   int? id;
   String? receiptNumber;
   LeaseId? leaseId;
@@ -13,7 +13,7 @@ class Payments {
   String? updatedAt;
   String? monthCancelledName;
 
-  Payments(
+  PaymentsDetails(
       {this.id,
       this.receiptNumber,
       this.leaseId,
@@ -27,7 +27,7 @@ class Payments {
       this.updatedAt,
       this.monthCancelledName});
 
-  Payments.fromJson(Map<String, dynamic> json) {
+  PaymentsDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     receiptNumber = json['receipt_number'];
     leaseId = json['lease_id'] != null

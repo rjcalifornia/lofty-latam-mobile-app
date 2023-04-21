@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
-import 'package:home_management_app/models/Payments.dart';
+import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Lease.dart';
+import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LeaseDetailsScreen extends StatefulWidget {
@@ -18,25 +20,34 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
   final PropertiesBloc _propertiesBloc = PropertiesBloc();
   bool loader = false;
   late final Future getPayments;
+  Future? getLeaseDetails;
   late String accessToken;
 
-  Payments? payments;
+  PaymentsDetails? payments;
+  Lease? lease;
 
-  Future<List<Payments>> _getPayments() async {
-    //print(widget.leaseId);
+  Future<List<PaymentsDetails>> _getPayments() async {
     final getPaymentsDetails =
         await _propertiesBloc.getPayments(widget.leaseId);
+
+    return getPaymentsDetails;
+  }
+
+  Future<bool> _getLeaseDetails() async {
+    final getLease = await _propertiesBloc.getLeaseDetails(widget.leaseId);
+
     setState(() {
       loader = true;
-      //getPayments = getPaymentsDetails;
+      lease = getLease;
     });
-    return getPaymentsDetails;
+    return loader;
   }
 
   @override
   void initState() {
     super.initState();
     getPayments = _getPayments();
+    getLeaseDetails = _getLeaseDetails();
     accessToken =
         UserPreferences.getAccessToken() ?? "Falló obtener AccessToken";
   }
@@ -60,16 +71,32 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                   }),
             ),
             body: FutureBuilder(
-              future: getPayments,
+              future: getLeaseDetails,
               builder: ((context, snapshot) {
                 if (snapshot.hasData) {
                   return SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Column(
                       children: [
-                        Column(children: [
-                          Text(getPayments),
-                        ],)
+                        Center(
+                          child: Column(children: [
+                            Text(
+                                "${lease!.tenantId!.name} ${lease!.tenantId!.lastname}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                        color: BrandColors.loft,
+                                        fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Arrendatario",
+                              style: TextStyle(color: BrandColors.foggy),
+                            )
+                          ]),
+                        ),
                       ],
                     ),
                   );
