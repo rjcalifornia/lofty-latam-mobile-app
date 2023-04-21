@@ -142,6 +142,9 @@ class TenantInfoContainer extends StatelessWidget {
             )
           ],
         ),
+        const SizedBox(
+          height: 4,
+        ),
         Row(
           children: [
             const Icon(
@@ -162,13 +165,64 @@ class TenantInfoContainer extends StatelessWidget {
           height: 12,
         ),
         ListView.builder(
-          itemCount: lease!.payments!.length,
+          itemCount: 14,
           shrinkWrap: true,
           itemBuilder: (ctx, i) {
             return GestureDetector(
               onTap: () {},
-              child: Container(
-                child: Text(lease!.payments![i].monthCancelledName.toString()),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 9.0),
+                    padding: const EdgeInsets.all(5.0),
+                    decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 3.0,
+                          offset: Offset(0, 1),
+                        ),
+                      ],
+                      color: Colors.white,
+                    ),
+                    child: ListTile(
+                      onTap: () {},
+                      leading: Container(
+                        padding: const EdgeInsets.all(9.0),
+                        decoration: const BoxDecoration(
+                            color: BrandColors.rausch, shape: BoxShape.circle),
+                        child: const Icon(Icons.payment_outlined,
+                            color: Colors.white),
+                      ),
+                      title:
+                          Text("Recibo #${lease!.payments![0].receiptNumber}"),
+                      subtitle: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text("Cantidad: \$${lease!.payments![0].payment}")
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                  "Fecha de pago: ${lease!.payments![0].paymentDate}")
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                  "Correspondiente al mes de: ${lease!.payments![0].monthCancelledName}")
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             );
           },
