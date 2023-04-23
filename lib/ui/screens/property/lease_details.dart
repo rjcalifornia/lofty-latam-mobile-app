@@ -6,6 +6,7 @@ import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
+import 'package:home_management_app/ui/widgets/create_rent_receipt.dart';
 import 'package:home_management_app/ui/widgets/tenant_info_container.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -61,6 +62,16 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
         },
         child: Scaffold(
             backgroundColor: Colors.white,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CreateReceiptScreen()));
+              },
+              backgroundColor: BrandColors.rausch,
+              child: const Icon(Icons.add_outlined),
+            ),
             appBar: AppBar(
               iconTheme: const IconThemeData(color: Colors.black),
               backgroundColor: Colors.white,

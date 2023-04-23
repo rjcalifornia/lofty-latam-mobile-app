@@ -265,7 +265,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ));
                     } else {
                       return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
+                        child: LoadingAnimationWidget.inkDrop(
                             color: const Color(0xffff385c), size: 28),
                       );
                     }

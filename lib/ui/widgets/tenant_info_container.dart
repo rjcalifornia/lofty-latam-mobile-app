@@ -39,7 +39,7 @@ class TenantInfoContainer extends StatelessWidget {
           ]),
         ),
         const SizedBox(
-          height: 12,
+          height: 10,
         ),
         Row(
           children: [
@@ -156,15 +156,15 @@ class TenantInfoContainer extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 14,
+          height: 10,
         ),
-        const Text("Histórico de pagos",
+        const Text("Historial de pagos",
             style: TextStyle(color: BrandColors.foggy, fontSize: 18)),
         const SizedBox(
           height: 10,
         ),
         SizedBox(
-            height: MediaQuery.of(context).size.height / 2,
+            height: MediaQuery.of(context).size.height / 1.86,
             child: ListView.builder(
               itemCount: lease!.payments!.length,
               scrollDirection: Axis.vertical,
