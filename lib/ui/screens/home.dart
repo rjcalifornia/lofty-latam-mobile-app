@@ -98,8 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           listProperties?.isEmpty == false
                               ? SizedBox(
-                                  height: MediaQuery.of(context).size.height,
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
                                   child: ListView.builder(
+                                      physics: const ClampingScrollPhysics(),
                                       itemCount: listProperties?.length,
                                       itemBuilder: (ctx, i) {
                                         return PropertiesContainer(

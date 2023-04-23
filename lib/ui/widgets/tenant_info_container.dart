@@ -136,13 +136,18 @@ class TenantInfoContainer extends StatelessWidget {
         const SizedBox(
           height: 14,
         ),
-        Container(
+        const Text("Histórico de pagos",
+            style: TextStyle(color: BrandColors.foggy, fontSize: 18)),
+        const SizedBox(
+          height: 8,
+        ),
+        SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             child: ListView.builder(
               itemCount: lease!.payments!.length,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemBuilder: (ctx, i) {
                 return GestureDetector(
                   onTap: () {},
@@ -150,7 +155,7 @@ class TenantInfoContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         left: 4, right: 4, bottom: 0, top: 0),
                     shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     children: [
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 9.0),
