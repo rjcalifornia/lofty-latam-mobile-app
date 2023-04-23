@@ -117,15 +117,37 @@ class TenantInfoContainer extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
+        const SizedBox(
+          height: 4,
+        ),
         Row(
           children: [
             const Icon(
-              Icons.credit_card_outlined,
+              Icons.today_outlined,
               color: BrandColors.foggy,
             ),
             const SizedBox(width: 8),
             Text(
-              "Costo: \$${lease!.price}",
+              "Fecha de cobro: ${lease!.paymentDate}",
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .apply(color: BrandColors.foggy),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 4,
+        ),
+        Row(
+          children: [
+            const Icon(
+              Icons.payments_outlined,
+              color: BrandColors.foggy,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              "Cantidad: \$${lease!.price}",
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
@@ -139,7 +161,7 @@ class TenantInfoContainer extends StatelessWidget {
         const Text("Histórico de pagos",
             style: TextStyle(color: BrandColors.foggy, fontSize: 18)),
         const SizedBox(
-          height: 8,
+          height: 10,
         ),
         SizedBox(
             height: MediaQuery.of(context).size.height / 2,
@@ -177,7 +199,7 @@ class TenantInfoContainer extends StatelessWidget {
                             decoration: const BoxDecoration(
                                 color: BrandColors.rausch,
                                 shape: BoxShape.circle),
-                            child: const Icon(Icons.payment_outlined,
+                            child: const Icon(Icons.receipt_long_outlined,
                                 color: Colors.white),
                           ),
                           title: Text(
