@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
+import 'package:home_management_app/ui/widgets/view_payment_details.dart';
 
 class TenantInfoContainer extends StatelessWidget {
   final Lease? lease;
@@ -172,7 +173,12 @@ class TenantInfoContainer extends StatelessWidget {
               physics: const ClampingScrollPhysics(),
               itemBuilder: (ctx, i) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PaymentDetailsScreen(
+                                paymentDetails: lease!.payments![i],
+                              ))),
                   child: ListView(
                     padding: const EdgeInsets.only(
                         left: 4, right: 4, bottom: 0, top: 0),
