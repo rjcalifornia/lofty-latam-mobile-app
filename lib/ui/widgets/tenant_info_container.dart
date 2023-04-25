@@ -173,12 +173,7 @@ class TenantInfoContainer extends StatelessWidget {
               physics: const ClampingScrollPhysics(),
               itemBuilder: (ctx, i) {
                 return GestureDetector(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PaymentDetailsScreen(
-                                paymentDetails: lease!.payments![i],
-                              ))),
+                  onTap: () {},
                   child: ListView(
                     padding: const EdgeInsets.only(
                         left: 4, right: 4, bottom: 0, top: 0),
@@ -199,7 +194,12 @@ class TenantInfoContainer extends StatelessWidget {
                           color: Colors.white,
                         ),
                         child: ListTile(
-                          onTap: () {},
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PaymentDetailsScreen(
+                                        paymentDetails: lease!.payments![i],
+                                      ))),
                           leading: Container(
                             padding: const EdgeInsets.all(9.0),
                             decoration: const BoxDecoration(
