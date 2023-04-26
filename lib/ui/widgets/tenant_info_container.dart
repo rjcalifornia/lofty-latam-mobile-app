@@ -199,6 +199,9 @@ class TenantInfoContainer extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => PaymentDetailsScreen(
                                         paymentDetails: lease!.payments![i],
+                                        tenantName: lease!.tenantId!.name,
+                                        tenantLastname:
+                                            lease!.tenantId!.lastname,
                                       ))),
                           leading: Container(
                             padding: const EdgeInsets.all(9.0),

@@ -14,7 +14,7 @@ class CreateReceiptScreen extends StatelessWidget {
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [],
+          children: [Container()],
         ));
   }
 }
