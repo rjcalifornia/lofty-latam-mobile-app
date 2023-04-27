@@ -19,7 +19,7 @@ class PaymentDetailsScreen extends StatelessWidget {
         automaticallyImplyLeading: true,
         centerTitle: true,
         elevation: 0.0,
-        title: const Text("Detalles del pago"),
+        title: const Text("Detalles de pago de alquiler"),
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -63,7 +63,14 @@ class PaymentDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "$tenantName $tenantLastname",
+                  "${paymentDetails.leaseId.tenantId.name}",
+                  style: const TextStyle(
+                      fontSize: 22,
+                      color: BrandColors.hof,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "${paymentDetails.leaseId.tenantId.lastname}",
                   style: const TextStyle(
                       fontSize: 22,
                       color: BrandColors.hof,
@@ -78,6 +85,17 @@ class PaymentDetailsScreen extends StatelessWidget {
                 ),
                 Text(
                   paymentDetails.receiptNumber.toString(),
+                  style: const TextStyle(fontSize: 20, color: BrandColors.loft),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Text(
+                  "Tipo de pago",
+                  style: TextStyle(fontSize: 14, color: BrandColors.foggy),
+                ),
+                Text(
+                  paymentDetails.paymentTypeId.name.toString(),
                   style: const TextStyle(fontSize: 20, color: BrandColors.loft),
                 ),
                 const SizedBox(
@@ -111,6 +129,22 @@ class PaymentDetailsScreen extends StatelessWidget {
                 ),
                 Text(
                   paymentDetails.monthCancelledName.toString(),
+                  style: const TextStyle(fontSize: 20, color: BrandColors.loft),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Text(
+                  "Recibo emitido por",
+                  style: TextStyle(fontSize: 14, color: BrandColors.foggy),
+                ),
+                Text(
+                  paymentDetails.leaseId.propertyId.landlordId.name.toString(),
+                  style: const TextStyle(fontSize: 20, color: BrandColors.loft),
+                ),
+                Text(
+                  paymentDetails.leaseId.propertyId.landlordId.lastname
+                      .toString(),
                   style: const TextStyle(fontSize: 20, color: BrandColors.loft),
                 ),
                 const SizedBox(
