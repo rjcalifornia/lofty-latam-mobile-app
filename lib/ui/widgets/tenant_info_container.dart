@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
-import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/ui/widgets/view_payment_details.dart';
 
 class TenantInfoContainer extends StatelessWidget {

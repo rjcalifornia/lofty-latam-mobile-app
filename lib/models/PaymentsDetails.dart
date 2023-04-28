@@ -234,6 +234,7 @@ class PaymentTypeId {
     return data;
   }
 }
+
 class PaymentType {
   int? id;
   String? name;
@@ -241,10 +242,10 @@ class PaymentType {
   String? createdAt;
   String? updatedAt;
 
-  PaymentTypeId(
+  PaymentType(
       {this.id, this.name, this.active, this.createdAt, this.updatedAt});
 
-  PaymentTypeId.fromJson(Map<String, dynamic> json) {
+  PaymentType.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     active = json['active'];

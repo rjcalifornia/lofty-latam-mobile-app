@@ -69,10 +69,12 @@ class PaymentsBloc with Validators {
           'Authorization': 'Bearer $accessToken',
         });
 
-    final receiptTypeMap = json.decode(receiptTypeJson.body);
+    final receiptTypeParsed =
+        json.decode(receiptTypeJson.body).cast<Map<String, dynamic>>();
 
-    final property = PaymentType.fromJson(receiptTypeMap);
-    return property;
+    return receiptTypeParsed
+        .map<PaymentType>((json) => PaymentType.fromJson(json))
+        .toList();
   }
 
   dispose() {

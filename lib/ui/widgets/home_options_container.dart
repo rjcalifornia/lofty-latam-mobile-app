@@ -4,6 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeOptionsContainer extends StatelessWidget {
   final String countProperties;
+  // ignore: prefer_typing_uninitialized_variables
   final getProperties;
   const HomeOptionsContainer(
       {super.key, required this.countProperties, required this.getProperties});

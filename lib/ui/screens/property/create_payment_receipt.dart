@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:home_management_app/models/PaymentsDetails.dart';
+
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:provider/provider.dart';
 
 class CreateReceiptScreen extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final lease;
   const CreateReceiptScreen({super.key, required this.lease});
 
@@ -16,18 +18,22 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
   final PaymentsBloc _paymentsBloc = PaymentsBloc();
   late List monthsList = [];
 
-  Future _getMonths() async {
-    final meses = await _paymentsBloc.obtenerMeses();
+  List<PaymentType>? paymentType;
+
+  Future _getReceiptData() async {
+    final monthsJson = await _paymentsBloc.obtenerMeses();
+    final paymentTypeJson = await _paymentsBloc.getReceiptType();
     setState(() {
-      monthsList = meses;
+      monthsList = monthsJson;
+      paymentType = paymentTypeJson;
     });
+    //print(paymentType![0].name);
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _getMonths();
+    _getReceiptData();
     //obtenerMeses();
   }
 
@@ -101,7 +107,7 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                   color: const Color(0xfff6f6f6),
                 ),
                 child: DropdownButtonFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       enabledBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none),
@@ -125,7 +131,7 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                     bloc.changeMonthCancelled(value.toString());
                     setState(() {
                       selectedMonth = value.toString();
-                      print(selectedMonth);
+                      // print(selectedMonth);
                       //print(selectedMonth);
                       //print(bloc.getMonthCancelled);
                     });
