@@ -76,6 +76,28 @@ class PaymentsBloc with Validators {
         .toList();
   }
 
+  Future<void> generateReceipt(var context, leaseId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    try {
+      var paymentJson = await http
+          .post(Uri.parse('${authEndpoint}api/v1/payments/store-rent-payment'),
+              body: json.encode({
+                "payment_type_id": paymentType.toString(),
+                "month_cancelled": monthCancelled.toString(),
+                "payment": payment.toString(),
+                "lease_id": leaseId.toString(),
+              }),
+              headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5),
+              onTimeout: () => throw TimeoutException(
+                  'No se puede conectar, intente más tarde.'));
+    } catch (e) {}
+  }
+
   dispose() {
     _paymentController.close();
     _paymentTypeController.close();

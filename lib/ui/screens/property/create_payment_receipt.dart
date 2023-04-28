@@ -241,7 +241,9 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                     );
                   } else {
                     return ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _paymentsBloc.generateReceipt(context, widget.lease.id);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: BrandColors.arches,
                         shape: RoundedRectangleBorder(
