@@ -38,9 +38,18 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    //profileBloc.dispose() cannot call as ProfileBloc class doesn't have dispose method
+    super.dispose();
+    _paymentsBloc.paymentFieldsDispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<PaymentsBloc>(context);
+    //final bloc = Provider.of<PaymentsBloc>(context);
     String? selectedMonth;
+    String? selectedPaymentType;
 
     return Scaffold(
         appBar: AppBar(
@@ -91,45 +100,49 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                 "Mes a cancelar",
                 style: TextStyle(color: BrandColors.hof),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: const Color(0xfff6f6f6),
-                ),
-                child: DropdownButtonFormField(
-                  decoration: const InputDecoration(
-                    enabledBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                  ),
-                  icon: const Icon(Icons.arrow_drop_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.black),
-                  isExpanded: true,
-                  hint:
-                      const Center(child: Text("Seleccione el mes a cancelar")),
-                  items: monthsList.map((item) {
-                    //print(item['id']);
-                    return DropdownMenuItem(
-                      value: item['id'].toString(),
-                      child: Center(
-                        child: Text(item['label']),
+              StreamBuilder(
+                  stream: _paymentsBloc.monthCancelledStream,
+                  builder: (context, AsyncSnapshot snapshot) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: const Color(0xfff6f6f6),
+                      ),
+                      child: DropdownButtonFormField(
+                        decoration: const InputDecoration(
+                          enabledBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                        ),
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        isExpanded: true,
+                        hint: const Center(
+                            child: Text("Seleccione el mes a cancelar")),
+                        items: monthsList.map((item) {
+                          //print(item['id']);
+                          return DropdownMenuItem(
+                            value: item['id'].toString(),
+                            child: Center(
+                              child: Text(item['label']),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          _paymentsBloc.changeMonthCancelled(value.toString());
+                          setState(() {
+                            selectedMonth = value.toString();
+                            // print(selectedMonth);
+                            //print(selectedMonth);
+                            //print(bloc.getMonthCancelled);
+                          });
+                        },
+                        value: selectedMonth,
                       ),
                     );
-                  }).toList(),
-                  onChanged: (value) {
-                    bloc.changeMonthCancelled(value.toString());
-                    setState(() {
-                      selectedMonth = value.toString();
-                      // print(selectedMonth);
-                      //print(selectedMonth);
-                      //print(bloc.getMonthCancelled);
-                    });
-                  },
-                  value: selectedMonth,
-                ),
-              ),
+                  }),
               const SizedBox(
                 height: 18,
               ),
@@ -137,44 +150,49 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                 "Tipo de pago",
                 style: TextStyle(color: BrandColors.hof),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: const Color(0xfff6f6f6),
-                ),
-                child: DropdownButtonFormField(
-                  decoration: const InputDecoration(
-                      enabledBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none),
-                  icon: const Icon(Icons.arrow_drop_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.black),
-                  isExpanded: true,
-                  hint: const Center(child: Text("Seleccione el tipo de pago")),
-                  items: paymentType.map((item) {
-                    //print(item['id']);
-                    return DropdownMenuItem(
-                      value: item.id.toString(),
-                      child: Center(
-                        child: Text(item.name.toString()),
+              StreamBuilder(
+                  stream: _paymentsBloc.paymentTypeStream,
+                  builder: (context, AsyncSnapshot snapshot) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: const Color(0xfff6f6f6),
+                      ),
+                      child: DropdownButtonFormField(
+                        decoration: const InputDecoration(
+                            enabledBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none),
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        isExpanded: true,
+                        hint: const Center(
+                            child: Text("Seleccione el tipo de pago")),
+                        items: paymentType.map((item) {
+                          //print(item['id']);
+                          return DropdownMenuItem(
+                            value: item.id.toString(),
+                            child: Center(
+                              child: Text(item.name.toString()),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          //bloc.changeMonthCancelled(value.toString());
+                          _paymentsBloc.changePaymentType(value.toString());
+                          setState(() {
+                            selectedPaymentType = value.toString();
+                            // print(selectedMonth);
+                            //print(selectedMonth);
+                            //print(bloc.getMonthCancelled);
+                          });
+                        },
+                        value: selectedPaymentType,
                       ),
                     );
-                  }).toList(),
-                  onChanged: (value) {
-                    //bloc.changeMonthCancelled(value.toString());
-                    bloc.changePaymentType(value.toString());
-                    setState(() {
-                      selectedMonth = value.toString();
-                      // print(selectedMonth);
-                      //print(selectedMonth);
-                      //print(bloc.getMonthCancelled);
-                    });
-                  },
-                  value: selectedMonth,
-                ),
-              ),
+                  }),
               const SizedBox(
                 height: 18,
               ),
@@ -183,12 +201,12 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                 style: TextStyle(color: BrandColors.hof),
               ),
               StreamBuilder(
-                stream: bloc.paymentStream,
+                stream: _paymentsBloc.paymentStream,
                 builder: (context, AsyncSnapshot snapshot) {
                   return TextField(
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
-                    onChanged: bloc.changePayment,
+                    onChanged: _paymentsBloc.changePayment,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: const Color(0xfff6f6f6),
@@ -203,6 +221,50 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                   );
                 },
               ),
+              const SizedBox(
+                height: 40,
+              ),
+              StreamBuilder(
+                stream: _paymentsBloc.verifyPaymentData,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    // ignore: avoid_unnecessary_containers
+                    return Container(
+                      child: Column(
+                        children: const [
+                          Text(
+                            "Complete todos los datos requeridos",
+                            style: TextStyle(color: BrandColors.foggy),
+                          )
+                        ],
+                      ),
+                    );
+                  } else {
+                    return ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: BrandColors.arches,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.save_as_outlined, size: 28),
+                          SizedBox(width: 8),
+                          Text("Guardar pago", style: TextStyle(fontSize: 22)),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
+              const SizedBox(
+                height: 40,
+              )
             ]),
           ),
         ));

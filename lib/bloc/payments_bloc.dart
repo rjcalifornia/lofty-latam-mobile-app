@@ -26,20 +26,19 @@ class PaymentsBloc with Validators {
   Stream<String> get paymentStream =>
       _paymentController.stream.transform(validatePayment);
 
-  Stream<String> get paymentType =>
+  Stream<String> get paymentTypeStream =>
       _paymentTypeController.stream.transform(validatePaymentFields);
 
-  Stream<String> get monthCancelled =>
+  Stream<String> get monthCancelledStream =>
       _monthCancelledController.stream.transform(validatePaymentFields);
 
-  String? get getPayment => _paymentController.value;
-  String? get getPaymentType => _paymentTypeController.value;
-  String? get getMonthCancelled => _monthCancelledController.value;
+  String? get payment => _paymentController.value;
+  String? get paymentType => _paymentTypeController.value;
+  String? get monthCancelled => _monthCancelledController.value;
 
   // Stream transformers
-  Stream<bool> get verifyPaymentData =>
-      CombineLatestStream.combine3(paymentStream, paymentType, monthCancelled,
-          (a, b, c) {
+  Stream<bool> get verifyPaymentData => CombineLatestStream.combine3(
+          paymentStream, paymentTypeStream, monthCancelledStream, (a, b, c) {
         if ((a == _paymentController.value) &&
             (b == _paymentTypeController.value) &&
             (c == _monthCancelledController.value)) {
@@ -85,5 +84,7 @@ class PaymentsBloc with Validators {
 
   paymentFieldsDispose() {
     changePayment('');
+    changePaymentType('');
+    changeMonthCancelled('');
   }
 }

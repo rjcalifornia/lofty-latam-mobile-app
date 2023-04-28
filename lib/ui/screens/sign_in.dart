@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   children: [
                                     Icon(Icons.login, size: 28),
                                     const SizedBox(width: 8),
-                                    Text("Ingresar",
+                                    Text("Continuar",
                                         style: TextStyle(fontSize: 22)),
                                   ],
                                 ),

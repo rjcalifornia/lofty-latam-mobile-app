@@ -38,9 +38,9 @@ class Validators {
   final validatePaymentFields =
       StreamTransformer<String, String>.fromHandlers(handleData: (value, sink) {
     if (value.isEmpty) {
-      sink.add(value);
-    } else {
       sink.addError('Ingrese todos los datos solicitados');
+    } else {
+      sink.add(value);
     }
   });
 }
