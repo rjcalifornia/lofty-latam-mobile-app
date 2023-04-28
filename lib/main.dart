@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -29,6 +30,10 @@ class MyApp extends StatelessWidget {
         providers: [
           Provider<LoginBloc>(
             create: (_) => LoginBloc(),
+            dispose: (_, bloc) => bloc.dispose(),
+          ),
+          Provider<PaymentsBloc>(
+            create: (_) => PaymentsBloc(),
             dispose: (_, bloc) => bloc.dispose(),
           ),
         ],
