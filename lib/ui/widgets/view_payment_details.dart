@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:home_management_app/global.dart';
 
 class PaymentDetailsScreen extends StatelessWidget {
@@ -15,6 +16,8 @@ class PaymentDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PaymentsBloc _paymentsBloc = PaymentsBloc();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: BrandColors.rausch,
@@ -151,6 +154,19 @@ class PaymentDetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 8,
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    // Add your onPressed logic here
+                    _paymentsBloc.downloadReceipt(context, paymentDetails.id);
+                  },
+                  child: Text('Descargar recibo'),
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.all(16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ],
             ),

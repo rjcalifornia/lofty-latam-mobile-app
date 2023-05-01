@@ -9,9 +9,13 @@ import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:home_management_app/validators/validators.dart';
+import 'package:uuid/uuid.dart';
 
 class PaymentsBloc with Validators {
   final _paymentController = BehaviorSubject<String>();
@@ -96,6 +100,51 @@ class PaymentsBloc with Validators {
               onTimeout: () => throw TimeoutException(
                   'No se puede conectar, intente más tarde.'));
     } catch (e) {}
+  }
+
+  Future<void> downloadReceipt(context, receiptId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    final dio = Dio();
+    try {
+      Directory dir = Directory('/storage/emulated/0/Download');
+      var savePath = dir.path;
+
+      var uuid = Uuid();
+
+      var fileName = "lofty_recibo_${uuid.v1().toString()}.pdf";
+      var response = await dio.download(
+        '${authEndpoint}api/v1/payments/print-receipt',
+        savePath + '/${fileName}',
+        data: {"payment_id": receiptId.toString()},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $accessToken',
+          },
+          method: 'POST',
+        ),
+      );
+      print('Download complete: ${response.data}');
+
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text("Recibo ha sido descargado correctamente."),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    } catch (e) {
+      print('Error downloading receipt: $e');
+    }
   }
 
   dispose() {
