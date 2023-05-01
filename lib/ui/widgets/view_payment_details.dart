@@ -24,7 +24,7 @@ class PaymentDetailsScreen extends StatelessWidget {
         automaticallyImplyLeading: true,
         centerTitle: true,
         elevation: 0.0,
-        title: const Text("Detalles de pago de alquiler"),
+        title: const Text("Detalles de pago"),
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
