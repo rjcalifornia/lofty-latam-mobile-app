@@ -63,7 +63,8 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             'signin': (context) => LoginScreen(),
-            'home': (context) => AppPage()
+            'home': (context) => AppPage(),
+            'welcome': (context) => WelcomePage(),
           },
         ));
   }

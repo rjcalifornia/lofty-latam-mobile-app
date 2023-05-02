@@ -136,11 +136,49 @@ class LoginBloc with Validators {
         return true;
       } else {
         // Token is not valid
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.clear();
         return false;
       }
     } else {
       // No token found, so it is not valid
       return false;
+    }
+  }
+
+  Future<void> logout(context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    try {
+      var appAuthJson = await http
+          .post(Uri.parse('${authEndpoint}api/v1/security/logout'), headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Accept": "application/json"
+      }).timeout(const Duration(seconds: 5),
+              onTimeout: () => throw TimeoutException(
+                  'No se puede conectar, intente más tarde.'));
+
+      await prefs.clear();
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('welcome', (route) => false);
+    } catch (e) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
     }
   }
 
