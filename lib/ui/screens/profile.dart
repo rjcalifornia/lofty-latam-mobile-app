@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/login_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/ui/screens/user/personal_information.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -101,8 +102,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   ListTile(
                     leading: Icon(Icons.person),
-                    title: Text('Perfil'),
+                    title: Text('Información personal'),
                     trailing: Icon(Icons.chevron_right_outlined),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PersonalInformationScreen())),
                   ),
                   ListTile(
                     leading: Icon(Icons.password),
