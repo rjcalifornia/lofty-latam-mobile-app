@@ -163,7 +163,7 @@ class PaymentDetailsScreen extends StatelessWidget {
                   child: Text('Descargar recibo'),
                   color: Colors.blue,
                   textColor: Colors.white,
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),

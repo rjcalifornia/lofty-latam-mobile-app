@@ -99,7 +99,41 @@ class PaymentsBloc with Validators {
           }).timeout(const Duration(seconds: 5),
               onTimeout: () => throw TimeoutException(
                   'No se puede conectar, intente más tarde.'));
-    } catch (e) {}
+
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text("Recibo ha sido generado correctamente."),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    } catch (e) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    }
   }
 
   Future<void> downloadReceipt(context, receiptId) async {
@@ -124,7 +158,7 @@ class PaymentsBloc with Validators {
           method: 'POST',
         ),
       );
-      print('Download complete: ${response.data}');
+      // print('Download complete: ${response.data}');
 
       showDialog(
           barrierDismissible: false,
@@ -143,7 +177,23 @@ class PaymentsBloc with Validators {
             );
           });
     } catch (e) {
-      print('Error downloading receipt: $e');
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+      //print('Error downloading receipt: $e');
     }
   }
 
