@@ -8,7 +8,12 @@ class User {
   String? phone;
   String? dui;
   String? email;
-
+  //Null? emailVerifiedAt;
+  //int? idRol;
+  //int? isAdmin;
+  //int? active;
+  //String? createdAt;
+  //String? updatedAt;
   Rol? rol;
 
   User(

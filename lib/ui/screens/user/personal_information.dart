@@ -55,32 +55,60 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
               return SingleChildScrollView(
-                child: Column(children: [
-                  ListTile(
-                      title: Column(
-                        children: [
-                          Row(
-                            children: [Text(snapshot.data.toString())],
-                          ),
-                          Row(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Información personal",
+                        style: TextStyle(
+                            color: BrandColors.loft,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 18,
+                      ),
+                      ListTile(
+                          title: Column(
                             children: [
-                              Text(
-                                'Nombre',
-                                style: TextStyle(color: BrandColors.foggy),
+                              Row(
+                                children: [Text("Nombre")],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${user!.name} ${user!.lastname}",
+                                    style: const TextStyle(
+                                        color: BrandColors.foggy),
+                                  )
+                                ],
                               )
                             ],
-                          )
-                        ],
-                      ),
-                      trailing: const Text("Editar"),
-                      onTap: () {}
-                      /*
+                          ),
+                          trailing: const Text(
+                            "Edita",
+                            style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black, offset: Offset(0, -5))
+                              ],
+                              fontWeight: FontWeight.bold,
+                              color: Colors.transparent,
+                              decoration: TextDecoration.underline,
+                              decorationColor: BrandColors.hof,
+                              decorationThickness: 4,
+                              decorationStyle: TextDecorationStyle.solid,
+                            ),
+                          ),
+                          onTap: () {}
+                          /*
                 () => Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => PersonalInformationScreen())),*/
-                      ),
-                ]),
+                          ),
+                    ]),
               );
             } else {
               return Center(
