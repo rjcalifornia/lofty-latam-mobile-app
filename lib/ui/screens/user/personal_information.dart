@@ -63,11 +63,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         "Información personal",
                         style: TextStyle(
                             color: BrandColors.loft,
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 18,
+                      const SizedBox(
+                        height: 28,
                       ),
                       ListTile(
                           title: Column(
@@ -108,6 +108,135 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     MaterialPageRoute(
                         builder: (context) => PersonalInformationScreen())),*/
                           ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      ListTile(
+                          title: Column(
+                            children: [
+                              Row(
+                                children: [Text("Número telefónico")],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${user!.phone}",
+                                    style: const TextStyle(
+                                        color: BrandColors.foggy),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          trailing: const Text(
+                            "Edita",
+                            style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black, offset: Offset(0, -5))
+                              ],
+                              fontWeight: FontWeight.bold,
+                              color: Colors.transparent,
+                              decoration: TextDecoration.underline,
+                              decorationColor: BrandColors.hof,
+                              decorationThickness: 4,
+                              decorationStyle: TextDecorationStyle.solid,
+                            ),
+                          ),
+                          onTap: () {}
+                          /*
+                () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PersonalInformationScreen())),*/
+                          ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      ListTile(
+                          title: Column(
+                            children: [
+                              Row(
+                                children: [Text("Correo electrónico")],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${user!.email}",
+                                    style: const TextStyle(
+                                        color: BrandColors.foggy),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          trailing: const Text(
+                            "Edita",
+                            style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black, offset: Offset(0, -5))
+                              ],
+                              fontWeight: FontWeight.bold,
+                              color: Colors.transparent,
+                              decoration: TextDecoration.underline,
+                              decorationColor: BrandColors.hof,
+                              decorationThickness: 4,
+                              decorationStyle: TextDecorationStyle.solid,
+                            ),
+                          ),
+                          onTap: () {}
+                          /*
+                () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PersonalInformationScreen())),*/
+                          ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      ListTile(
+                          title: Column(
+                            children: [
+                              Row(
+                                children: [Text("DUI")],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${user!.dui}",
+                                    style: const TextStyle(
+                                        color: BrandColors.foggy),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          trailing: const Text(
+                            "Edita",
+                            style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black, offset: Offset(0, -5))
+                              ],
+                              fontWeight: FontWeight.bold,
+                              color: Colors.transparent,
+                              decoration: TextDecoration.underline,
+                              decorationColor: BrandColors.hof,
+                              decorationThickness: 4,
+                              decorationStyle: TextDecorationStyle.solid,
+                            ),
+                          ),
+                          onTap: () {}
+                          /*
+                () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PersonalInformationScreen())),*/
+                          ),
+                      const Divider(
+                        thickness: 1,
+                      ),
                     ]),
               );
             } else {
