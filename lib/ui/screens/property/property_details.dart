@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, sized_box_for_whitespace
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
@@ -104,11 +105,11 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(25.0),
-                                    child: Image.network(
-                                      propertyDetails!
+                                    child: CachedNetworkImage(
+                                      imageUrl: propertyDetails!
                                           .propertyPictures!.imageLinkName
                                           .toString(),
-                                      headers: {
+                                      httpHeaders: {
                                         'Authorization':
                                             'Bearer $widget.accessToken'
                                       },
