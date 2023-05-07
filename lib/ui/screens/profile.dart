@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/login_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/ui/screens/user/change_password.dart';
 import 'package:home_management_app/ui/screens/user/personal_information.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -113,6 +114,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     leading: Icon(Icons.password),
                     title: Text('Cambiar contraseña'),
                     trailing: Icon(Icons.chevron_right_outlined),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangePasswordScreen())),
                   ),
                   ListTile(
                     leading: Icon(Icons.settings),
