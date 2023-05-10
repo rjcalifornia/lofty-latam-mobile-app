@@ -130,7 +130,7 @@ class LandlordId {
   String? email;
   Null? emailVerifiedAt;
   int? idRol;
-  int? isAdmin;
+  bool? isAdmin;
   int? active;
   String? createdAt;
   String? updatedAt;
@@ -160,7 +160,7 @@ class LandlordId {
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
     idRol = int.parse(json['id_rol']);
-    isAdmin = int.parse(json['is_admin']);
+    isAdmin = json['is_admin'];
     active = int.parse(json['active']);
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];

@@ -33,7 +33,6 @@ class PropertiesBloc {
     });
 
     final propertyMap = json.decode(propertyJson.body);
-
     final property = Property.fromJson(propertyMap);
     return property;
   }
