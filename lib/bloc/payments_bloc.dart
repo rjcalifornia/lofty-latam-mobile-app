@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, prefer_const_constructors, unused_import
+// ignore_for_file: unused_local_variable, prefer_const_constructors, unused_import, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -195,6 +195,20 @@ class PaymentsBloc with Validators {
           });
       //print('Error downloading receipt: $e');
     }
+  }
+
+  Future getPaymentNotifications() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    var notificationsJson = await http.get(
+        Uri.parse('${authEndpoint}api/v1/notifications/payments/status'),
+        headers: {
+          "Accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        });
+
+    final notificationsList = json.decode(notificationsJson.body);
+    return notificationsList;
   }
 
   dispose() {

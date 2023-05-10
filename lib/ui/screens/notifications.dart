@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
 
@@ -44,7 +46,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
           body: TabBarView(children: [
             Container(
-              child: Icon(Icons.apps),
+              child: Column(
+                children: [const Icon(Icons.apps)],
+              ),
             ),
             Icon(Icons.movie),
           ]),

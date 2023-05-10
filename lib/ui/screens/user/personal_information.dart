@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
@@ -23,7 +25,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     final personalInfo = await userBloc.getUserInformation();
     setState(() {
       user = personalInfo;
-      print(user);
       loader = true;
     });
     return loader;
@@ -31,7 +32,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     personalInfo = getPersonalInfo();
   }
