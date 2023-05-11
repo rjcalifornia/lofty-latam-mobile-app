@@ -3,7 +3,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/screens/app.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -53,6 +55,15 @@ class LoginBloc with Validators {
 
   // Submit function
   Future<void> submit(var context) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: LoadingAnimationWidget.inkDrop(
+                color: BrandColors.arches, size: 38),
+          );
+        });
     try {
       // Perform login logic here using username and password
       var appAuthJson = await http.post(
@@ -69,6 +80,7 @@ class LoginBloc with Validators {
       var auth = await json.decode(appAuthJson.body);
 
       var status = appAuthJson.statusCode.toString();
+      Navigator.of(context).pop();
 
       if (status == "200") {
         SharedPreferences prefs = await SharedPreferences.getInstance();

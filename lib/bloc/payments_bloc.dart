@@ -3,9 +3,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -140,6 +142,16 @@ class PaymentsBloc with Validators {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
     final dio = Dio();
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: LoadingAnimationWidget.inkDrop(
+                color: BrandColors.arches, size: 38),
+          );
+        });
     try {
       Directory dir = Directory('/storage/emulated/0/Download');
       var savePath = dir.path;
@@ -158,7 +170,8 @@ class PaymentsBloc with Validators {
           method: 'POST',
         ),
       );
-      // print('Download complete: ${response.data}');
+
+      Navigator.of(context).pop();
 
       showDialog(
           barrierDismissible: false,
@@ -177,6 +190,9 @@ class PaymentsBloc with Validators {
             );
           });
     } catch (e) {
+      Future.delayed(Duration(seconds: 2)).then((_) {
+        Navigator.of(context).pop();
+      });
       showDialog(
           barrierDismissible: false,
           context: context,

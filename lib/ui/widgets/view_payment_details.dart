@@ -160,13 +160,14 @@ class PaymentDetailsScreen extends StatelessWidget {
                     // Add your onPressed logic here
                     _paymentsBloc.downloadReceipt(context, paymentDetails.id);
                   },
-                  child: Text('Descargar recibo'),
+                  
                   color: Colors.blue,
                   textColor: Colors.white,
                   padding: const EdgeInsets.all(16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
+                  child: const Text('Descargar recibo'),
                 ),
               ],
             ),

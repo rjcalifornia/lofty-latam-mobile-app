@@ -463,7 +463,7 @@ class LandlordId {
   String? email;
   Null? emailVerifiedAt;
   String? idRol;
-  String? isAdmin;
+  bool? isAdmin;
   String? active;
   String? createdAt;
   String? updatedAt;
