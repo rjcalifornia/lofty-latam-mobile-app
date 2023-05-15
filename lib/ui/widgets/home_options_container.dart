@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/ui/screens/property/create_property.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeOptionsContainer extends StatelessWidget {
@@ -70,13 +71,12 @@ class HomeOptionsContainer extends StatelessWidget {
                     backgroundColor: BrandColors.rausch,
                   ),
                   onPressed: () {
-                    /*
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DetailsScreen(id: 0),
-      ),
-    );*/
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreatePropertyScreen(),
+                      ),
+                    );
                   },
                   child: const Text(
                     "Registrar nueva Propiedad",
