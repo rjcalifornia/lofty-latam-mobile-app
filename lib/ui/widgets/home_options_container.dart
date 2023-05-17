@@ -79,7 +79,7 @@ class HomeOptionsContainer extends StatelessWidget {
                     );
                   },
                   child: const Text(
-                    "Registrar nueva Propiedad",
+                    "Registrar propiedad",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xfff5f6f5)),
                   ),
