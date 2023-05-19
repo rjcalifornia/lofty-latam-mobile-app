@@ -33,6 +33,41 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                           Positioned.fill(child: CreatePropertyFancyHeader())
                         ],
                       ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Información general",
+                            style: TextStyle(
+                                color: BrandColors.foggy,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "Nombre",
+                            style: TextStyle(color: BrandColors.hof),
+                          ),
+                          TextField(
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
+                              onChanged: (value) {},
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: const Color(0xfff6f6f6),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide.none),
+                                hintText: "Escriba un título para la propiedad",
+                              ))
+                        ],
+                      ),
                     )
                   ],
                 ),
