@@ -2,13 +2,14 @@ import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/validators/validators.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class PropertiesBloc {
+class PropertiesBloc with Validators {
   final _nameController = BehaviorSubject<String>();
   final _addressController = BehaviorSubject<String>();
   final _bedroomsController = BehaviorSubject<String>();
@@ -22,6 +23,28 @@ class PropertiesBloc {
   final _tvController = BehaviorSubject<String>();
   final _furnitureController = BehaviorSubject<String>();
   final _garageController = BehaviorSubject<String>();
+
+  Function(String) get changeName => _nameController.sink.add;
+  Function(String) get changeAddress => _addressController.sink.add;
+  Function(String) get changeBedrooms => _bedroomsController.sink.add;
+  Function(String) get changeBeds => _bedsController.sink.add;
+  Function(String) get changeBathrooms => _bathroomsController.sink.add;
+  Function(String) get changeAirConditioner =>
+      _airConditionerController.sink.add;
+  Function(String) get changeKitchen => _kitchenController.sink.add;
+  Function(String) get changeDinning => _dinningController.sink.add;
+  Function(String) get changeDishSink => _dishSinkController.sink.add;
+  Function(String) get changeFridge => _fridgeController.sink.add;
+  Function(String) get changeTv => _tvController.sink.add;
+  Function(String) get changeFurniture => _furnitureController.sink.add;
+  Function(String) get changeGarage => _garageController.sink.add;
+
+  Stream<String> get nameStream =>
+      _nameController.stream.transform(validatePropertyFields);
+  Stream<String> get addressStream =>
+      _addressController.stream.transform(validatePropertyFields);
+  Stream<String> get bedroomsStream =>
+      _bedroomsController.stream.transform(validatePropertyFields);
 
   Future getPropertiesList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

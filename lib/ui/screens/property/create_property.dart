@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/widgets/create_property_fancy_header.dart';
 
@@ -10,6 +11,7 @@ class CreatePropertyScreen extends StatefulWidget {
 }
 
 class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
+  final PropertiesBloc _propertyBloc = PropertiesBloc();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

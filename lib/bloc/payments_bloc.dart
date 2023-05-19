@@ -12,6 +12,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'dart:convert';
 import 'dart:io';
 //import 'package:path_provider/path_provider.dart';
@@ -54,9 +56,11 @@ class PaymentsBloc with Validators {
       });
 
   Future obtenerMeses() async {
+    await initializeDateFormatting('es');
     List monthsList = [];
     for (int i = 1; i <= 12; i++) {
-      String monthName = DateFormat('MMMM').format(DateTime(2022, i));
+      String monthName = DateFormat('MMMM', 'es').format(DateTime(2022, i));
+      monthName = '${monthName[0].toUpperCase()}${monthName.substring(1)}';
       monthsList.add({'id': i, 'label': monthName});
     }
     // print(monthsList);
