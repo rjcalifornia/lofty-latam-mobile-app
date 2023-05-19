@@ -2,12 +2,27 @@ import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/config/env.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class PropertiesBloc {
+  final _nameController = BehaviorSubject<String>();
+  final _addressController = BehaviorSubject<String>();
+  final _bedroomsController = BehaviorSubject<String>();
+  final _bedsController = BehaviorSubject<String>();
+  final _bathroomsController = BehaviorSubject<String>();
+  final _airConditionerController = BehaviorSubject<String>();
+  final _kitchenController = BehaviorSubject<String>();
+  final _dinningController = BehaviorSubject<String>();
+  final _dishSinkController = BehaviorSubject<String>();
+  final _fridgeController = BehaviorSubject<String>();
+  final _tvController = BehaviorSubject<String>();
+  final _furnitureController = BehaviorSubject<String>();
+  final _garageController = BehaviorSubject<String>();
+
   Future getPropertiesList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
