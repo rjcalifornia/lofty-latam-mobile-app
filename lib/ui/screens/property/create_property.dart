@@ -53,12 +53,10 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                           ),
                           const Text(
                             "Nombre",
-                            style: TextStyle(color: BrandColors.hof),
+                            style: TextStyle(color: BrandColors.loft),
                           ),
                           TextField(
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
+                              keyboardType: TextInputType.name,
                               onChanged: (value) {},
                               decoration: InputDecoration(
                                 filled: true,
