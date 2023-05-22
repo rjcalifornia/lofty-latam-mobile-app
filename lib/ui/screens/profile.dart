@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 18,
           ),
           SizedBox(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height / 2.5,
               child: ListView(
                 children: [
                   ListTile(

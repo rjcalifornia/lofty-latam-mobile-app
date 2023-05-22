@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/ui/widgets/notifications_container.dart';
 import 'package:http/http.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -71,60 +72,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ]),
           ),
           body: TabBarView(children: [
-            FutureBuilder(
-                future: loadNotifications,
-                builder: (((context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Container(
-                      padding: const EdgeInsets.only(
-                        top: 25,
-                      ),
-                      child: Column(
-                        children: [
-                          Expanded(
-                              child: ListView.builder(
-                            itemCount: notifications?.length,
-                            itemBuilder: (context, i) {
-                              return Container(
-                                margin: const EdgeInsets.all(15),
-                                padding: const EdgeInsets.all(25),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(9),
-                                  color: Color(0xffe6e1ff),
-                                ),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(9),
-                                      child: Icon(Icons.warning_outlined),
-                                    ),
-                                    SizedBox(width: 15),
-                                    Expanded(
-                                        child: Column(
-                                      children: [
-                                        Text(
-                                          notifications![i].toString(),
-                                          style: TextStyle(
-                                              color: BrandColors.foggy,
-                                              fontSize: 16),
-                                        )
-                                      ],
-                                    ))
-                                  ],
-                                ),
-                              );
-                            },
-                          ))
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: BrandColors.arches, size: 28),
-                    );
-                  }
-                }))),
+            NotificationsContainer(
+              notifications: notifications,
+              loadNotifications: loadNotifications,
+            ),
             Icon(Icons.movie),
           ]),
         ));
