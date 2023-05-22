@@ -45,6 +45,12 @@ class PropertiesBloc with Validators {
       _addressController.stream.transform(validatePropertyFields);
   Stream<String> get bedroomsStream =>
       _bedroomsController.stream.transform(validatePropertyFields);
+  Stream<String> get bedsStream =>
+      _bedsController.stream.transform(validatePropertyFields);
+  Stream<String> get bathroomsStream =>
+      _bathroomsController.stream.transform(validatePropertyFields);
+  Stream<String> get airConditionerStream =>
+      _airConditionerController.stream.transform(validatePropertyFields);
 
   Future getPropertiesList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
