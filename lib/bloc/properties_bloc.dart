@@ -1,3 +1,8 @@
+// ignore_for_file: unused_local_variable, prefer_const_constructors, unused_import, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings
+
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/models/Property.dart';
@@ -8,6 +13,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
+import 'package:intl/intl.dart';
 
 class PropertiesBloc with Validators {
   final _nameController = BehaviorSubject<String>();
@@ -163,6 +170,78 @@ class PropertiesBloc with Validators {
     final lease = Lease.fromJson(leaseParsed);
 
     return lease;
+  }
+
+  Future<void> createProperty(var context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    try {
+      var propertyJson = await http
+          .post(Uri.parse('${authEndpoint}api/v1/dashboard/properties/add-new'),
+              body: json.encode({
+                "name": name.toString(),
+                "address": address.toString(),
+                "bedrooms": bedrooms.toString(),
+                "beds": beds.toString(),
+                "bathrooms": bathrooms.toString(),
+                "has_ac": airConditioner.toString(),
+                "has_kitchen": kitchen.toString(),
+                "has_dinning_room": dinning.toString(),
+                "has_sink": dishSink.toString(),
+                "has_fridge": fridge.toString(),
+                "has_tv": tv.toString(),
+                "has_furniture": furniture.toString(),
+                "has_garage": garage.toString(),
+                "active": true,
+                "property_type_id": 1,
+              }),
+              headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5),
+              onTimeout: () => throw TimeoutException(
+                  'No se puede conectar, intente más tarde.'));
+
+      var auth = await json.decode(propertyJson.body);
+
+      var status = propertyJson.statusCode.toString();
+      print(auth);
+
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text("Datos almacenados correctamente."),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    } catch (e) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    }
   }
 
   Future getUserDetails() async {

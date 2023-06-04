@@ -25,6 +25,7 @@ class PropertiesContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String link;
     return GestureDetector(
         onTap: () => Navigator.push(
             context,

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, unnecessary_this, unnecessary_new, unnecessary_question_mark, prefer_void_to_null, prefer_collection_literals
-
 class Property {
   int? id;
   String? name;
@@ -11,12 +9,13 @@ class Property {
   bool? hasKitchen;
   bool? hasDinningRoom;
   bool? hasSink;
-  bool? hasFridge;
   bool? hasWifi;
+  bool? hasFridge;
   bool? hasTv;
   bool? hasFurniture;
   bool? hasGarage;
   LandlordId? landlordId;
+  int? propertyTypeId;
   bool? active;
   int? userCreates;
   Null? userModifies;
@@ -36,12 +35,13 @@ class Property {
       this.hasKitchen,
       this.hasDinningRoom,
       this.hasSink,
-      this.hasFridge,
       this.hasWifi,
+      this.hasFridge,
       this.hasTv,
       this.hasFurniture,
       this.hasGarage,
       this.landlordId,
+      this.propertyTypeId,
       this.active,
       this.userCreates,
       this.userModifies,
@@ -54,23 +54,24 @@ class Property {
     id = json['id'];
     name = json['name'];
     address = json['address'];
-    bedrooms = int.parse(json['bedrooms']);
-    beds = int.parse(json['beds']);
-    bathrooms = int.parse(json['bathrooms']);
+    bedrooms = json['bedrooms'];
+    beds = json['beds'];
+    bathrooms = json['bathrooms'];
     hasAc = json['has_ac'];
     hasKitchen = json['has_kitchen'];
     hasDinningRoom = json['has_dinning_room'];
     hasSink = json['has_sink'];
-    hasFridge = json['has_fridge'];
     hasWifi = json['has_wifi'];
+    hasFridge = json['has_fridge'];
     hasTv = json['has_tv'];
     hasFurniture = json['has_furniture'];
     hasGarage = json['has_garage'];
     landlordId = json['landlord_id'] != null
         ? new LandlordId.fromJson(json['landlord_id'])
         : null;
+    propertyTypeId = json['property_type_id'];
     active = json['active'];
-    userCreates = int.parse(json['user_creates']);
+    userCreates = json['user_creates'];
     userModifies = json['user_modifies'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -97,14 +98,15 @@ class Property {
     data['has_kitchen'] = this.hasKitchen;
     data['has_dinning_room'] = this.hasDinningRoom;
     data['has_sink'] = this.hasSink;
-    data['has_fridge'] = this.hasFridge;
     data['has_wifi'] = this.hasWifi;
+    data['has_fridge'] = this.hasFridge;
     data['has_tv'] = this.hasTv;
     data['has_furniture'] = this.hasFurniture;
     data['has_garage'] = this.hasGarage;
     if (this.landlordId != null) {
       data['landlord_id'] = this.landlordId!.toJson();
     }
+    data['property_type_id'] = this.propertyTypeId;
     data['active'] = this.active;
     data['user_creates'] = this.userCreates;
     data['user_modifies'] = this.userModifies;
@@ -159,9 +161,9 @@ class LandlordId {
     dui = json['dui'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
-    idRol = int.parse(json['id_rol']);
+    idRol = json['id_rol'];
     isAdmin = json['is_admin'];
-    active = int.parse(json['active']);
+    active = json['active'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -227,16 +229,16 @@ class Leases {
     tenantId = json['tenant_id'] != null
         ? new TenantId.fromJson(json['tenant_id'])
         : null;
-    propertyId = int.parse(json['property_id']);
-    rentTypeId = int.parse(json['rent_type_id']);
+    propertyId = json['property_id'];
+    rentTypeId = json['rent_type_id'];
     contractDate = json['contract_date'];
     paymentDate = json['payment_date'];
     expirationDate = json['expiration_date'];
     price = json['price'];
     deposit = json['deposit'];
-    duration = int.parse(json['duration']);
+    duration = json['duration'];
     active = json['active'];
-    userCreates = int.parse(json['user_creates']);
+    userCreates = json['user_creates'];
     userModifies = json['user_modifies'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -299,8 +301,8 @@ class TenantId {
     username = json['username'];
     phone = json['phone'];
     email = json['email'];
-    active = int.parse(json['active']);
-    userCreates = int.parse(json['user_creates']);
+    active = json['active'];
+    userCreates = json['user_creates'];
     userModifies = json['user_modifies'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -349,11 +351,11 @@ class PropertyPictures {
 
   PropertyPictures.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    propertyId = int.parse(json['property_id']);
+    propertyId = json['property_id'];
     imageName = json['image_name'];
-    active = int.parse(json['active']);
+    active = json['active'];
     order = json['order'];
-    userCreates = int.parse(json['user_creates']);
+    userCreates = json['user_creates'];
     userModifies = json['user_modifies'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];

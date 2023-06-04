@@ -389,8 +389,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               } else {
                                 return ElevatedButton(
                                   onPressed: () {
-                                    // _propertyBloc.generateReceipt(
-                                    //     context, widget.lease.id);
+                                    _propertyBloc.createProperty(context);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: BrandColors.arches,
