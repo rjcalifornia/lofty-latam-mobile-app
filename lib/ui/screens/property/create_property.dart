@@ -153,6 +153,45 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               );
                             },
                           ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "Baños",
+                            style: TextStyle(color: BrandColors.loft),
+                          ),
+                          StreamBuilder(
+                            stream: _propertyBloc.bathroomsStream,
+                            builder: (context, AsyncSnapshot snapshot) {
+                              return TextField(
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
+                                onChanged: _propertyBloc.changeBathrooms,
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xfff6f6f6),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide.none),
+                                    hintText: "Ejemplo: 1",
+                                    //labelText: 'Escriba la cantidad recibida',
+                                    errorText: snapshot.hasError
+                                        ? snapshot.error.toString()
+                                        : null),
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            height: 22,
+                          ),
+                          const Text(
+                            "Amenidades",
+                            style: TextStyle(
+                                color: BrandColors.foggy,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ],
                       ),
                     )
