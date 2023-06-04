@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
@@ -11,6 +13,8 @@ class CreatePropertyScreen extends StatefulWidget {
 }
 
 class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
+  bool _ac = false;
+  bool _kitchen = false;
   final PropertiesBloc _propertyBloc = PropertiesBloc();
   @override
   Widget build(BuildContext context) {
@@ -108,7 +112,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               return TextField(
                                 keyboardType:
                                     const TextInputType.numberWithOptions(
-                                        decimal: true),
+                                        decimal: false),
                                 onChanged: _propertyBloc.changeBedrooms,
                                 decoration: InputDecoration(
                                     filled: true,
@@ -137,7 +141,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               return TextField(
                                 keyboardType:
                                     const TextInputType.numberWithOptions(
-                                        decimal: true),
+                                        decimal: false),
                                 onChanged: _propertyBloc.changeBeds,
                                 decoration: InputDecoration(
                                     filled: true,
@@ -166,7 +170,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               return TextField(
                                 keyboardType:
                                     const TextInputType.numberWithOptions(
-                                        decimal: true),
+                                        decimal: false),
                                 onChanged: _propertyBloc.changeBathrooms,
                                 decoration: InputDecoration(
                                     filled: true,
@@ -191,6 +195,48 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 color: BrandColors.foggy,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500),
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.airConditionerStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title:
+                                      const Text('¿Tiene aire acondicionado?'),
+                                  value: _ac,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _ac = value;
+                                      _propertyBloc.changeAirConditioner(
+                                          (_ac == true ? 1 : 0).toString());
+                                    });
+                                  },
+                                  secondary: const Icon(Icons.ac_unit_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.kitchenStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene cocina?'),
+                                  value: _kitchen,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _kitchen = value;
+                                      _propertyBloc.changeKitchen(
+                                          (_kitchen == true ? 1 : 0)
+                                              .toString());
+                                    });
+                                  },
+                                  secondary: const Icon(Icons.kitchen_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
                           ),
                         ],
                       ),
