@@ -63,6 +63,8 @@ class PropertiesBloc with Validators {
       _tvController.stream.transform(validatePropertyFields);
   Stream<String> get garageStream =>
       _garageController.stream.transform(validatePropertyFields);
+  Stream<String> get furnitureStream =>
+      _furnitureController.stream.transform(validatePropertyFields);
 
   String? get name => _nameController.value;
   String? get address => _addressController.value;
@@ -76,6 +78,23 @@ class PropertiesBloc with Validators {
   String? get fridge => _fridgeController.value;
   String? get tv => _tvController.value;
   String? get garage => _garageController.value;
+  String? get furniture => _furnitureController.value;
+
+  Stream<bool> get verifyPropertyData => CombineLatestStream.combine5(
+          nameStream,
+          addressStream,
+          bedroomsStream,
+          bedsStream,
+          bathroomsStream, (a, b, c, d, e) {
+        if ((a == _nameController.value) &&
+            (b == _addressController.value) &&
+            (c == _bedroomsController.value) &&
+            (d == _bedsController.value) &&
+            (e == _bathroomsController.value)) {
+          return true;
+        }
+        return false;
+      });
 
   Future getPropertiesList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

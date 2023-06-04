@@ -15,6 +15,12 @@ class CreatePropertyScreen extends StatefulWidget {
 class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
   bool _ac = false;
   bool _kitchen = false;
+  bool _dinningTable = false;
+  bool _sink = false;
+  bool _fridge = false;
+  bool _tv = false;
+  bool _furniture = false;
+  bool _garage = false;
   final PropertiesBloc _propertyBloc = PropertiesBloc();
   @override
   Widget build(BuildContext context) {
@@ -238,6 +244,178 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                           const SizedBox(
                             height: 6,
                           ),
+                          StreamBuilder(
+                              stream: _propertyBloc.dinningStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene mesa de comedor?'),
+                                  value: _dinningTable,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _dinningTable = value;
+                                      _propertyBloc.changeDinning(
+                                          (_dinningTable == true ? 1 : 0)
+                                              .toString());
+                                    });
+                                  },
+                                  secondary:
+                                      const Icon(Icons.table_bar_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.dishSinkStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene lavatrastos?'),
+                                  value: _sink,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _sink = value;
+                                      _propertyBloc.changeDishSink(
+                                          (_sink == true ? 1 : 0).toString());
+                                    });
+                                  },
+                                  secondary:
+                                      const Icon(Icons.countertops_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.fridgeStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene refrigeradora?'),
+                                  value: _fridge,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _fridge = value;
+                                      _propertyBloc.changeFridge(
+                                          (_fridge == true ? 1 : 0).toString());
+                                    });
+                                  },
+                                  secondary: const Icon(Icons.kitchen_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.tvStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene televisión?'),
+                                  value: _tv,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _tv = value;
+                                      _propertyBloc.changeTv(
+                                          (_tv == true ? 1 : 0).toString());
+                                    });
+                                  },
+                                  secondary: const Icon(Icons.tv_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.furnitureStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene muebles de sala?'),
+                                  value: _furniture,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _furniture = value;
+                                      _propertyBloc.changeFurniture(
+                                          (_furniture == true ? 1 : 0)
+                                              .toString());
+                                    });
+                                  },
+                                  secondary: const Icon(Icons.weekend_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.garageStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene cochera?'),
+                                  value: _garage,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _garage = value;
+                                      _propertyBloc.changeGarage(
+                                          (_garage == true ? 1 : 0).toString());
+                                    });
+                                  },
+                                  secondary: const Icon(Icons.garage_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          StreamBuilder(
+                            stream: _propertyBloc.verifyPropertyData,
+                            builder: (context, AsyncSnapshot snapshot) {
+                              if (!snapshot.hasData) {
+                                // ignore: avoid_unnecessary_containers
+                                return Container(
+                                  child: Column(
+                                    children: const [
+                                      Center(
+                                        child: Text(
+                                          "Complete todos los datos requeridos",
+                                          style: TextStyle(
+                                              color: BrandColors.foggy),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    // _propertyBloc.generateReceipt(
+                                    //     context, widget.lease.id);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: BrandColors.arches,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 12),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(Icons.beenhere_outlined, size: 28),
+                                      SizedBox(width: 8),
+                                      Text("Almacenar datos",
+                                          style: TextStyle(fontSize: 22)),
+                                    ],
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          )
                         ],
                       ),
                     )
