@@ -30,6 +30,7 @@ class PropertiesBloc with Validators {
   final _tvController = BehaviorSubject<String>();
   final _furnitureController = BehaviorSubject<String>();
   final _garageController = BehaviorSubject<String>();
+  final _wifiController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeAddress => _addressController.sink.add;
@@ -45,6 +46,7 @@ class PropertiesBloc with Validators {
   Function(String) get changeTv => _tvController.sink.add;
   Function(String) get changeFurniture => _furnitureController.sink.add;
   Function(String) get changeGarage => _garageController.sink.add;
+  Function(String) get changeWifi => _wifiController.sink.add;
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(validatePropertyFields);
@@ -70,6 +72,8 @@ class PropertiesBloc with Validators {
       _tvController.stream.transform(validatePropertyFields);
   Stream<String> get garageStream =>
       _garageController.stream.transform(validatePropertyFields);
+  Stream<String> get wifiStream =>
+      _wifiController.stream.transform(validatePropertyFields);
   Stream<String> get furnitureStream =>
       _furnitureController.stream.transform(validatePropertyFields);
 
@@ -85,6 +89,7 @@ class PropertiesBloc with Validators {
   String? get fridge => _fridgeController.value;
   String? get tv => _tvController.value;
   String? get garage => _garageController.value;
+  String? get wifi => _wifiController.value;
   String? get furniture => _furnitureController.value;
 
   Stream<bool> get verifyPropertyData => CombineLatestStream.combine5(
@@ -192,6 +197,7 @@ class PropertiesBloc with Validators {
                 "has_tv": tv.toString(),
                 "has_furniture": furniture.toString(),
                 "has_garage": garage.toString(),
+                "has_wifi": wifi.toString(),
                 "active": true,
                 "property_type_id": 1,
               }),
@@ -218,7 +224,9 @@ class PropertiesBloc with Validators {
               actions: [
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      //Navigator.of(context).pop();
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil('home', (route) => false);
                     },
                     child: const Text("Aceptar"))
               ],

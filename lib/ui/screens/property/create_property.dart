@@ -21,6 +21,8 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
   bool _tv = false;
   bool _furniture = false;
   bool _garage = false;
+  bool _wifi = false;
+
   final PropertiesBloc _propertyBloc = PropertiesBloc();
   @override
   Widget build(BuildContext context) {
@@ -203,6 +205,24 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 fontWeight: FontWeight.w500),
                           ),
                           StreamBuilder(
+                              stream: _propertyBloc.wifiStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return SwitchListTile(
+                                  title: const Text('¿Tiene wifi?'),
+                                  value: _wifi,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      _wifi = value;
+                                    });
+                                  },
+                                  secondary: const Icon(Icons.wifi_outlined),
+                                );
+                              }),
+                          const Divider(height: 0),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          StreamBuilder(
                               stream: _propertyBloc.airConditionerStream,
                               builder: (context, AsyncSnapshot snapshot) {
                                 return SwitchListTile(
@@ -212,8 +232,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _ac = value;
-                                      _propertyBloc.changeAirConditioner(
-                                          (_ac == true ? 1 : 0).toString());
                                     });
                                   },
                                   secondary: const Icon(Icons.ac_unit_outlined),
@@ -232,9 +250,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _kitchen = value;
-                                      _propertyBloc.changeKitchen(
-                                          (_kitchen == true ? 1 : 0)
-                                              .toString());
                                     });
                                   },
                                   secondary: const Icon(Icons.kitchen_outlined),
@@ -253,9 +268,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _dinningTable = value;
-                                      _propertyBloc.changeDinning(
-                                          (_dinningTable == true ? 1 : 0)
-                                              .toString());
                                     });
                                   },
                                   secondary:
@@ -275,8 +287,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _sink = value;
-                                      _propertyBloc.changeDishSink(
-                                          (_sink == true ? 1 : 0).toString());
                                     });
                                   },
                                   secondary:
@@ -296,8 +306,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _fridge = value;
-                                      _propertyBloc.changeFridge(
-                                          (_fridge == true ? 1 : 0).toString());
                                     });
                                   },
                                   secondary: const Icon(Icons.kitchen_outlined),
@@ -316,8 +324,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _tv = value;
-                                      _propertyBloc.changeTv(
-                                          (_tv == true ? 1 : 0).toString());
                                     });
                                   },
                                   secondary: const Icon(Icons.tv_outlined),
@@ -336,9 +342,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _furniture = value;
-                                      _propertyBloc.changeFurniture(
-                                          (_furniture == true ? 1 : 0)
-                                              .toString());
                                     });
                                   },
                                   secondary: const Icon(Icons.weekend_outlined),
@@ -357,8 +360,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       _garage = value;
-                                      _propertyBloc.changeGarage(
-                                          (_garage == true ? 1 : 0).toString());
                                     });
                                   },
                                   secondary: const Icon(Icons.garage_outlined),
@@ -389,6 +390,27 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               } else {
                                 return ElevatedButton(
                                   onPressed: () {
+                                    _propertyBloc.changeWifi(
+                                        (_wifi == true ? 1 : 0).toString());
+                                    _propertyBloc.changeDinning(
+                                        (_dinningTable == true ? 1 : 0)
+                                            .toString());
+                                    _propertyBloc.changeAirConditioner(
+                                        (_ac == true ? 1 : 0).toString());
+                                    _propertyBloc.changeKitchen(
+                                        (_kitchen == true ? 1 : 0).toString());
+                                    _propertyBloc.changeDishSink(
+                                        (_sink == true ? 1 : 0).toString());
+                                    _propertyBloc.changeFridge(
+                                        (_fridge == true ? 1 : 0).toString());
+                                    _propertyBloc.changeTv(
+                                        (_tv == true ? 1 : 0).toString());
+                                    _propertyBloc.changeFurniture(
+                                        (_furniture == true ? 1 : 0)
+                                            .toString());
+                                    _propertyBloc.changeGarage(
+                                        (_garage == true ? 1 : 0).toString());
+
                                     _propertyBloc.createProperty(context);
                                   },
                                   style: ElevatedButton.styleFrom(
