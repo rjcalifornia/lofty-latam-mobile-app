@@ -10,17 +10,44 @@ class CreatePropertyFancyHeader extends StatelessWidget {
     return ClipPath(
       clipper: MyCustomClip(),
       child: Container(
-        padding: const EdgeInsets.all(25.0),
-        alignment: Alignment.topRight,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              BrandColors.rausch,
-              BrandColors.rausch,
-            ],
+          padding: const EdgeInsets.all(25.0),
+          alignment: Alignment.topRight,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                BrandColors.rausch,
+                BrandColors.rausch,
+              ],
+            ),
           ),
-        ),
-      ),
+          child: Row(
+            children: [
+              Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Crear una nueva propiedad",
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          )),
     );
   }
 }
