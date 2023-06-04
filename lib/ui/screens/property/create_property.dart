@@ -55,17 +55,104 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                             "Nombre",
                             style: TextStyle(color: BrandColors.loft),
                           ),
-                          TextField(
-                              keyboardType: TextInputType.name,
-                              onChanged: (value) {},
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: const Color(0xfff6f6f6),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    borderSide: BorderSide.none),
-                                hintText: "Escriba un título para la propiedad",
-                              ))
+                          StreamBuilder(
+                              stream: _propertyBloc.nameStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return TextField(
+                                    keyboardType: TextInputType.name,
+                                    onChanged: _propertyBloc.changeName,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: const Color(0xfff6f6f6),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          borderSide: BorderSide.none),
+                                      hintText:
+                                          "Escriba un título para la propiedad",
+                                    ));
+                              }),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "Dirección",
+                            style: TextStyle(color: BrandColors.loft),
+                          ),
+                          StreamBuilder(
+                              stream: _propertyBloc.addressStream,
+                              builder: (context, AsyncSnapshot snapshot) {
+                                return TextField(
+                                    keyboardType: TextInputType.name,
+                                    onChanged: _propertyBloc.changeAddress,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: const Color(0xfff6f6f6),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          borderSide: BorderSide.none),
+                                      hintText: "Dirección de la propiedad",
+                                    ));
+                              }),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "Habitaciones",
+                            style: TextStyle(color: BrandColors.loft),
+                          ),
+                          StreamBuilder(
+                            stream: _propertyBloc.bedroomsStream,
+                            builder: (context, AsyncSnapshot snapshot) {
+                              return TextField(
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
+                                onChanged: _propertyBloc.changeBedrooms,
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xfff6f6f6),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide.none),
+                                    hintText: "Ejemplo: 2",
+                                    //labelText: 'Escriba la cantidad recibida',
+                                    errorText: snapshot.hasError
+                                        ? snapshot.error.toString()
+                                        : null),
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "Camas",
+                            style: TextStyle(color: BrandColors.loft),
+                          ),
+                          StreamBuilder(
+                            stream: _propertyBloc.bedsStream,
+                            builder: (context, AsyncSnapshot snapshot) {
+                              return TextField(
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
+                                onChanged: _propertyBloc.changeBeds,
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xfff6f6f6),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide.none),
+                                    hintText: "Ejemplo: 2",
+                                    //labelText: 'Escriba la cantidad recibida',
+                                    errorText: snapshot.hasError
+                                        ? snapshot.error.toString()
+                                        : null),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     )
