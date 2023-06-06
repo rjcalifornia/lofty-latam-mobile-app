@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
+import 'package:home_management_app/ui/screens/property/create_lease.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
 import 'package:home_management_app/ui/widgets/home_services_container.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -46,6 +47,18 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CreateLeaseScreen(
+                        property: propertyDetails,
+                      )));
+        },
+        backgroundColor: BrandColors.rausch,
+        child: const Icon(Icons.add_outlined),
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -241,7 +254,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                 propertyDetails: propertyDetails,
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: 20,
                               ),
                               Text(
                                 "Contratos",
@@ -252,8 +265,29 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         color: BrandColors.loft,
                                         fontWeight: FontWeight.bold),
                               ),
-                              HomeLeasesContainer(
-                                  propertyDetails: propertyDetails),
+                              propertyDetails!.leases!.isEmpty
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: const [
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            "No se encontraron contratos de alquiler",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: BrandColors.foggy),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                      ],
+                                    )
+                                  : HomeLeasesContainer(
+                                      propertyDetails: propertyDetails),
                             ],
                           ),
                         ),

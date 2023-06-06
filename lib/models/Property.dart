@@ -1,3 +1,4 @@
+// ignore_for_file: file_names, unnecessary_this, unnecessary_new, unnecessary_question_mark, prefer_void_to_null, prefer_collection_literals
 class Property {
   int? id;
   String? name;

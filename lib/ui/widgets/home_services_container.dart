@@ -42,7 +42,7 @@ class HomeServicesContainer extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 16,
+          height: 20,
         ),
         Text(
           "Amenidades",
