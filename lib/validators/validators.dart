@@ -52,4 +52,12 @@ class Validators {
       sink.add(value);
     }
   });
+  final validateLeaseFields =
+      StreamTransformer<String, String>.fromHandlers(handleData: (value, sink) {
+    if (value.isEmpty) {
+      sink.addError('Ingrese todos los datos solicitados');
+    } else {
+      sink.add(value);
+    }
+  });
 }

@@ -19,4 +19,31 @@ import 'dart:io';
 import 'package:home_management_app/validators/validators.dart';
 import 'package:uuid/uuid.dart';
 
-class PaymentsBloc with Validators {}
+class LeaseBloc with Validators {
+  final _rentTypeIdController = BehaviorSubject<String>();
+  final _contractDateController = BehaviorSubject<String>();
+  final _paymentDateController = BehaviorSubject<String>();
+  final _expirationDateController = BehaviorSubject<String>();
+  final _priceController = BehaviorSubject<String>();
+  final _depositController = BehaviorSubject<String>();
+  final _tenantNameController = BehaviorSubject<String>();
+  final _tenantLastnameController = BehaviorSubject<String>();
+  final _tenantUsernameController = BehaviorSubject<String>();
+  final _tenantPhoneController = BehaviorSubject<String>();
+  final _tenantEmailController = BehaviorSubject<String>();
+
+  Function(String) get changeRentTypeId => _rentTypeIdController.sink.add;
+  Function(String) get changeContractDate => _contractDateController.sink.add;
+  Function(String) get changePaymentDate => _paymentDateController.sink.add;
+  Function(String) get changeExpirationDate =>
+      _expirationDateController.sink.add;
+  Function(String) get changePrice => _priceController.sink.add;
+  Function(String) get changeDeposit => _depositController.sink.add;
+  Function(String) get changeTenantName => _tenantNameController.sink.add;
+  Function(String) get changeTenantLastname =>
+      _tenantLastnameController.sink.add;
+  Function(String) get changeTenantUsername =>
+      _tenantUsernameController.sink.add;
+  Function(String) get changeTenantPhone => _tenantPhoneController.sink.add;
+  Function(String) get changeTenantEmail => _tenantEmailController.sink.add;
+}
