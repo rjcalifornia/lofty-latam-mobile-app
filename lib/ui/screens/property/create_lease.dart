@@ -15,11 +15,43 @@ class CreateLeaseScreen extends StatefulWidget {
 class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
   final LeaseBloc _leaseBloc = LeaseBloc();
   List<RentClass> rentClass = [];
+  DateTime selectedContractDate = DateTime.now();
+  var contractDate = TextEditingController();
+
   Future _getLeaseData() async {
     final rentClassJson = await _leaseBloc.getRentClass();
     setState(() {
       rentClass = rentClassJson;
     });
+  }
+
+  Future<void> _selectContractDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        locale: const Locale("es", "ES"),
+        initialDate: selectedContractDate,
+        firstDate: DateTime(2021, 8),
+        lastDate: DateTime(2030),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                  primary: BrandColors.rausch,
+                  secondary: BrandColors.arches,
+                ),
+                dialogBackgroundColor: Colors.white,
+              ),
+              child: child!);
+        });
+
+    if (picked != null && picked != selectedContractDate) {
+      setState(() {
+        _leaseBloc.changeContractDate(picked.toString());
+        selectedContractDate = picked;
+
+        contractDate.text = picked.toIso8601String().split('T')[0];
+      });
+    }
   }
 
   @override
@@ -100,9 +132,27 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                               ),
                             );
                           }),
-
-
-                          
+                      const SizedBox(
+                        height: 28,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                        child: GestureDetector(
+                          onTap: () => _selectContractDate(context),
+                          child: AbsorbPointer(
+                            child: TextField(
+                              style: const TextStyle(
+                                color: Color(0xff313945),
+                              ),
+                              controller: contractDate,
+                              decoration: const InputDecoration(
+                                  labelText: 'Seleccione de contrato',
+                                  prefixIcon: Icon(Icons.calendar_today)),
+                            ),
+                          ),
+                        ),
+                      )
                     ]))));
   }
 }

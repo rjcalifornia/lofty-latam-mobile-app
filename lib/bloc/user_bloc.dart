@@ -22,6 +22,8 @@ class UserBloc with Validators {
       final user = User.fromJson(leaseParsed);
 
       return user;
-    } catch (e) {}
+    } catch (e) {
+      return e.toString();
+    }
   }
 }

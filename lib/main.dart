@@ -7,6 +7,7 @@ import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
 import 'package:home_management_app/ui/auth/welcome.dart';
@@ -39,6 +40,15 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''), // English, no country code
+            Locale('es', ''), // Spanish, no country code
+          ],
           theme: ThemeData(
             textTheme: GoogleFonts.manropeTextTheme(),
             scaffoldBackgroundColor: Colors.white,

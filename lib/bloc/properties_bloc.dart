@@ -212,7 +212,6 @@ class PropertiesBloc with Validators {
       var auth = await json.decode(propertyJson.body);
 
       var status = propertyJson.statusCode.toString();
-      print(auth);
 
       showDialog(
           barrierDismissible: false,
