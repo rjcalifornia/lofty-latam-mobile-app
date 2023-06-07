@@ -2,8 +2,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/bloc/RentClass.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +22,7 @@ import 'package:home_management_app/validators/validators.dart';
 import 'package:uuid/uuid.dart';
 
 class LeaseBloc with Validators {
-  final _rentTypeIdController = BehaviorSubject<String>();
+  final _rentClassController = BehaviorSubject<String>();
   final _contractDateController = BehaviorSubject<String>();
   final _paymentDateController = BehaviorSubject<String>();
   final _expirationDateController = BehaviorSubject<String>();
@@ -32,7 +34,7 @@ class LeaseBloc with Validators {
   final _tenantPhoneController = BehaviorSubject<String>();
   final _tenantEmailController = BehaviorSubject<String>();
 
-  Function(String) get changeRentTypeId => _rentTypeIdController.sink.add;
+  Function(String) get changeRentClass => _rentClassController.sink.add;
   Function(String) get changeContractDate => _contractDateController.sink.add;
   Function(String) get changePaymentDate => _paymentDateController.sink.add;
   Function(String) get changeExpirationDate =>
@@ -47,8 +49,8 @@ class LeaseBloc with Validators {
   Function(String) get changeTenantPhone => _tenantPhoneController.sink.add;
   Function(String) get changeTenantEmail => _tenantEmailController.sink.add;
 
-  Stream<String> get rentTypeIdStream =>
-      _rentTypeIdController.stream.transform(validateLeaseFields);
+  Stream<String> get rentClassStream =>
+      _rentClassController.stream.transform(validateLeaseFields);
   Stream<String> get contractDateStream =>
       _contractDateController.stream.transform(validateLeaseFields);
   Stream<String> get paymentDateStream =>
@@ -70,7 +72,7 @@ class LeaseBloc with Validators {
   Stream<String> get tenantEmailStream =>
       _tenantEmailController.stream.transform(validateLeaseFields);
 
-  String? get rentTypeId => _rentTypeIdController.value;
+  String? get rentClass => _rentClassController.value;
   String? get contractDate => _contractDateController.value;
   String? get paymentDate => _paymentDateController.value;
   String? get expirationDate => _expirationDateController.value;
@@ -83,7 +85,7 @@ class LeaseBloc with Validators {
   String? get tenantEmail => _tenantEmailController.value;
 
   // Stream<bool> get verifyLeaseData => CombineLatestStream.combine5(
-  //     rentTypeIdStream,
+  //     rentClassStream,
   //     contractDateStream,
   //     paymentDateStream,
   //     expirationDateStream,
@@ -91,7 +93,7 @@ class LeaseBloc with Validators {
   //     (a, b, c, d, e) {});
 
   Stream<bool> get verifyLeaseData => CombineLatestStream([
-        rentTypeIdStream,
+        rentClassStream,
         contractDateStream,
         paymentDateStream,
         expirationDateStream,
@@ -104,7 +106,7 @@ class LeaseBloc with Validators {
         tenantEmailStream
       ], (_) => true);
 
-  Future getRentType() async {
+  Future getRentClass() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
 
@@ -119,7 +121,7 @@ class LeaseBloc with Validators {
         json.decode(rentTypeJson.body).cast<Map<String, dynamic>>();
 
     return rentTypeParsed
-        .map<PaymentType>((json) => PaymentType.fromJson(json))
+        .map<RentClass>((json) => RentClass.fromJson(json))
         .toList();
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/bloc/RentClass.dart';
+import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 
@@ -11,8 +13,24 @@ class CreateLeaseScreen extends StatefulWidget {
 }
 
 class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
+  final LeaseBloc _leaseBloc = LeaseBloc();
+  List<RentClass> rentClass = [];
+  Future _getLeaseData() async {
+    final rentClassJson = await _leaseBloc.getRentClass();
+    setState(() {
+      rentClass = rentClassJson;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getLeaseData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    String? selectedRentClass;
     return GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -36,58 +54,55 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                               color: BrandColors.hof, fontSize: 20),
                         ),
                       ),
-
                       const SizedBox(
                         height: 28,
                       ),
-                      // const Text(
-                      //   "Mes a cancelar",
-                      //   style: TextStyle(color: BrandColors.hof),
-                      // ),
-                      // StreamBuilder(
-                      //     stream: _paymentsBloc.monthCancelledStream,
-                      //     builder: (context, AsyncSnapshot snapshot) {
-                      //       return Container(
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(15),
-                      //           color: const Color(0xfff6f6f6),
-                      //         ),
-                      //         child: DropdownButtonFormField(
-                      //           decoration: const InputDecoration(
-                      //             enabledBorder: InputBorder.none,
-                      //             disabledBorder: InputBorder.none,
-                      //             focusedBorder: InputBorder.none,
-                      //           ),
-                      //           icon: const Icon(Icons.arrow_drop_down),
-                      //           iconSize: 24,
-                      //           elevation: 16,
-                      //           style: const TextStyle(color: Colors.black),
-                      //           isExpanded: true,
-                      //           hint: const Center(
-                      //               child: Text("Seleccione el mes a cancelar")),
-                      //           items: monthsList.map((item) {
-                      //             //print(item['id']);
-                      //             return DropdownMenuItem(
-                      //               value: item['id'].toString(),
-                      //               child: Center(
-                      //                 child: Text(item['label']),
-                      //               ),
-                      //             );
-                      //           }).toList(),
-                      //           onChanged: (value) {
-                      //             _paymentsBloc
-                      //                 .changeMonthCancelled(value.toString());
-                      //             setState(() {
-                      //               selectedMonth = value.toString();
-                      //               // print(selectedMonth);
-                      //               //print(selectedMonth);
-                      //               //print(bloc.getMonthCancelled);
-                      //             });
-                      //           },
-                      //           value: selectedMonth,
-                      //         ),
-                      //       );
-                      //     }),
+                      const Text(
+                        "Tipo de alquiler",
+                        style: TextStyle(color: BrandColors.hof),
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.rentClassStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: const Color(0xfff6f6f6),
+                              ),
+                              child: DropdownButtonFormField(
+                                decoration: const InputDecoration(
+                                    enabledBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none),
+                                icon: const Icon(Icons.arrow_drop_down),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: const TextStyle(color: Colors.black),
+                                isExpanded: true,
+                                hint: const Center(
+                                    child:
+                                        Text("Seleccione el tipo de alquiler")),
+                                items: rentClass.map((item) {
+                                  return DropdownMenuItem(
+                                    value: item.id.toString(),
+                                    child: Center(
+                                      child: Text(item.name.toString()),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  _leaseBloc.changeRentClass(value.toString());
+                                  setState(() {
+                                    selectedRentClass = value.toString();
+                                  });
+                                },
+                                value: selectedRentClass,
+                              ),
+                            );
+                          }),
+
+
+                          
                     ]))));
   }
 }

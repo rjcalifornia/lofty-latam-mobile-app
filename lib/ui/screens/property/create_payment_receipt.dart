@@ -39,8 +39,6 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    //profileBloc.dispose() cannot call as ProfileBloc class doesn't have dispose method
     super.dispose();
     _paymentsBloc.paymentFieldsDispose();
   }
