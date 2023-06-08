@@ -5,15 +5,15 @@ class Lease {
   Null? scannedContract;
   TenantId? tenantId;
   PropertyId? propertyId;
-  String? rentTypeId;
+  int? rentTypeId;
   String? contractDate;
   String? paymentDate;
   String? expirationDate;
   String? price;
   String? deposit;
-  String? duration;
+  int? duration;
   bool? active;
-  String? userCreates;
+  int? userCreates;
   Null? userModifies;
   String? createdAt;
   String? updatedAt;
@@ -111,8 +111,8 @@ class TenantId {
   String? username;
   String? phone;
   String? email;
-  String? active;
-  String? userCreates;
+  int? active;
+  int? userCreates;
   Null? userModifies;
   String? createdAt;
   String? updatedAt;
@@ -161,11 +161,181 @@ class TenantId {
   }
 }
 
+class PropertyId {
+  int? id;
+  String? name;
+  String? address;
+  int? bedrooms;
+  int? beds;
+  int? bathrooms;
+  bool? hasAc;
+  bool? hasKitchen;
+  bool? hasDinningRoom;
+  bool? hasSink;
+  Null? hasWifi;
+  bool? hasFridge;
+  bool? hasTv;
+  bool? hasFurniture;
+  bool? hasGarage;
+  LandlordId? landlordId;
+  int? propertyTypeId;
+  bool? active;
+  int? userCreates;
+  Null? userModifies;
+  String? createdAt;
+  String? updatedAt;
+
+  PropertyId(
+      {this.id,
+      this.name,
+      this.address,
+      this.bedrooms,
+      this.beds,
+      this.bathrooms,
+      this.hasAc,
+      this.hasKitchen,
+      this.hasDinningRoom,
+      this.hasSink,
+      this.hasWifi,
+      this.hasFridge,
+      this.hasTv,
+      this.hasFurniture,
+      this.hasGarage,
+      this.landlordId,
+      this.propertyTypeId,
+      this.active,
+      this.userCreates,
+      this.userModifies,
+      this.createdAt,
+      this.updatedAt});
+
+  PropertyId.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    address = json['address'];
+    bedrooms = json['bedrooms'];
+    beds = json['beds'];
+    bathrooms = json['bathrooms'];
+    hasAc = json['has_ac'];
+    hasKitchen = json['has_kitchen'];
+    hasDinningRoom = json['has_dinning_room'];
+    hasSink = json['has_sink'];
+    hasWifi = json['has_wifi'];
+    hasFridge = json['has_fridge'];
+    hasTv = json['has_tv'];
+    hasFurniture = json['has_furniture'];
+    hasGarage = json['has_garage'];
+    landlordId = json['landlord_id'] != null
+        ? new LandlordId.fromJson(json['landlord_id'])
+        : null;
+    propertyTypeId = json['property_type_id'];
+    active = json['active'];
+    userCreates = json['user_creates'];
+    userModifies = json['user_modifies'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['address'] = this.address;
+    data['bedrooms'] = this.bedrooms;
+    data['beds'] = this.beds;
+    data['bathrooms'] = this.bathrooms;
+    data['has_ac'] = this.hasAc;
+    data['has_kitchen'] = this.hasKitchen;
+    data['has_dinning_room'] = this.hasDinningRoom;
+    data['has_sink'] = this.hasSink;
+    data['has_wifi'] = this.hasWifi;
+    data['has_fridge'] = this.hasFridge;
+    data['has_tv'] = this.hasTv;
+    data['has_furniture'] = this.hasFurniture;
+    data['has_garage'] = this.hasGarage;
+    if (this.landlordId != null) {
+      data['landlord_id'] = this.landlordId!.toJson();
+    }
+    data['property_type_id'] = this.propertyTypeId;
+    data['active'] = this.active;
+    data['user_creates'] = this.userCreates;
+    data['user_modifies'] = this.userModifies;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+class LandlordId {
+  int? id;
+  String? name;
+  String? lastname;
+  String? username;
+  String? phone;
+  String? dui;
+  String? email;
+  Null? emailVerifiedAt;
+  int? idRol;
+  bool? isAdmin;
+  int? active;
+  String? createdAt;
+  String? updatedAt;
+
+  LandlordId(
+      {this.id,
+      this.name,
+      this.lastname,
+      this.username,
+      this.phone,
+      this.dui,
+      this.email,
+      this.emailVerifiedAt,
+      this.idRol,
+      this.isAdmin,
+      this.active,
+      this.createdAt,
+      this.updatedAt});
+
+  LandlordId.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    lastname = json['lastname'];
+    username = json['username'];
+    phone = json['phone'];
+    dui = json['dui'];
+    email = json['email'];
+    emailVerifiedAt = json['email_verified_at'];
+    idRol = json['id_rol'];
+    isAdmin = json['is_admin'];
+    active = json['active'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['lastname'] = this.lastname;
+    data['username'] = this.username;
+    data['phone'] = this.phone;
+    data['dui'] = this.dui;
+    data['email'] = this.email;
+    data['email_verified_at'] = this.emailVerifiedAt;
+    data['id_rol'] = this.idRol;
+    data['is_admin'] = this.isAdmin;
+    data['active'] = this.active;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
 class RentType {
   int? id;
   String? name;
-  String? value;
-  String? active;
+  int? value;
+  int? active;
   String? createdAt;
   String? updatedAt;
 
@@ -200,13 +370,14 @@ class RentType {
 
 class Payments {
   int? id;
-  String? receiptNumber;
+  int? receiptNumber;
   LeaseId? leaseId;
   PaymentTypeId? paymentTypeId;
   String? paymentDate;
-  String? monthCancelled;
+  int? monthCancelled;
   String? payment;
-  String? userCreates;
+  String? uuid;
+  int? userCreates;
   Null? userModifies;
   String? createdAt;
   String? updatedAt;
@@ -220,6 +391,7 @@ class Payments {
       this.paymentDate,
       this.monthCancelled,
       this.payment,
+      this.uuid,
       this.userCreates,
       this.userModifies,
       this.createdAt,
@@ -238,6 +410,7 @@ class Payments {
     paymentDate = json['payment_date'];
     monthCancelled = json['month_cancelled'];
     payment = json['payment'];
+    uuid = json['uuid'];
     userCreates = json['user_creates'];
     userModifies = json['user_modifies'];
     createdAt = json['created_at'];
@@ -258,6 +431,7 @@ class Payments {
     data['payment_date'] = this.paymentDate;
     data['month_cancelled'] = this.monthCancelled;
     data['payment'] = this.payment;
+    data['uuid'] = this.uuid;
     data['user_creates'] = this.userCreates;
     data['user_modifies'] = this.userModifies;
     data['created_at'] = this.createdAt;
@@ -272,15 +446,15 @@ class LeaseId {
   Null? scannedContract;
   TenantId? tenantId;
   PropertyId? propertyId;
-  String? rentTypeId;
+  int? rentTypeId;
   String? contractDate;
   String? paymentDate;
   String? expirationDate;
   String? price;
   String? deposit;
-  String? duration;
+  int? duration;
   bool? active;
-  String? userCreates;
+  int? userCreates;
   Null? userModifies;
   String? createdAt;
   String? updatedAt;
@@ -352,30 +526,30 @@ class LeaseId {
   }
 }
 
-class PropertyId {
+class PropertyTypeId {
   int? id;
   String? name;
   String? address;
-  String? bedrooms;
-  String? beds;
-  String? bathrooms;
+  int? bedrooms;
+  int? beds;
+  int? bathrooms;
   bool? hasAc;
   bool? hasKitchen;
   bool? hasDinningRoom;
   bool? hasSink;
+  Null? hasWifi;
   bool? hasFridge;
-  bool? hasWifi;
   bool? hasTv;
   bool? hasFurniture;
   bool? hasGarage;
   LandlordId? landlordId;
   bool? active;
-  String? userCreates;
+  int? userCreates;
   Null? userModifies;
   String? createdAt;
   String? updatedAt;
 
-  PropertyId(
+  PropertyTypeId(
       {this.id,
       this.name,
       this.address,
@@ -386,8 +560,8 @@ class PropertyId {
       this.hasKitchen,
       this.hasDinningRoom,
       this.hasSink,
-      this.hasFridge,
       this.hasWifi,
+      this.hasFridge,
       this.hasTv,
       this.hasFurniture,
       this.hasGarage,
@@ -398,7 +572,7 @@ class PropertyId {
       this.createdAt,
       this.updatedAt});
 
-  PropertyId.fromJson(Map<String, dynamic> json) {
+  PropertyTypeId.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     address = json['address'];
@@ -409,8 +583,8 @@ class PropertyId {
     hasKitchen = json['has_kitchen'];
     hasDinningRoom = json['has_dinning_room'];
     hasSink = json['has_sink'];
-    hasFridge = json['has_fridge'];
     hasWifi = json['has_wifi'];
+    hasFridge = json['has_fridge'];
     hasTv = json['has_tv'];
     hasFurniture = json['has_furniture'];
     hasGarage = json['has_garage'];
@@ -436,8 +610,8 @@ class PropertyId {
     data['has_kitchen'] = this.hasKitchen;
     data['has_dinning_room'] = this.hasDinningRoom;
     data['has_sink'] = this.hasSink;
-    data['has_fridge'] = this.hasFridge;
     data['has_wifi'] = this.hasWifi;
+    data['has_fridge'] = this.hasFridge;
     data['has_tv'] = this.hasTv;
     data['has_furniture'] = this.hasFurniture;
     data['has_garage'] = this.hasGarage;
@@ -447,71 +621,6 @@ class PropertyId {
     data['active'] = this.active;
     data['user_creates'] = this.userCreates;
     data['user_modifies'] = this.userModifies;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
-}
-
-class LandlordId {
-  int? id;
-  String? name;
-  String? lastname;
-  String? username;
-  String? phone;
-  String? dui;
-  String? email;
-  Null? emailVerifiedAt;
-  String? idRol;
-  bool? isAdmin;
-  String? active;
-  String? createdAt;
-  String? updatedAt;
-
-  LandlordId(
-      {this.id,
-      this.name,
-      this.lastname,
-      this.username,
-      this.phone,
-      this.dui,
-      this.email,
-      this.emailVerifiedAt,
-      this.idRol,
-      this.isAdmin,
-      this.active,
-      this.createdAt,
-      this.updatedAt});
-
-  LandlordId.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    lastname = json['lastname'];
-    username = json['username'];
-    phone = json['phone'];
-    dui = json['dui'];
-    email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
-    idRol = json['id_rol'];
-    isAdmin = json['is_admin'];
-    active = json['active'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['lastname'] = this.lastname;
-    data['username'] = this.username;
-    data['phone'] = this.phone;
-    data['dui'] = this.dui;
-    data['email'] = this.email;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['id_rol'] = this.idRol;
-    data['is_admin'] = this.isAdmin;
-    data['active'] = this.active;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;

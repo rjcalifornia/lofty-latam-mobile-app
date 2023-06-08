@@ -261,8 +261,6 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
-                            Icon(Icons.save_as_outlined, size: 28),
-                            SizedBox(width: 8),
                             Text("Guardar pago",
                                 style: TextStyle(fontSize: 22)),
                           ],

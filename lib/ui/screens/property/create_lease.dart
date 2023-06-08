@@ -4,6 +4,7 @@ import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/ui/utils/datepickerField.dart';
+import 'package:home_management_app/ui/utils/formTextField.dart';
 import 'package:home_management_app/ui/utils/moneyField.dart';
 
 class CreateLeaseScreen extends StatefulWidget {
@@ -153,6 +154,22 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.payment_outlined,
+                            color: BrandColors.hof,
+                            size: 14,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "Pago de alquiler mensual",
+                            style: TextStyle(color: BrandColors.hof),
+                          ),
+                        ],
+                      ),
                       StreamBuilder(
                           stream: _leaseBloc.priceStream,
                           builder: (context, AsyncSnapshot snapshot) {
@@ -164,6 +181,22 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                           }),
                       const SizedBox(
                         height: 22,
+                      ),
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.receipt_outlined,
+                            color: BrandColors.hof,
+                            size: 14,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "Depósito",
+                            style: TextStyle(color: BrandColors.hof),
+                          ),
+                        ],
                       ),
                       StreamBuilder(
                           stream: _leaseBloc.depositStream,
@@ -177,19 +210,121 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blue),
-                        ),
-                        onPressed: () {
-                          print(_leaseBloc.contractDate.toString());
-                          print(_leaseBloc.paymentDate.toString());
-                          print(_leaseBloc.expirationDate.toString());
-                          print(_leaseBloc.price.toString());
-                        },
-                        child: Text('TextButton'),
-                      )
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.payment_outlined,
+                            color: BrandColors.hof,
+                            size: 14,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "Nombres del arrendatario",
+                            style: TextStyle(color: BrandColors.hof),
+                          ),
+                        ],
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.tenantNameStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return FormTextField(
+                                changeStream: _leaseBloc.changeTenantName,
+                                fieldHintText:
+                                    'Ingrese los nombres del arrendatario');
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Apellidos del arrendatario",
+                        style: TextStyle(color: BrandColors.hof),
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.tenantLastnameStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return FormTextField(
+                                changeStream: _leaseBloc.changeTenantLastname,
+                                fieldHintText:
+                                    'Ingrese los apellidos del arrendatario');
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Documento Único de Identidad",
+                        style: TextStyle(color: BrandColors.hof),
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.tenantUsernameStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return FormTextField(
+                                changeStream: _leaseBloc.changeTenantUsername,
+                                fieldHintText:
+                                    'Ingrese el número de DUI del arrendatario');
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Teléfono",
+                        style: TextStyle(color: BrandColors.hof),
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.tenantPhoneStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return FormTextField(
+                                changeStream: _leaseBloc.changeTenantPhone,
+                                fieldHintText: 'Ingrese el número de teléfono');
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Correo electrónico",
+                        style: TextStyle(color: BrandColors.hof),
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.tenantEmailStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return FormTextField(
+                                changeStream: _leaseBloc.changeTenantEmail,
+                                fieldHintText: 'Ingrese el correo electrónico');
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.verifyLeaseData,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (!snapshot.hasData) {
+                              return Container();
+                            } else {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  _leaseBloc.storeLease(
+                                      context, widget.property?.id);
+                                  //_paymentsBloc.generateReceipt(context, widget.lease.id);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: BrandColors.arches,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text("Guardar contrato",
+                                        style: TextStyle(fontSize: 22)),
+                                  ],
+                                ),
+                              );
+                            }
+                          }),
                     ]))));
   }
 }
