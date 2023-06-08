@@ -4,6 +4,7 @@ import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/ui/utils/datepickerField.dart';
+import 'package:home_management_app/ui/utils/moneyField.dart';
 
 class CreateLeaseScreen extends StatefulWidget {
   final Property? property;
@@ -110,7 +111,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                             );
                           }),
                       const SizedBox(
-                        height: 28,
+                        height: 22,
                       ),
                       StreamBuilder(
                           stream: _leaseBloc.contractDateStream,
@@ -124,7 +125,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                             );
                           }),
                       const SizedBox(
-                        height: 12,
+                        height: 22,
                       ),
                       StreamBuilder(
                           stream: _leaseBloc.paymentDateStream,
@@ -137,7 +138,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                             );
                           }),
                       const SizedBox(
-                        height: 12,
+                        height: 22,
                       ),
                       StreamBuilder(
                           stream: _leaseBloc.expirationDateStream,
@@ -149,6 +150,33 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                               dateFieldChange: _leaseBloc.changeExpirationDate,
                             );
                           }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.priceStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return MoneyField(
+                              changeStream: _leaseBloc.changePrice,
+                              snapshot: snapshot,
+                              labelText: 'Pago mensual',
+                            );
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.depositStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return MoneyField(
+                              changeStream: _leaseBloc.changeDeposit,
+                              snapshot: snapshot,
+                              labelText: 'Depósito',
+                            );
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
                       TextButton(
                         style: ButtonStyle(
                           foregroundColor:
@@ -158,6 +186,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                           print(_leaseBloc.contractDate.toString());
                           print(_leaseBloc.paymentDate.toString());
                           print(_leaseBloc.expirationDate.toString());
+                          print(_leaseBloc.price.toString());
                         },
                         child: Text('TextButton'),
                       )

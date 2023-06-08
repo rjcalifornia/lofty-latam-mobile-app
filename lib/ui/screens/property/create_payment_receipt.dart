@@ -239,7 +239,7 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                           children: const [
                             Text(
                               "Complete todos los datos requeridos",
-                              style: TextStyle(color: BrandColors.foggy),
+                              style: TextStyle(color: BrandColors.hof),
                             )
                           ],
                         ),
