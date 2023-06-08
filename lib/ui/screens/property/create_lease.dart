@@ -3,6 +3,7 @@ import 'package:home_management_app/bloc/RentClass.dart';
 import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
+import 'package:home_management_app/ui/utils/datepickerField.dart';
 
 class CreateLeaseScreen extends StatefulWidget {
   final Property? property;
@@ -16,42 +17,18 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
   final LeaseBloc _leaseBloc = LeaseBloc();
   List<RentClass> rentClass = [];
   DateTime selectedContractDate = DateTime.now();
-  var contractDate = TextEditingController();
+  DateTime selectedPaymentDate = DateTime.now();
+  DateTime selectedExpirationDate = DateTime.now();
+
+  dynamic contractDate = TextEditingController();
+  dynamic paymentDate = TextEditingController();
+  dynamic expirationDate = TextEditingController();
 
   Future _getLeaseData() async {
     final rentClassJson = await _leaseBloc.getRentClass();
     setState(() {
       rentClass = rentClassJson;
     });
-  }
-
-  Future<void> _selectContractDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        locale: const Locale("es", "ES"),
-        initialDate: selectedContractDate,
-        firstDate: DateTime(2021, 8),
-        lastDate: DateTime(2030),
-        builder: (BuildContext context, Widget? child) {
-          return Theme(
-              data: ThemeData.light().copyWith(
-                colorScheme: ColorScheme.fromSwatch().copyWith(
-                  primary: BrandColors.rausch,
-                  secondary: BrandColors.arches,
-                ),
-                dialogBackgroundColor: Colors.white,
-              ),
-              child: child!);
-        });
-
-    if (picked != null && picked != selectedContractDate) {
-      setState(() {
-        _leaseBloc.changeContractDate(picked.toString());
-        selectedContractDate = picked;
-
-        contractDate.text = picked.toIso8601String().split('T')[0];
-      });
-    }
   }
 
   @override
@@ -135,23 +112,54 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 28,
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
-                        child: GestureDetector(
-                          onTap: () => _selectContractDate(context),
-                          child: AbsorbPointer(
-                            child: TextField(
-                              style: const TextStyle(
-                                color: Color(0xff313945),
-                              ),
-                              controller: contractDate,
-                              decoration: const InputDecoration(
-                                  labelText: 'Seleccione de contrato',
-                                  prefixIcon: Icon(Icons.calendar_today)),
-                            ),
-                          ),
+                      StreamBuilder(
+                          stream: _leaseBloc.contractDateStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return DatePickerField(
+                              selectedPickerDate: selectedContractDate,
+                              textController: contractDate,
+                              labelText:
+                                  'Seleccione fecha de inicio de contrato',
+                              dateFieldChange: _leaseBloc.changeContractDate,
+                            );
+                          }),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.paymentDateStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return DatePickerField(
+                              selectedPickerDate: selectedPaymentDate,
+                              textController: paymentDate,
+                              labelText: 'Seleccione fecha de pago',
+                              dateFieldChange: _leaseBloc.changePaymentDate,
+                            );
+                          }),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.expirationDateStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return DatePickerField(
+                              selectedPickerDate: selectedExpirationDate,
+                              textController: expirationDate,
+                              labelText: 'Finalización de contrato',
+                              dateFieldChange: _leaseBloc.changeExpirationDate,
+                            );
+                          }),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
                         ),
+                        onPressed: () {
+                          print(_leaseBloc.contractDate.toString());
+                          print(_leaseBloc.paymentDate.toString());
+                          print(_leaseBloc.expirationDate.toString());
+                        },
+                        child: Text('TextButton'),
                       )
                     ]))));
   }
