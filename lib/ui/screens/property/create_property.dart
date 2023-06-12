@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';

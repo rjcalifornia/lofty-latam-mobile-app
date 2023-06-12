@@ -88,6 +88,15 @@ class PaymentsBloc with Validators {
   Future<void> generateReceipt(var context, leaseId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: LoadingAnimationWidget.inkDrop(
+                color: BrandColors.arches, size: 38),
+          );
+        });
     try {
       var paymentJson = await http
           .post(Uri.parse('${authEndpoint}api/v1/payments/store-rent-payment'),
@@ -104,7 +113,7 @@ class PaymentsBloc with Validators {
           }).timeout(const Duration(seconds: 5),
               onTimeout: () => throw TimeoutException(
                   'No se puede conectar, intente más tarde.'));
-
+      Navigator.of(context).pop();
       showDialog(
           barrierDismissible: false,
           context: context,
@@ -115,6 +124,7 @@ class PaymentsBloc with Validators {
               actions: [
                 TextButton(
                     onPressed: () {
+                      Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },
                     child: const Text("Aceptar"))

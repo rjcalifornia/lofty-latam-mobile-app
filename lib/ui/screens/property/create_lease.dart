@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_management_app/bloc/RentClass.dart';
+import 'package:home_management_app/models/RentClass.dart';
 import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';

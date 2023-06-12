@@ -76,7 +76,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
               notifications: notifications,
               loadNotifications: loadNotifications,
             ),
-            Icon(Icons.movie),
+            Container(
+              margin: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(25),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Column(
+                    children: const [
+                      Text(
+                        "No hay alertas pendientes",
+                        style:
+                            TextStyle(color: BrandColors.foggy, fontSize: 18),
+                      )
+                    ],
+                  ))
+                ],
+              ),
+            )
           ]),
         ));
   }
