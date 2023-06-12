@@ -92,9 +92,14 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Column(
                       children: [
-                        TenantInfoContainer(
-                          lease: lease,
-                        ),
+                        RefreshIndicator(
+                          onRefresh: () {
+                            return _getLeaseDetails();
+                          },
+                          child: TenantInfoContainer(
+                            lease: lease,
+                          ),
+                        )
                       ],
                     ),
                   );
