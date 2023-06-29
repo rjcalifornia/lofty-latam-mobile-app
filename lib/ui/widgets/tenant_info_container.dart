@@ -44,6 +44,14 @@ class TenantInfoContainer extends StatelessWidget {
         ),
         Row(
           children: [
+            Text(
+              "Información del contrato",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        Row(
+          children: [
             const Icon(
               Icons.home_outlined,
               color: BrandColors.foggy,
@@ -170,7 +178,7 @@ class TenantInfoContainer extends StatelessWidget {
               itemCount: lease!.payments!.length,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
               itemBuilder: (ctx, i) {
                 return GestureDetector(
                   onTap: () {},

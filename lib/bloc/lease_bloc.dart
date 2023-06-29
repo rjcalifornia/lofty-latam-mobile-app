@@ -194,6 +194,7 @@ class LeaseBloc with Validators {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                     child: const Text("Aceptar"))
               ],

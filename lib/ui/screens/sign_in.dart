@@ -161,8 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.login, size: 28),
-                                    const SizedBox(width: 8),
                                     Text("Continuar",
                                         style: TextStyle(fontSize: 22)),
                                   ],
