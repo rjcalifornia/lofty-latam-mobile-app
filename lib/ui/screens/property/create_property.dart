@@ -34,6 +34,15 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                   iconTheme: const IconThemeData(color: Colors.white),
                   backgroundColor: BrandColors.rausch,
                   elevation: 0,
+                  automaticallyImplyLeading: false,
+                  leading: IconButton(
+                    icon: const Icon(
+                      Icons.chevron_left,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
                 body: Stack(
                   children: [

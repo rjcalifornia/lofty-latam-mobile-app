@@ -90,14 +90,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   color: const Color(0xffFF5A5F),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15.0),
-                                  child: Row(children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.arrow_back,
-                                          color: Colors.white),
-                                      onPressed: () => Navigator.pop(context),
-                                    ),
-                                    const Spacer(),
-                                  ]),
+                                  child: Row(children: const []),
                                 ),
                               ),
                               Positioned(
@@ -129,6 +122,52 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
+                                ),
+                              ),
+                              Align(
+                                  alignment: const Alignment(0.8, 0.72),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: BrandColors.rausch,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: BrandColors.foggy,
+                                            blurRadius: 2.2,
+                                            offset: Offset(0, 1)),
+                                      ],
+                                    ),
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.image_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                  )),
+                              Positioned(
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                child: Row(
+                                  children: <Widget>[
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.chevron_left,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                    const Spacer(),
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.edit_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

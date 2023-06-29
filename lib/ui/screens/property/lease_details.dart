@@ -79,7 +79,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
               backgroundColor: Colors.white,
               elevation: 0,
               leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.chevron_left),
                   onPressed: () {
                     Navigator.pop(context);
                   }),

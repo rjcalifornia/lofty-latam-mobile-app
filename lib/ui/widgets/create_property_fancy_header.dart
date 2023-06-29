@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'dart:math';
 
 class CreatePropertyFancyHeader extends StatelessWidget {
   const CreatePropertyFancyHeader({super.key});
