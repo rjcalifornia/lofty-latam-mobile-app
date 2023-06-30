@@ -24,6 +24,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   final PropertiesBloc _propertiesBloc = PropertiesBloc();
   bool loader = false;
   Future? getDetails;
+  String? accessToken;
 
   Property? propertyDetails;
   Future<bool> _getProperty() async {
@@ -37,10 +38,17 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
     return loader;
   }
 
+  void setToken() async {
+    setState(() {
+      accessToken = widget.accessToken.toString();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getDetails = _getProperty();
+    setToken();
   }
 
   @override
@@ -116,8 +124,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                           .propertyPictures!.imageLinkName
                                           .toString(),
                                       httpHeaders: {
-                                        'Authorization':
-                                            'Bearer $widget.accessToken'
+                                        'Authorization': 'Bearer $accessToken'
                                       },
                                       fit: BoxFit.cover,
                                     ),
@@ -143,7 +150,11 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         Icons.image_outlined,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState(() {
+                                          getDetails = _getProperty();
+                                        });
+                                      },
                                     ),
                                   )),
                               Positioned(
