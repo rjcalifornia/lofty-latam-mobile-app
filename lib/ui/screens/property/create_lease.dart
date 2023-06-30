@@ -185,7 +185,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       Row(
                         children: const [
                           Icon(
-                            Icons.receipt_outlined,
+                            Icons.account_balance_wallet_outlined,
                             color: BrandColors.hof,
                             size: 14,
                           ),
@@ -213,7 +213,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       Row(
                         children: const [
                           Icon(
-                            Icons.payment_outlined,
+                            Icons.person_outlined,
                             color: BrandColors.hof,
                             size: 14,
                           ),
@@ -237,10 +237,20 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      const Text(
-                        "Apellidos del arrendatario",
-                        style: TextStyle(color: BrandColors.hof),
-                      ),
+                      Row(children: const [
+                        Icon(
+                          Icons.person_outlined,
+                          color: BrandColors.hof,
+                          size: 14,
+                        ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Apellidos del arrendatario",
+                          style: TextStyle(color: BrandColors.hof),
+                        ),
+                      ]),
                       StreamBuilder(
                           stream: _leaseBloc.tenantLastnameStream,
                           builder: (context, AsyncSnapshot snapshot) {
@@ -252,10 +262,20 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      const Text(
-                        "Documento Único de Identidad",
-                        style: TextStyle(color: BrandColors.hof),
-                      ),
+                      Row(children: const [
+                        Icon(
+                          Icons.badge_outlined,
+                          color: BrandColors.hof,
+                          size: 14,
+                        ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Documento Único de Identidad",
+                          style: TextStyle(color: BrandColors.hof),
+                        ),
+                      ]),
                       StreamBuilder(
                           stream: _leaseBloc.tenantUsernameStream,
                           builder: (context, AsyncSnapshot snapshot) {
@@ -267,10 +287,20 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      const Text(
-                        "Teléfono",
-                        style: TextStyle(color: BrandColors.hof),
-                      ),
+                      Row(children: const [
+                        Icon(
+                          Icons.call_outlined,
+                          color: BrandColors.hof,
+                          size: 14,
+                        ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Teléfono",
+                          style: TextStyle(color: BrandColors.hof),
+                        ),
+                      ]),
                       StreamBuilder(
                           stream: _leaseBloc.tenantPhoneStream,
                           builder: (context, AsyncSnapshot snapshot) {
@@ -281,16 +311,26 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      const Text(
-                        "Correo electrónico",
-                        style: TextStyle(color: BrandColors.hof),
-                      ),
+                      Row(children: const [
+                        Icon(
+                          Icons.mail_outline,
+                          color: BrandColors.hof,
+                          size: 14,
+                        ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Correo electrónico",
+                          style: TextStyle(color: BrandColors.hof),
+                        ),
+                      ]),
                       StreamBuilder(
                           stream: _leaseBloc.tenantEmailStream,
                           builder: (context, AsyncSnapshot snapshot) {
                             return FormTextField(
                                 changeStream: _leaseBloc.changeTenantEmail,
-                                fieldHintText: 'Ingrese el correo electrónico');
+                                fieldHintText: 'Opcional');
                           }),
                       const SizedBox(
                         height: 22,

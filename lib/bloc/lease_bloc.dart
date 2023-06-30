@@ -103,7 +103,7 @@ class LeaseBloc with Validators {
         tenantLastnameStream,
         tenantUsernameStream,
         tenantPhoneStream,
-        tenantEmailStream
+        // tenantEmailStream
       ], (_) => true);
 
   Future getRentClass() async {
