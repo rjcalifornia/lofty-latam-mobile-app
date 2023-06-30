@@ -3,11 +3,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/validators/validators.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -175,6 +177,63 @@ class PropertiesBloc with Validators {
     final lease = Lease.fromJson(leaseParsed);
 
     return lease;
+  }
+
+  Future storePropertyPicture(payload, propertyId, context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    final url = Uri.parse('${authEndpoint}api/v1/property/pictures/store');
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: LoadingAnimationWidget.inkDrop(
+                color: BrandColors.arches, size: 38),
+          );
+        });
+    try {
+      var request = http.MultipartRequest('POST', url);
+      // request.files.add(await http.MultipartFile.fromBytes(
+      //   'property_picture',
+      //   payload,
+      // ));
+
+      request.fields["extension"] = "jpg";
+      request.fields["property_id"] = "$propertyId";
+      request.fields["property_picture"] = "$payload";
+
+      Map<String, String> headers = {"Authorization": "Bearer $accessToken"};
+      request.headers.addAll(headers);
+
+      request.send().then((response) {
+        print("test");
+        print(response.statusCode);
+        Navigator.of(context).pop();
+        if (response.statusCode == 200) print("Uploaded!");
+      });
+      // var propertyJson = await http.post(
+      //     Uri.parse('${authEndpoint}api/v1/property/pictures/store'),
+      //     body: {
+      //       "property_picture": payload,
+      //       "extension": "jpg",
+      //       "property_id": propertyId
+      //     },
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //       "Accept": "application/json",
+      //       'Authorization': 'Bearer $accessToken',
+      //     }).timeout(const Duration(seconds: 5),
+      //     onTimeout: () => throw TimeoutException(
+      //         'No se puede conectar, intente más tarde.'));
+
+      // var auth = await json.decode(propertyJson.body);
+      // var status = propertyJson.statusCode.toString();
+      // print('cargando');
+      // print(status);
+    } catch (e) {
+      Navigator.of(context).pop();
+    }
   }
 
   Future<void> createProperty(var context) async {

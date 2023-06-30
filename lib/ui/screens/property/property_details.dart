@@ -1,13 +1,19 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, sized_box_for_whitespace
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/ui/screens/property/create_lease.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
 import 'package:home_management_app/ui/widgets/home_services_container.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PropertyDetailsScreen extends StatefulWidget {
@@ -25,8 +31,11 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   bool loader = false;
   Future? getDetails;
   String? accessToken;
+  File? image;
 
   Property? propertyDetails;
+  Uint8List? _imageBytesData;
+
   Future<bool> _getProperty() async {
     final getPropertyDetails =
         await _propertiesBloc.getPropertyDetails(widget.id);
@@ -42,6 +51,32 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
     setState(() {
       accessToken = widget.accessToken.toString();
     });
+  }
+
+  Future pickImage(context) async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final selectedImage = File(image.path);
+
+      final response = await FlutterImageCompress.compressWithFile(
+        selectedImage.absolute.path,
+        minWidth: 720,
+        minHeight: 480,
+        quality: 60.truncate(),
+      );
+      //_imageBytesData = selectedImage.readAsBytesSync();
+      String base64Image = base64Encode(response!);
+
+      _propertiesBloc.storePropertyPicture(
+          base64Image, propertyDetails!.id, context);
+      await _getProperty();
+      setState(() {
+        getDetails = _getProperty();
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
   }
 
   @override
@@ -151,9 +186,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         color: Colors.white,
                                       ),
                                       onPressed: () {
-                                        setState(() {
-                                          getDetails = _getProperty();
-                                        });
+                                        pickImage(context);
                                       },
                                     ),
                                   )),
