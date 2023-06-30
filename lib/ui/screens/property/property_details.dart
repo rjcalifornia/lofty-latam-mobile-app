@@ -34,7 +34,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   File? image;
 
   Property? propertyDetails;
-  Uint8List? _imageBytesData;
 
   Future<bool> _getProperty() async {
     final getPropertyDetails =
@@ -63,9 +62,9 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
         selectedImage.absolute.path,
         minWidth: 720,
         minHeight: 480,
-        quality: 60.truncate(),
+        quality: 50.truncate(),
       );
-      //_imageBytesData = selectedImage.readAsBytesSync();
+
       String base64Image = base64Encode(response!);
 
       _propertiesBloc.storePropertyPicture(

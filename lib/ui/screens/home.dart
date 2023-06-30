@@ -92,19 +92,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Column(
                   children: [
                     listProperties?.isEmpty == false
-                        ? SizedBox(
-                            height: MediaQuery.of(context).size.height / 2.5,
-                            child: ListView.builder(
-                                physics: const ClampingScrollPhysics(),
-                                itemCount: listProperties?.length,
-                                itemBuilder: (ctx, i) {
-                                  return PropertiesContainer(
-                                    id: i,
-                                    property: listProperties,
-                                    token: accessToken,
-                                  );
-                                }),
-                          )
+                        ? RefreshIndicator(
+                            onRefresh: () {
+                              return _getPropertiesList();
+                            },
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height / 2.5,
+                              child: ListView.builder(
+                                  physics: const ClampingScrollPhysics(),
+                                  itemCount: listProperties?.length,
+                                  itemBuilder: (ctx, i) {
+                                    return PropertiesContainer(
+                                      id: i,
+                                      property: listProperties,
+                                      token: accessToken,
+                                    );
+                                  }),
+                            ))
                         : const Text('No se encontraron datos'),
                   ],
                 );
