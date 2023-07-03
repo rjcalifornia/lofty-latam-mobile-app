@@ -32,6 +32,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   Future? getDetails;
   String? accessToken;
   File? image;
+  dynamic selectedItem;
 
   Property? propertyDetails;
 
@@ -203,13 +204,61 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       onPressed: () => Navigator.pop(context),
                                     ),
                                     const Spacer(),
+                                    PopupMenuButton(
+                                      color: Colors.white,
+                                      onSelected: (value) {},
+                                      itemBuilder: (BuildContext ctx) {
+                                        return [
+                                          PopupMenuItem(
+                                            value: 'edit-property',
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.edit_outlined,
+                                                      color: BrandColors.foggy,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 3,
+                                                    ),
+                                                    Text(
+                                                      "Editar",
+                                                      style: TextStyle(
+                                                          color: BrandColors
+                                                              .foggy),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          PopupMenuItem(
+                                            value: 'delete',
+                                            child: Column(children: [
+                                              Row(children: const [
+                                                Icon(
+                                                  Icons.delete_forever_outlined,
+                                                  color: BrandColors.foggy,
+                                                ),
+                                                SizedBox(
+                                                  width: 3,
+                                                ),
+                                                Text("Eliminar")
+                                              ])
+                                            ]),
+                                          )
+                                        ];
+                                      },
+                                    ),
+                                    /*
                                     IconButton(
                                       icon: const Icon(
                                         Icons.edit_outlined,
                                         color: Colors.white,
                                       ),
                                       onPressed: () {},
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                               ),

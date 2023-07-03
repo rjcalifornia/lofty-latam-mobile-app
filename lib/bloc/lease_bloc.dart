@@ -153,7 +153,7 @@ class LeaseBloc with Validators {
             "tenant_lastname": tenantLastname.toString(),
             "tenant_username": tenantUsername.toString(),
             "tenant_phone": tenantPhone.toString(),
-            "tenant_email": tenantEmail.toString(),
+            //  "tenant_email": tenantEmail!.isEmpty ? '' : tenantEmail.toString(),
           }),
           headers: {
             "Content-Type": "application/json; charset=utf-8",
