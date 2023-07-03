@@ -10,7 +10,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
-import 'package:home_management_app/ui/screens/property/create_lease.dart';
+import 'package:home_management_app/ui/screens/lease/create_lease.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
 import 'package:home_management_app/ui/widgets/home_services_container.dart';
 import 'package:image_picker/image_picker.dart';
@@ -210,7 +210,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       itemBuilder: (BuildContext ctx) {
                                         return [
                                           PopupMenuItem(
-                                            value: 'edit-property',
+                                            onTap: () {},
                                             child: Column(
                                               children: [
                                                 Row(

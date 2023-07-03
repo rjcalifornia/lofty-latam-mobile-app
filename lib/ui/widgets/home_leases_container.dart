@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/screens/property/lease_details.dart';
+import 'package:home_management_app/ui/screens/lease/lease_details.dart';
 
 class HomeLeasesContainer extends StatelessWidget {
   final propertyDetails;
