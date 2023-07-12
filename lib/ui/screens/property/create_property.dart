@@ -448,8 +448,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: const [
-                                        Icon(Icons.beenhere_outlined, size: 28),
-                                        SizedBox(width: 8),
                                         Text("Almacenar datos",
                                             style: TextStyle(fontSize: 22)),
                                       ],

@@ -11,7 +11,7 @@ import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/ui/screens/lease/create_lease.dart';
-import 'package:home_management_app/ui/screens/property/edit-property.dart';
+import 'package:home_management_app/ui/screens/property/edit_property.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
 import 'package:home_management_app/ui/widgets/home_services_container.dart';
 import 'package:image_picker/image_picker.dart';
@@ -211,6 +211,9 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       itemBuilder: (BuildContext ctx) {
                                         return [
                                           PopupMenuItem(
+                                            //Yeah this is the only way
+                                            //to navigate without a named route:
+                                            //https://github.com/flutter/flutter/issues/87766
                                             onTap: () => WidgetsBinding.instance
                                                 .addPostFrameCallback((_) {
                                               Navigator.push(
@@ -231,7 +234,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                   children: const [
                                                     Icon(
                                                       Icons.edit_outlined,
-                                                      color: BrandColors.foggy,
+                                                      color: BrandColors.hof,
                                                     ),
                                                     SizedBox(
                                                       width: 3,
@@ -239,8 +242,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                     Text(
                                                       "Editar",
                                                       style: TextStyle(
-                                                          color: BrandColors
-                                                              .foggy),
+                                                          color:
+                                                              BrandColors.hof),
                                                     ),
                                                   ],
                                                 )
@@ -253,12 +256,16 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               Row(children: const [
                                                 Icon(
                                                   Icons.delete_forever_outlined,
-                                                  color: BrandColors.foggy,
+                                                  color: BrandColors.hof,
                                                 ),
                                                 SizedBox(
                                                   width: 3,
                                                 ),
-                                                Text("Eliminar")
+                                                Text(
+                                                  "Eliminar",
+                                                  style: TextStyle(
+                                                      color: BrandColors.hof),
+                                                )
                                               ])
                                             ]),
                                           )
