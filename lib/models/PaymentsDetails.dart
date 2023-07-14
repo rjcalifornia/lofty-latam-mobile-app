@@ -7,6 +7,7 @@ class PaymentsDetails {
   String? paymentDate;
   String? monthCancelled;
   String? payment;
+  String? additionalNote;
   String? userCreates;
   Null? userModifies;
   String? createdAt;
@@ -21,6 +22,7 @@ class PaymentsDetails {
       this.paymentDate,
       this.monthCancelled,
       this.payment,
+      this.additionalNote,
       this.userCreates,
       this.userModifies,
       this.createdAt,
@@ -39,6 +41,7 @@ class PaymentsDetails {
     paymentDate = json['payment_date'];
     monthCancelled = json['month_cancelled'];
     payment = json['payment'];
+    additionalNote = json['additional_note'];
     userCreates = json['user_creates'];
     userModifies = json['user_modifies'];
     createdAt = json['created_at'];
@@ -59,6 +62,7 @@ class PaymentsDetails {
     data['payment_date'] = this.paymentDate;
     data['month_cancelled'] = this.monthCancelled;
     data['payment'] = this.payment;
+    data['additional_note'] = this.additionalNote;
     data['user_creates'] = this.userCreates;
     data['user_modifies'] = this.userModifies;
     data['created_at'] = this.createdAt;

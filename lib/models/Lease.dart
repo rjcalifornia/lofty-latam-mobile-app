@@ -376,6 +376,7 @@ class Payments {
   String? paymentDate;
   int? monthCancelled;
   String? payment;
+  String? additionalNote;
   String? uuid;
   int? userCreates;
   Null? userModifies;
@@ -391,6 +392,7 @@ class Payments {
       this.paymentDate,
       this.monthCancelled,
       this.payment,
+      this.additionalNote,
       this.uuid,
       this.userCreates,
       this.userModifies,
@@ -410,6 +412,7 @@ class Payments {
     paymentDate = json['payment_date'];
     monthCancelled = json['month_cancelled'];
     payment = json['payment'];
+    additionalNote = json['additional_note'];
     uuid = json['uuid'];
     userCreates = json['user_creates'];
     userModifies = json['user_modifies'];
@@ -431,6 +434,7 @@ class Payments {
     data['payment_date'] = this.paymentDate;
     data['month_cancelled'] = this.monthCancelled;
     data['payment'] = this.payment;
+    data['additional_note'] = this.additionalNote;
     data['uuid'] = this.uuid;
     data['user_creates'] = this.userCreates;
     data['user_modifies'] = this.userModifies;
