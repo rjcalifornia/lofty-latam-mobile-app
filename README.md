@@ -17,6 +17,8 @@
 * * Con la consola de comandos (CLI), ir a la carpeta root de la app y ejecutar el comando ``` flutter pub get ```. Esto instalara las librerias necesarias para el funcionamiento de la app
 * Una vez se haya terminado de instalar las librerias, ya podra ejecutar la App con Visual Studio
 
+## Generar APK
+* Con la consola de comandos (CLI), ejecutar el comando ``` flutter build apk --release ``` para generar un APK de pruebas en dispositivos Android.
 
 ## Graficos
 
