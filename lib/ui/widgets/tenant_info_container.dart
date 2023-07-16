@@ -42,7 +42,7 @@ class TenantInfoContainer extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Row(
+        const Row(
           children: [
             Text(
               "Información del contrato",

@@ -74,7 +74,7 @@ class HomeOptionsContainer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CreatePropertyScreen(),
+                        builder: (context) => const CreatePropertyScreen(),
                       ),
                     );
                   },

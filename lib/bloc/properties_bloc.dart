@@ -207,10 +207,8 @@ class PropertiesBloc with Validators {
       request.headers.addAll(headers);
 
       request.send().then((response) {
-        print("test");
-        print(response.statusCode);
         Navigator.of(context).pop();
-        if (response.statusCode == 200) print("Uploaded!");
+        //  if (response.statusCode == 200) print("Uploaded!");
       });
       // var propertyJson = await http.post(
       //     Uri.parse('${authEndpoint}api/v1/property/pictures/store'),

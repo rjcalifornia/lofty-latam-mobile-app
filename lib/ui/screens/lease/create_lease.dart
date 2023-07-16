@@ -154,8 +154,8 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Icon(
                             Icons.payment_outlined,
                             color: BrandColors.hof,
@@ -182,8 +182,8 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Icon(
                             Icons.account_balance_wallet_outlined,
                             color: BrandColors.hof,
@@ -210,8 +210,8 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Icon(
                             Icons.person_outlined,
                             color: BrandColors.hof,
@@ -237,7 +237,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Row(children: const [
+                      const Row(children: [
                         Icon(
                           Icons.person_outlined,
                           color: BrandColors.hof,
@@ -262,7 +262,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Row(children: const [
+                      const Row(children: [
                         Icon(
                           Icons.badge_outlined,
                           color: BrandColors.hof,
@@ -287,7 +287,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Row(children: const [
+                      const Row(children: [
                         Icon(
                           Icons.call_outlined,
                           color: BrandColors.hof,
@@ -311,7 +311,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Row(children: const [
+                      const Row(children: [
                         Icon(
                           Icons.mail_outline,
                           color: BrandColors.hof,
@@ -355,9 +355,9 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 24, vertical: 12),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Text("Guardar contrato",
                                         style: TextStyle(fontSize: 22)),
                                   ],

@@ -20,11 +20,11 @@ class NotificationsContainer extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.all(15),
                 padding: const EdgeInsets.all(25),
-                child: Row(
+                child: const Row(
                   children: [
                     Expanded(
                         child: Column(
-                      children: const [
+                      children: [
                         Text(
                           "No hay notificaciones pendientes",
                           style:

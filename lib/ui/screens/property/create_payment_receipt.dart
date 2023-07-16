@@ -176,7 +176,6 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                           hint: const Center(
                               child: Text("Seleccione el tipo de pago")),
                           items: paymentType.map((item) {
-                            //print(item['id']);
                             return DropdownMenuItem(
                               value: item.id.toString(),
                               child: Center(
@@ -185,13 +184,9 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                             );
                           }).toList(),
                           onChanged: (value) {
-                            //bloc.changeMonthCancelled(value.toString());
                             _paymentsBloc.changePaymentType(value.toString());
                             setState(() {
                               selectedPaymentType = value.toString();
-                              // print(selectedMonth);
-                              //print(selectedMonth);
-                              //print(bloc.getMonthCancelled);
                             });
                           },
                           value: selectedPaymentType,
@@ -235,8 +230,8 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                     if (!snapshot.hasData) {
                       // ignore: avoid_unnecessary_containers
                       return Container(
-                        child: Column(
-                          children: const [
+                        child: const Column(
+                          children: [
                             Text(
                               "Complete todos los datos requeridos",
                               style: TextStyle(color: BrandColors.hof),
@@ -258,9 +253,9 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 12),
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text("Guardar pago",
                                 style: TextStyle(fontSize: 22)),
                           ],

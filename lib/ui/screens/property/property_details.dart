@@ -134,7 +134,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   color: const Color(0xffFF5A5F),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15.0),
-                                  child: Row(children: const []),
+                                  child: const Row(children: []),
                                 ),
                               ),
                               Positioned(
@@ -228,10 +228,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                 ),
                                               );
                                             }),
-                                            child: Column(
+                                            child: const Column(
                                               children: [
                                                 Row(
-                                                  children: const [
+                                                  children: [
                                                     Icon(
                                                       Icons.edit_outlined,
                                                       color: BrandColors.hof,
@@ -250,10 +250,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                           ),
-                                          PopupMenuItem(
+                                          const PopupMenuItem(
                                             value: 'delete',
                                             child: Column(children: [
-                                              Row(children: const [
+                                              Row(children: [
                                                 Icon(
                                                   Icons.delete_forever_outlined,
                                                   color: BrandColors.hof,
@@ -418,10 +418,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         fontWeight: FontWeight.bold),
                               ),
                               propertyDetails!.leases!.isEmpty
-                                  ? Column(
+                                  ? const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      children: const [
+                                      children: [
                                         SizedBox(
                                           height: 20,
                                         ),

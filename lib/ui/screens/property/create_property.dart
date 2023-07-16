@@ -53,8 +53,8 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 5.4,
                         width: double.infinity,
-                        child: Stack(
-                          children: const [
+                        child: const Stack(
+                          children: [
                             Positioned.fill(child: CreatePropertyFancyHeader())
                           ],
                         ),
@@ -396,8 +396,8 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 if (!snapshot.hasData) {
                                   // ignore: avoid_unnecessary_containers
                                   return Container(
-                                    child: Column(
-                                      children: const [
+                                    child: const Column(
+                                      children: [
                                         Center(
                                           child: Text(
                                             "Complete todos los datos requeridos",
@@ -444,10 +444,10 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 24, vertical: 12),
                                     ),
-                                    child: Row(
+                                    child: const Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: const [
+                                      children: [
                                         Text("Almacenar datos",
                                             style: TextStyle(fontSize: 22)),
                                       ],
