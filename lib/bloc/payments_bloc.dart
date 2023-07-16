@@ -24,11 +24,14 @@ class PaymentsBloc with Validators {
   final _paymentController = BehaviorSubject<String>();
   final _paymentTypeController = BehaviorSubject<String>();
   final _monthCancelledController = BehaviorSubject<String>();
+  final _additionalNoteController = BehaviorSubject<String>();
 
   Function(String) get changePayment => _paymentController.sink.add;
   Function(String) get changePaymentType => _paymentTypeController.sink.add;
   Function(String) get changeMonthCancelled =>
       _monthCancelledController.sink.add;
+  Function(String) get changeAdditionalNote =>
+      _additionalNoteController.sink.add;
 
   Stream<String> get paymentStream =>
       _paymentController.stream.transform(validatePayment);
@@ -39,9 +42,13 @@ class PaymentsBloc with Validators {
   Stream<String> get monthCancelledStream =>
       _monthCancelledController.stream.transform(validatePaymentFields);
 
+  Stream<String> get additionalNoteStream =>
+      _additionalNoteController.stream.transform(validatePaymentFields);
+
   String? get payment => _paymentController.value;
   String? get paymentType => _paymentTypeController.value;
   String? get monthCancelled => _monthCancelledController.value;
+  String? get additionalNote => _additionalNoteController.value;
 
   // Stream transformers
   Stream<bool> get verifyPaymentData => CombineLatestStream.combine3(
@@ -88,6 +95,7 @@ class PaymentsBloc with Validators {
   Future<void> generateReceipt(var context, leaseId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
+    String? getAdditionalNote = "";
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -97,6 +105,9 @@ class PaymentsBloc with Validators {
                 color: BrandColors.arches, size: 38),
           );
         });
+    if (_additionalNoteController.hasValue) {
+      getAdditionalNote = additionalNote.toString();
+    }
     try {
       var paymentJson = await http
           .post(Uri.parse('${authEndpoint}api/v1/payments/store-rent-payment'),
@@ -105,6 +116,7 @@ class PaymentsBloc with Validators {
                 "month_cancelled": monthCancelled.toString(),
                 "payment": payment.toString(),
                 "lease_id": leaseId.toString(),
+                "additional_note": getAdditionalNote.toString()
               }),
               headers: {
             "Content-Type": "application/json; charset=utf-8",

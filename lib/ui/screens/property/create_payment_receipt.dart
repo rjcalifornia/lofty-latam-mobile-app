@@ -139,9 +139,6 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                                 .changeMonthCancelled(value.toString());
                             setState(() {
                               selectedMonth = value.toString();
-                              // print(selectedMonth);
-                              //print(selectedMonth);
-                              //print(bloc.getMonthCancelled);
                             });
                           },
                           value: selectedMonth,
@@ -221,6 +218,27 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                     );
                   },
                 ),
+                const SizedBox(
+                  height: 18,
+                ),
+                const Text(
+                  "Nota adicional",
+                  style: TextStyle(color: BrandColors.hof),
+                ),
+                StreamBuilder(
+                    stream: _paymentsBloc.paymentStream,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return TextField(
+                        minLines: 2, //or null
+                        maxLines: null,
+                        onChanged: _paymentsBloc.changeAdditionalNote,
+                        decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1, color: BrandColors.hof)),
+                            hintText: "(Campo opcional)"),
+                      );
+                    }),
                 const SizedBox(
                   height: 40,
                 ),
