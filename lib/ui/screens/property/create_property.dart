@@ -268,7 +268,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                       });
                                     },
                                     secondary:
-                                        const Icon(Icons.kitchen_outlined),
+                                        const Icon(Icons.soup_kitchen_outlined),
                                   );
                                 }),
                             const Divider(height: 0),
