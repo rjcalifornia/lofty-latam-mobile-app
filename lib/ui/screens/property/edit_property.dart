@@ -24,6 +24,18 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
   bool garage = false;
 
   void setValues() {
+    setState(() {
+      _propertyBloc.changeName(widget.property!.name.toString());
+
+      _propertyBloc.changeAddress(widget.property!.address.toString());
+
+      _propertyBloc.changeBedrooms(widget.property!.bedrooms.toString());
+
+      _propertyBloc.changeBeds(widget.property!.beds.toString());
+
+      _propertyBloc.changeBathrooms(widget.property!.bathrooms.toString());
+    });
+
     if (widget.property!.hasWifi == true) {
       setState(() {
         wifi = true;
@@ -395,13 +407,71 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                         );
                       }),
                   const SizedBox(
-                    height: 12,
+                    height: 16,
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        print(_propertyBloc.name);
-                      },
-                      child: Text('Prueba'))
+                  StreamBuilder(
+                    stream: _propertyBloc.verifyPropertyData,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        // ignore: avoid_unnecessary_containers
+                        return Container(
+                          child: const Column(
+                            children: [
+                              Center(
+                                child: Text(
+                                  "Complete todos los datos requeridos",
+                                  style: TextStyle(color: BrandColors.foggy),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      } else {
+                        return ElevatedButton(
+                          onPressed: () {
+                            _propertyBloc
+                                .changeWifi((wifi == true ? 1 : 0).toString());
+                            _propertyBloc.changeDinning(
+                                (dinningTable == true ? 1 : 0).toString());
+                            _propertyBloc.changeAirConditioner(
+                                (ac == true ? 1 : 0).toString());
+                            _propertyBloc.changeKitchen(
+                                (kitchen == true ? 1 : 0).toString());
+                            _propertyBloc.changeDishSink(
+                                (sink == true ? 1 : 0).toString());
+                            _propertyBloc.changeFridge(
+                                (fridge == true ? 1 : 0).toString());
+                            _propertyBloc
+                                .changeTv((tv == true ? 1 : 0).toString());
+                            _propertyBloc.changeFurniture(
+                                (furniture == true ? 1 : 0).toString());
+                            _propertyBloc.changeGarage(
+                                (garage == true ? 1 : 0).toString());
+
+                            _propertyBloc.updateProperty(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: BrandColors.arches,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 12),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Actualizar datos",
+                                  style: TextStyle(fontSize: 22)),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  )
                 ],
               ),
             ),

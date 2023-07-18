@@ -13,7 +13,7 @@
 
 * Con la consola de comandos (CLI), ejecutar el comando ``` flutter doctor ``` para verificar que cumple con todos los prerequisitos de Flutter
 * Clonar este repositorio
-* Copiar archivo ``` pago_facil_app.dart.example ``` como ``` pago_facil_app.dart ``` y configurar los endpoints correctamente
+* Copiar archivo ``` env.dart.example ``` como ``` env.dart ``` y configurar los endpoints correctamente
 * * Con la consola de comandos (CLI), ir a la carpeta root de la app y ejecutar el comando ``` flutter pub get ```. Esto instalara las librerias necesarias para el funcionamiento de la app
 * Una vez se haya terminado de instalar las librerias, ya podra ejecutar la App con Visual Studio
 
