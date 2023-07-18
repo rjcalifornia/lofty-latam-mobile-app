@@ -363,6 +363,40 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                   const SizedBox(
                     height: 12,
                   ),
+                  StreamBuilder(
+                      stream: _propertyBloc.furnitureStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return SwitchListTile(
+                          title: const Text('¿Tiene muebles de sala?'),
+                          value: furniture,
+                          onChanged: (bool value) {
+                            setState(() {
+                              furniture = value;
+                            });
+                          },
+                          secondary: const Icon(Icons.weekend_outlined),
+                        );
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  StreamBuilder(
+                      stream: _propertyBloc.garageStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return SwitchListTile(
+                          title: const Text('¿Tiene cochera?'),
+                          value: garage,
+                          onChanged: (bool value) {
+                            setState(() {
+                              garage = value;
+                            });
+                          },
+                          secondary: const Icon(Icons.garage_outlined),
+                        );
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
                   ElevatedButton(
                       onPressed: () {
                         print(_propertyBloc.name);

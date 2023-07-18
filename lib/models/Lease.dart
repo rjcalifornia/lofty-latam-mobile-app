@@ -116,6 +116,7 @@ class TenantId {
   Null? userModifies;
   String? createdAt;
   String? updatedAt;
+  String? tenantFullName;
 
   TenantId(
       {this.id,
@@ -128,7 +129,8 @@ class TenantId {
       this.userCreates,
       this.userModifies,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.tenantFullName});
 
   TenantId.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -142,6 +144,7 @@ class TenantId {
     userModifies = json['user_modifies'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    tenantFullName = json['tenant_full_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -157,6 +160,7 @@ class TenantId {
     data['user_modifies'] = this.userModifies;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['tenant_full_name'] = this.tenantFullName;
     return data;
   }
 }
@@ -172,7 +176,7 @@ class PropertyId {
   bool? hasKitchen;
   bool? hasDinningRoom;
   bool? hasSink;
-  Null? hasWifi;
+  bool? hasWifi;
   bool? hasFridge;
   bool? hasTv;
   bool? hasFurniture;
