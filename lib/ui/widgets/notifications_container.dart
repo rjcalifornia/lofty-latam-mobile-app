@@ -7,8 +7,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class NotificationsContainer extends StatelessWidget {
   final List? notifications;
   Future? loadNotifications;
+  final String? emptyMessage;
   NotificationsContainer(
-      {super.key, this.notifications, this.loadNotifications});
+      {super.key,
+      this.notifications,
+      this.loadNotifications,
+      this.emptyMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +24,13 @@ class NotificationsContainer extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.all(15),
                 padding: const EdgeInsets.all(25),
-                child: const Row(
+                child: Row(
                   children: [
                     Expanded(
                         child: Column(
                       children: [
                         Text(
-                          "No hay notificaciones pendientes",
+                          emptyMessage.toString(),
                           style:
                               TextStyle(color: BrandColors.foggy, fontSize: 18),
                         )

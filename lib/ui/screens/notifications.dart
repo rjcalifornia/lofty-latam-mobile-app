@@ -72,28 +72,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ]),
           ),
           body: TabBarView(children: [
-            NotificationsContainer(
-              notifications: notifications,
-              loadNotifications: loadNotifications,
-            ),
-            Container(
-              margin: const EdgeInsets.all(15),
-              padding: const EdgeInsets.all(25),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Column(
-                    children: const [
-                      Text(
-                        "No hay alertas pendientes",
-                        style:
-                            TextStyle(color: BrandColors.foggy, fontSize: 18),
-                      )
-                    ],
-                  ))
-                ],
+            RefreshIndicator(
+              onRefresh: () {
+                return getNotifications();
+              },
+              child: NotificationsContainer(
+                notifications: notifications,
+                loadNotifications: loadNotifications,
+                emptyMessage: "No hay notificaciones pendientes",
               ),
-            )
+            ),
+            RefreshIndicator(
+              onRefresh: () {
+                return getNotifications();
+              },
+              child: NotificationsContainer(
+                notifications: alerts,
+                loadNotifications: loadNotifications,
+                emptyMessage: "No hay alertas pendientes",
+              ),
+            ),
           ]),
         ));
   }
