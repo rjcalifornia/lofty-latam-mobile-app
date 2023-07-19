@@ -308,6 +308,7 @@ class PropertiesBloc with Validators {
     }
   }
 
+  Future<void> updateProperty(var context) async {}
   Future getUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // ignore: prefer_typing_uninitialized_variables
