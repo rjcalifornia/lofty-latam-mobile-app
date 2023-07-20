@@ -10,6 +10,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
+import 'package:home_management_app/ui/screens/app.dart';
 import 'package:home_management_app/ui/screens/lease/create_lease.dart';
 import 'package:home_management_app/ui/screens/property/edit_property.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
@@ -76,7 +77,23 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
         getDetails = _getProperty();
       });
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+      //print('Failed to pick image: $e');
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
     }
   }
 
@@ -202,7 +219,14 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         Icons.chevron_left,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () => Navigator.pop(context),
+                                      onPressed: () {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AppPage()),
+                                        );
+                                      },
                                     ),
                                     const Spacer(),
                                     PopupMenuButton(

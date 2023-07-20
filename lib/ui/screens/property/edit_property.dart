@@ -91,9 +91,6 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _propertyBloc.changeName(widget.property!.name!.toString());
-    _propertyBloc.changeAddress(widget.property!.address!.toString());
-
     return GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
