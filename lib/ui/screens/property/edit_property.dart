@@ -448,7 +448,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                             _propertyBloc.changeGarage(
                                 (garage == true ? 1 : 0).toString());
 
-                            _propertyBloc.updateProperty(context);
+                            _propertyBloc.updateProperty(
+                                widget.property!.id, context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: BrandColors.arches,
