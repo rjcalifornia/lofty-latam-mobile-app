@@ -8,6 +8,7 @@ import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/ui/screens/property/property_details.dart';
 import 'package:home_management_app/validators/validators.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
@@ -308,7 +309,116 @@ class PropertiesBloc with Validators {
     }
   }
 
-  Future<void> updateProperty(var context) async {}
+  Future<void> updateProperty(propertyId, context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //print(name.toString());
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: LoadingAnimationWidget.inkDrop(
+                color: BrandColors.arches, size: 38),
+          );
+        });
+    final accessToken = prefs.getString("access_token");
+    try {
+      var propertyJson = await http.patch(
+          Uri.parse('${authEndpoint}api/v1/property/${propertyId}/update'),
+          body: json.encode({
+            "name": name.toString(),
+            "address": address.toString(),
+            "bedrooms": bedrooms.toString(),
+            "beds": beds.toString(),
+            "bathrooms": bathrooms.toString(),
+            "has_ac": airConditioner.toString(),
+            "has_kitchen": kitchen.toString(),
+            "has_dinning_room": dinning.toString(),
+            "has_sink": dishSink.toString(),
+            "has_fridge": fridge.toString(),
+            "has_tv": tv.toString(),
+            "has_furniture": furniture.toString(),
+            "has_garage": garage.toString(),
+            "has_wifi": wifi.toString(),
+          }),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5),
+          onTimeout: () => throw TimeoutException(
+              'No se puede conectar, intente más tarde.'));
+
+      dynamic jsonBody = await json.decode(propertyJson.body);
+
+      var status = propertyJson.statusCode.toString();
+      Navigator.of(context).pop();
+      if (status == '200') {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: Text("Datos actualizados correctamente"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        // Navigator.of(context).pop(context);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PropertyDetailsScreen(
+                              id: propertyId,
+                              accessToken: accessToken,
+                            ),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      } else {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: Text(jsonBody['message'].toString()),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      }
+    } catch (e) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    }
+  }
+
   Future getUserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // ignore: prefer_typing_uninitialized_variables
