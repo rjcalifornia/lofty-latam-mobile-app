@@ -6,6 +6,7 @@ import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/ui/utils/datepickerField.dart';
 import 'package:home_management_app/ui/utils/formTextField.dart';
 import 'package:home_management_app/ui/utils/moneyField.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CreateLeaseScreen extends StatefulWidget {
   final Property? property;
@@ -25,6 +26,10 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
   dynamic contractDate = TextEditingController();
   dynamic paymentDate = TextEditingController();
   dynamic expirationDate = TextEditingController();
+  dynamic duiFormatter = MaskTextInputFormatter(
+      mask: '########-#',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   Future _getLeaseData() async {
     final rentClassJson = await _leaseBloc.getRentClass();
@@ -279,10 +284,18 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       StreamBuilder(
                           stream: _leaseBloc.tenantUsernameStream,
                           builder: (context, AsyncSnapshot snapshot) {
-                            return FormTextField(
-                                changeStream: _leaseBloc.changeTenantUsername,
-                                fieldHintText:
-                                    'Ingrese el número de DUI del arrendatario');
+                            return TextField(
+                              onChanged: _leaseBloc.changeTenantUsername,
+                              inputFormatters: [duiFormatter],
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: const Color(0xfff6f6f6),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: BorderSide.none),
+                                  hintText:
+                                      'Ingrese el número de DUI del arrendatario'),
+                            );
                           }),
                       const SizedBox(
                         height: 22,
@@ -304,9 +317,18 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                       StreamBuilder(
                           stream: _leaseBloc.tenantPhoneStream,
                           builder: (context, AsyncSnapshot snapshot) {
-                            return FormTextField(
-                                changeStream: _leaseBloc.changeTenantPhone,
-                                fieldHintText: 'Ingrese el número de teléfono');
+                            return TextField(
+                                onChanged: _leaseBloc.changeTenantPhone,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: false),
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xfff6f6f6),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide.none),
+                                    hintText: 'Ingrese el número de teléfono'));
                           }),
                       const SizedBox(
                         height: 22,

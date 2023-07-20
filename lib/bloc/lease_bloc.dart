@@ -8,6 +8,7 @@ import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/ui/screens/app.dart';
+import 'package:home_management_app/ui/screens/property/property_details.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
@@ -194,7 +195,16 @@ class LeaseBloc with Validators {
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      Navigator.of(context).pop();
+                      //Navigator.of(context).pop();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PropertyDetailsScreen(
+                            id: propertyId,
+                            accessToken: accessToken,
+                          ),
+                        ),
+                      );
                     },
                     child: const Text("Aceptar"))
               ],

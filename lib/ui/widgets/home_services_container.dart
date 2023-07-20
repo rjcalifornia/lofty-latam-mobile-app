@@ -16,6 +16,7 @@ class HomeServicesContainer extends StatelessWidget {
     bool? hasSink = propertyDetails?.hasSink;
     bool? hasWifi = propertyDetails?.hasWifi;
     bool? hasTv = propertyDetails?.hasTv;
+    bool? hasFridge = propertyDetails?.hasFridge;
     bool? hasFurniture = propertyDetails?.hasFurniture;
     bool? hasAc = propertyDetails?.hasAc;
     bool? hasGarage = propertyDetails?.hasGarage;
@@ -57,6 +58,69 @@ class HomeServicesContainer extends StatelessWidget {
         const SizedBox(
           height: 6,
         ),
+        if (hasWifi == true)
+          Row(
+            children: [
+              const Icon(
+                Icons.wifi_outlined,
+                color: BrandColors.foggy,
+                size: 22,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Wifi',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: BrandColors.foggy, fontSize: 16),
+              ),
+            ],
+          ),
+        const SizedBox(
+          height: 3,
+        ),
+        if (hasAc == true)
+          Row(
+            children: [
+              const Icon(
+                Icons.ac_unit_outlined,
+                color: BrandColors.foggy,
+                size: 22,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Aire acondicionado',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: BrandColors.foggy, fontSize: 16),
+              ),
+            ],
+          ),
+        const SizedBox(
+          height: 3,
+        ),
+        if (hasKitchen == true)
+          Row(
+            children: [
+              const Icon(
+                Icons.soup_kitchen_outlined,
+                color: BrandColors.foggy,
+                size: 22,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Cocina',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: BrandColors.foggy, fontSize: 16),
+              ),
+            ],
+          ),
+        const SizedBox(
+          height: 3,
+        ),
         if (hasDinningRoom == true)
           Row(
             children: [
@@ -78,32 +142,11 @@ class HomeServicesContainer extends StatelessWidget {
         const SizedBox(
           height: 3,
         ),
-        if (hasKitchen == true)
-          Row(
-            children: [
-              const Icon(
-                Icons.dining_outlined,
-                color: BrandColors.foggy,
-                size: 22,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'Cocina',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: BrandColors.foggy, fontSize: 16),
-              ),
-            ],
-          ),
-        const SizedBox(
-          height: 3,
-        ),
         if (hasSink == true)
           Row(
             children: [
               const Icon(
-                Icons.flatware_outlined,
+                Icons.countertops_outlined,
                 color: BrandColors.foggy,
                 size: 22,
               ),
@@ -120,17 +163,17 @@ class HomeServicesContainer extends StatelessWidget {
         const SizedBox(
           height: 3,
         ),
-        if (hasWifi == true)
+        if (hasFridge == true)
           Row(
             children: [
               const Icon(
-                Icons.wifi_outlined,
+                Icons.kitchen_outlined,
                 color: BrandColors.foggy,
                 size: 22,
               ),
               const SizedBox(width: 8),
               Text(
-                'Wifi',
+                'Refrigeradora',
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium!
@@ -166,34 +209,13 @@ class HomeServicesContainer extends StatelessWidget {
           Row(
             children: [
               const Icon(
-                Icons.living_outlined,
+                Icons.weekend_outlined,
                 color: BrandColors.foggy,
                 size: 22,
               ),
               const SizedBox(width: 8),
               Text(
                 'Amueblada',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: BrandColors.foggy, fontSize: 16),
-              ),
-            ],
-          ),
-        const SizedBox(
-          height: 3,
-        ),
-        if (hasAc == true)
-          Row(
-            children: [
-              const Icon(
-                Icons.ac_unit_outlined,
-                color: BrandColors.foggy,
-                size: 22,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'Aire acondicionado',
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium!
