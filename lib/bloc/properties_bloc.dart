@@ -366,7 +366,7 @@ class PropertiesBloc with Validators {
                       onPressed: () {
                         Navigator.of(context).pop();
                         // Navigator.of(context).pop(context);
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => PropertyDetailsScreen(
@@ -374,7 +374,6 @@ class PropertiesBloc with Validators {
                               accessToken: accessToken,
                             ),
                           ),
-                          (Route<dynamic> route) => false,
                         );
                       },
                       child: const Text("Aceptar"))
