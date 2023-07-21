@@ -101,7 +101,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               decorationStyle: TextDecorationStyle.solid,
                             ),
                           ),
-                          onTap: () {}
+                          onTap: () {
+                            _dialogBuilder(context);
+                          }
                           /*
                 () => Navigator.push(
                     context,
@@ -246,6 +248,93 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               );
             }
           })),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Actualiza tu nombre'),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Row(children: [
+                  Icon(
+                    Icons.person_2_outlined,
+                    color: BrandColors.hof,
+                    size: 14,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "Nombres",
+                    style: TextStyle(color: BrandColors.hof),
+                  ),
+                ]),
+                TextField(
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color(0xfff6f6f6),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide.none),
+                        hintText: 'Nombres')),
+                const SizedBox(
+                  height: 22,
+                ),
+                const Row(children: [
+                  Icon(
+                    Icons.person_2_outlined,
+                    color: BrandColors.hof,
+                    size: 14,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "Apellidos",
+                    style: TextStyle(color: BrandColors.hof),
+                  ),
+                ]),
+                TextField(
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color(0xfff6f6f6),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide.none),
+                        hintText: 'Apellidos')),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Actualizar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
