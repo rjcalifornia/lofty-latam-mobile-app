@@ -10,12 +10,11 @@ class UserBloc with Validators {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
     try {
-      var paymentJson = await http.get(
-          Uri.parse('${authEndpoint}api/v1/administration/user/profile'),
-          headers: {
-            "Accept": "application/json",
-            'Authorization': 'Bearer $accessToken',
-          });
+      var paymentJson = await http
+          .get(Uri.parse('${authEndpoint}api/v1/user/profile'), headers: {
+        "Accept": "application/json",
+        'Authorization': 'Bearer $accessToken',
+      });
 
       final leaseParsed = json.decode(paymentJson.body);
       //print(leaseParsed);
