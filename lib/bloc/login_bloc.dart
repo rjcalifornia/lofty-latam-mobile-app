@@ -137,7 +137,7 @@ class LoginBloc with Validators {
     final token = prefs.getString('access_token');
     if (token != null) {
       final response =
-          await http.get(Uri.parse('${authEndpoint}api/user'), headers: {
+          await http.get(Uri.parse('${authEndpoint}api/v1/user/'), headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Accept": "application/json",
         "Authorization": "Bearer $token",
