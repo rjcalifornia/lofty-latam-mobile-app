@@ -26,6 +26,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     setState(() {
       user = personalInfo;
       loader = true;
+
+      userBloc.changeName(user!.name.toString());
+      userBloc.changeLastname(user!.lastname.toString());
     });
     return loader;
   }
@@ -145,7 +148,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               decorationStyle: TextDecorationStyle.solid,
                             ),
                           ),
-                          onTap: () {}
+                          onTap: () {
+                            phoneDialogBuilder(context);
+                          }
                           /*
                 () => Navigator.push(
                     context,
@@ -259,7 +264,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         return AlertDialog(
           title: const Text('Actualiza tu nombre'),
           content: SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
+            height: MediaQuery.of(context).size.height / 3.8,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -280,10 +285,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 StreamBuilder(
                     stream: userBloc.nameStream,
                     builder: (context, AsyncSnapshot snapshot) {
-                      return TextField(
+                      return TextFormField(
                           onChanged: userBloc.changeName,
+                          initialValue: user!.name,
                           decoration: InputDecoration(
-                            labelText: 'Escriba sus nombres',
                             filled: true,
                             fillColor: const Color(0xfff6f6f6),
                             border: OutlineInputBorder(
@@ -314,8 +319,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 StreamBuilder(
                     stream: userBloc.lastnameStream,
                     builder: (context, AsyncSnapshot snapshot) {
-                      return TextField(
+                      return TextFormField(
                           onChanged: userBloc.changeLastname,
+                          initialValue: user!.lastname,
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xfff6f6f6),
@@ -340,13 +346,139 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 Navigator.of(context).pop();
               },
             ),
+            StreamBuilder(
+              stream: userBloc.verifyFullName,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  // ignore: avoid_unnecessary_containers
+                  return Container(
+                    child: const Column(
+                      children: [
+                        Center(
+                          child: Text(
+                            "Complete todos los datos requeridos",
+                            style: TextStyle(color: BrandColors.foggy),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                } else {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text('Actualizar'),
+                    onPressed: () {
+                      //Navigator.of(context).pop();
+                      userBloc
+                          .updateUserInformation(context)
+                          .then((_) => setState(() {
+                                getPersonalInfo();
+                              }));
+                    },
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> phoneDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Actualiza tu número telefónico'),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height / 6,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Row(children: [
+                  Icon(
+                    Icons.person_2_outlined,
+                    color: BrandColors.hof,
+                    size: 14,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "Número de teléfono",
+                    style: TextStyle(color: BrandColors.hof),
+                  ),
+                ]),
+                StreamBuilder(
+                    stream: userBloc.nameStream,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return TextFormField(
+                          onChanged: userBloc.changeName,
+                          initialValue: user!.name,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xfff6f6f6),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide.none),
+                            errorText: snapshot.hasError
+                                ? snapshot.error.toString()
+                                : null,
+                          ));
+                    }),
+                const SizedBox(
+                  height: 22,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Actualizar'),
+              child: const Text('Cancelar'),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+            StreamBuilder(
+              stream: userBloc.verifyFullName,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  // ignore: avoid_unnecessary_containers
+                  return Container(
+                    child: const Column(
+                      children: [
+                        Center(
+                          child: Text(
+                            "Complete todos los datos requeridos",
+                            style: TextStyle(color: BrandColors.foggy),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                } else {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text('Actualizar'),
+                    onPressed: () {
+                      //Navigator.of(context).pop();
+                      userBloc
+                          .updateUserInformation(context)
+                          .then((_) => setState(() {
+                                getPersonalInfo();
+                              }));
+                    },
+                  );
+                }
               },
             ),
           ],

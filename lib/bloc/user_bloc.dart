@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/models/User.dart';
 import 'package:rxdart/rxdart.dart';
@@ -49,8 +52,58 @@ class UserBloc with Validators {
     }
   }
 
-  Future<void> updateName(var context, leaseId) async {
+  Future<void> updateUserInformation(var context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
+
+    dynamic payload;
+
+    if (_nameController.hasValue && _lastnameController.hasValue) {
+      payload = {"name": name.toString(), "lastname": lastname.toString()};
+    }
+
+    try {
+      var userUpdateJson = await http.patch(
+          Uri.parse('${authEndpoint}api/v1/user/update'),
+          body: json.encode(payload),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
+
+      Navigator.of(context).pop();
+
+      print(userUpdateJson.statusCode);
+
+      if (userUpdateJson.statusCode > 400) {
+        dynamic response = json.decode(userUpdateJson.body);
+        Exception(Text(response['message'].toString()));
+      }
+
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: const Text("Datos han sido actualizados correctamente."),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      //Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    } catch (e) {
+      Exception(e.toString());
+    }
   }
 }
