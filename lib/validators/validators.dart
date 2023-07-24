@@ -10,6 +10,15 @@ class Validators {
     }
   });
 
+  final simpleValidation =
+      StreamTransformer<String, String>.fromHandlers(handleData: (data, sink) {
+    if (data.length >= 3) {
+      sink.add(data);
+    } else {
+      sink.addError("Ingrese correctamente la información solicitada");
+    }
+  });
+
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (password, sink) {
     if (password.length > 4) {
