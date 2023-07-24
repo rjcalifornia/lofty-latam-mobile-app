@@ -12,7 +12,7 @@ class Validators {
 
   final simpleValidation =
       StreamTransformer<String, String>.fromHandlers(handleData: (data, sink) {
-    if (data.length >= 3) {
+    if (data.length > 2) {
       sink.add(data);
     } else {
       sink.addError("Ingrese correctamente la información solicitada");

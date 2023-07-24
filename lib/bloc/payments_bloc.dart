@@ -100,10 +100,30 @@ class PaymentsBloc with Validators {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-                color: BrandColors.arches, size: 38),
-          );
+          return Dialog(
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                          color: BrandColors.arches, size: 38),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      "Procesando, espere un momento por favor",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: BrandColors.foggy),
+                    )
+                  ],
+                ),
+              ));
         });
     if (_additionalNoteController.hasValue) {
       getAdditionalNote = additionalNote.toString();
@@ -122,9 +142,11 @@ class PaymentsBloc with Validators {
             "Content-Type": "application/json; charset=utf-8",
             "Accept": "application/json",
             'Authorization': 'Bearer $accessToken',
-          }).timeout(const Duration(seconds: 5),
-              onTimeout: () => throw TimeoutException(
-                  'No se puede conectar, intente más tarde.'));
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
       Navigator.of(context).pop();
       showDialog(
           barrierDismissible: false,
@@ -172,11 +194,32 @@ class PaymentsBloc with Validators {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-                color: BrandColors.arches, size: 38),
-          );
+          return Dialog(
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                          color: BrandColors.arches, size: 38),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      "Procesando, espere un momento por favor",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: BrandColors.foggy),
+                    )
+                  ],
+                ),
+              ));
         });
+
     try {
       Directory dir = Directory('/storage/emulated/0/Download');
       var savePath = dir.path;

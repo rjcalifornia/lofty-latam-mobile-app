@@ -102,7 +102,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             ),
                           ),
                           onTap: () {
-                            _dialogBuilder(context);
+                            fullNameDialogBuilder(context);
                           }
                           /*
                 () => Navigator.push(
@@ -251,7 +251,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> fullNameDialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -277,14 +277,23 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     style: TextStyle(color: BrandColors.hof),
                   ),
                 ]),
-                TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xfff6f6f6),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none),
-                        hintText: 'Nombres')),
+                StreamBuilder(
+                    stream: userBloc.nameStream,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return TextField(
+                          onChanged: userBloc.changeName,
+                          decoration: InputDecoration(
+                            labelText: 'Escriba sus nombres',
+                            filled: true,
+                            fillColor: const Color(0xfff6f6f6),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide.none),
+                            errorText: snapshot.hasError
+                                ? snapshot.error.toString()
+                                : null,
+                          ));
+                    }),
                 const SizedBox(
                   height: 22,
                 ),
@@ -302,14 +311,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     style: TextStyle(color: BrandColors.hof),
                   ),
                 ]),
-                TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xfff6f6f6),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none),
-                        hintText: 'Apellidos')),
+                StreamBuilder(
+                    stream: userBloc.lastnameStream,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return TextField(
+                          onChanged: userBloc.changeLastname,
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                              errorText: snapshot.hasError
+                                  ? snapshot.error.toString()
+                                  : null,
+                              hintText: 'Apellidos'));
+                    }),
               ],
             ),
           ),

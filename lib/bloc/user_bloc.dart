@@ -48,4 +48,9 @@ class UserBloc with Validators {
       return e.toString();
     }
   }
+
+  Future<void> updateName(var context, leaseId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+  }
 }
