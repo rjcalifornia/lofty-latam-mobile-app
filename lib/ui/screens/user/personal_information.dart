@@ -30,6 +30,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       userBloc.changeName(user!.name.toString());
       userBloc.changeLastname(user!.lastname.toString());
       userBloc.changePhone(user!.phone.toString());
+      userBloc.changeEmail(user!.email.toString());
     });
     return loader;
   }
@@ -107,13 +108,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           ),
                           onTap: () {
                             fullNameDialogBuilder(context);
-                          }
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                          }),
                       const Divider(
                         thickness: 1,
                       ),
@@ -151,13 +146,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           ),
                           onTap: () {
                             phoneDialogBuilder(context);
-                          }
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                          }),
                       const Divider(
                         thickness: 1,
                       ),
@@ -193,13 +182,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               decorationStyle: TextDecorationStyle.solid,
                             ),
                           ),
-                          onTap: () {}
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                          onTap: () {
+                            emailDialogBuilder(context);
+                          }),
                       const Divider(
                         thickness: 1,
                       ),
@@ -220,28 +205,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               )
                             ],
                           ),
-                          trailing: const Text(
-                            "Edita",
-                            style: TextStyle(
-                              shadows: [
-                                Shadow(
-                                    color: Colors.black, offset: Offset(0, -5))
-                              ],
-                              fontWeight: FontWeight.bold,
-                              color: Colors.transparent,
-                              decoration: TextDecoration.underline,
-                              decorationColor: BrandColors.hof,
-                              decorationThickness: 4,
-                              decorationStyle: TextDecorationStyle.solid,
-                            ),
-                          ),
-                          onTap: () {}
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                          onTap: null),
                       const Divider(
                         thickness: 1,
                       ),
@@ -397,7 +361,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               children: [
                 const Row(children: [
                   Icon(
-                    Icons.person_2_outlined,
+                    Icons.phone_android_outlined,
                     color: BrandColors.hof,
                     size: 14,
                   ),
@@ -464,6 +428,99 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       //Navigator.of(context).pop();
                       userBloc
                           .updateUserInformation(context, 'phone')
+                          .then((_) => setState(() {
+                                getPersonalInfo();
+                              }));
+                    },
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> emailDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Actualiza tu correo'),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height / 6.75,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Row(children: [
+                  Icon(
+                    Icons.email_outlined,
+                    color: BrandColors.hof,
+                    size: 14,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "Correo electrónico",
+                    style: TextStyle(color: BrandColors.hof),
+                  ),
+                ]),
+                StreamBuilder(
+                    stream: userBloc.emailStream,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return TextFormField(
+                          onChanged: userBloc.changeEmail,
+                          initialValue: user!.email,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xfff6f6f6),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide.none),
+                            errorText: snapshot.hasError
+                                ? snapshot.error.toString()
+                                : null,
+                          ));
+                    }),
+                const SizedBox(
+                  height: 12,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                getPersonalInfo();
+                Navigator.of(context).pop();
+              },
+            ),
+            StreamBuilder(
+              stream: userBloc.verifyEmail,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  return TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      onPressed: null,
+                      child: const Text('Actualizar'));
+                } else {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text('Actualizar'),
+                    onPressed: () {
+                      userBloc
+                          .updateUserInformation(context, 'email')
                           .then((_) => setState(() {
                                 getPersonalInfo();
                               }));

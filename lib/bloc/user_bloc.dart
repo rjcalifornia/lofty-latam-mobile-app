@@ -13,10 +13,12 @@ class UserBloc with Validators {
   final _nameController = BehaviorSubject<String>();
   final _lastnameController = BehaviorSubject<String>();
   final _phoneController = BehaviorSubject<String>();
+  final _emailController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeLastname => _lastnameController.sink.add;
   Function(String) get changePhone => _phoneController.sink.add;
+  Function(String) get changeEmail => _emailController.sink.add;
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(simpleValidation);
@@ -24,10 +26,13 @@ class UserBloc with Validators {
       _lastnameController.stream.transform(simpleValidation);
   Stream<String> get phoneStream =>
       _phoneController.stream.transform(simpleValidation);
+  Stream<String> get emailStream =>
+      _emailController.stream.transform(simpleValidation);
 
   String? get name => _nameController.value;
   String? get lastname => _lastnameController.value;
   String? get phone => _phoneController.value;
+  String? get email => _emailController.value;
 
   Stream<bool> get verifyFullName =>
       CombineLatestStream.combine2(nameStream, lastnameStream, (a, b) {
@@ -37,7 +42,8 @@ class UserBloc with Validators {
         return false;
       });
 
-  Stream<bool> get verifyPhone => phoneStream.map((phoneStream) => true);
+  Stream<bool> get verifyPhone => phoneStream.map((phone) => true);
+  Stream<bool> get verifyEmail => emailStream.map((email) => true);
 
   Future getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -71,6 +77,10 @@ class UserBloc with Validators {
 
     if (infoType == 'phone') {
       payload = {"phone": phone.toString()};
+    }
+
+    if (infoType == 'email') {
+      payload = {"email": email.toString()};
     }
 
     try {
