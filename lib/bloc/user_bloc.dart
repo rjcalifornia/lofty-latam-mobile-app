@@ -14,11 +14,18 @@ class UserBloc with Validators {
   final _lastnameController = BehaviorSubject<String>();
   final _phoneController = BehaviorSubject<String>();
   final _emailController = BehaviorSubject<String>();
+  final _oldPasswordController = BehaviorSubject<String>();
+  final _passwordController = BehaviorSubject<String>();
+  final _repeatPasswordController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeLastname => _lastnameController.sink.add;
   Function(String) get changePhone => _phoneController.sink.add;
   Function(String) get changeEmail => _emailController.sink.add;
+  Function(String) get changeOldPassword => _oldPasswordController.sink.add;
+  Function(String) get changePassword => _passwordController.sink.add;
+  Function(String) get changeRepeatPassword =>
+      _repeatPasswordController.sink.add;
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(simpleValidation);
@@ -28,15 +35,32 @@ class UserBloc with Validators {
       _phoneController.stream.transform(simpleValidation);
   Stream<String> get emailStream =>
       _emailController.stream.transform(simpleValidation);
+  Stream<String> get oldPasswordStream =>
+      _oldPasswordController.stream.transform(validatePassword);
+  Stream<String> get passwordStream =>
+      _passwordController.stream.transform(validatePassword);
+  Stream<String> get repeatPasswordStream =>
+      _repeatPasswordController.stream.transform(validatePassword);
 
   String? get name => _nameController.value;
   String? get lastname => _lastnameController.value;
   String? get phone => _phoneController.value;
   String? get email => _emailController.value;
+  String? get oldPassword => _oldPasswordController.value;
+  String? get password => _passwordController.value;
+  String? get repeatPassword => _repeatPasswordController.value;
 
   Stream<bool> get verifyFullName =>
       CombineLatestStream.combine2(nameStream, lastnameStream, (a, b) {
         if ((a == _nameController.value) && (b == _lastnameController.value)) {
+          return true;
+        }
+        return false;
+      });
+
+  Stream<bool> get verifyPasswordsEqual => CombineLatestStream.combine3(
+          passwordStream, repeatPasswordStream, oldPasswordStream, (a, b, c) {
+        if ((a == b) && (c != '')) {
           return true;
         }
         return false;
@@ -124,6 +148,15 @@ class UserBloc with Validators {
             );
           });
     } catch (e) {
+      Exception(e.toString());
+    }
+  }
+
+  Future<void> updatePassword(context, infoType) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    try {} catch (e) {
       Exception(e.toString());
     }
   }
