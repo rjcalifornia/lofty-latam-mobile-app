@@ -12,17 +12,22 @@ import 'package:home_management_app/validators/validators.dart';
 class UserBloc with Validators {
   final _nameController = BehaviorSubject<String>();
   final _lastnameController = BehaviorSubject<String>();
+  final _phoneController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeLastname => _lastnameController.sink.add;
+  Function(String) get changePhone => _phoneController.sink.add;
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(simpleValidation);
   Stream<String> get lastnameStream =>
       _lastnameController.stream.transform(simpleValidation);
+  Stream<String> get phoneStream =>
+      _phoneController.stream.transform(simpleValidation);
 
   String? get name => _nameController.value;
   String? get lastname => _lastnameController.value;
+  String? get phone => _phoneController.value;
 
   Stream<bool> get verifyFullName =>
       CombineLatestStream.combine2(nameStream, lastnameStream, (a, b) {
@@ -31,6 +36,8 @@ class UserBloc with Validators {
         }
         return false;
       });
+
+  Stream<bool> get verifyPhone => phoneStream.map((phoneStream) => true);
 
   Future getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -52,14 +59,18 @@ class UserBloc with Validators {
     }
   }
 
-  Future<void> updateUserInformation(var context) async {
+  Future<void> updateUserInformation(context, infoType) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
 
     dynamic payload;
 
-    if (_nameController.hasValue && _lastnameController.hasValue) {
+    if (infoType == 'name') {
       payload = {"name": name.toString(), "lastname": lastname.toString()};
+    }
+
+    if (infoType == 'phone') {
+      payload = {"phone": phone.toString()};
     }
 
     try {

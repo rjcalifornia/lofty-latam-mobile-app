@@ -15,7 +15,7 @@ class Validators {
     if (data.length > 2) {
       sink.add(data);
     } else {
-      sink.addError("Ingrese correctamente la información solicitada");
+      sink.addError("Ingrese correctamente la información");
     }
   });
 
