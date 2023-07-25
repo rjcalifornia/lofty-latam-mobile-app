@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/User.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -162,8 +164,81 @@ class UserBloc with Validators {
   Future<void> updatePassword(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: LoadingAnimationWidget.inkDrop(
+                color: BrandColors.arches, size: 38),
+          );
+        });
+    try {
+      var passwordUpdateJson = await http
+          .post(Uri.parse('${authEndpoint}api/v1/user/change-password'),
+              body: json.encode({
+                "old_password": oldPassword.toString(),
+                "password": password.toString(),
+                "repeat_password": repeatPassword.toString()
+              }),
+              headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
+      // Navigator.of(context).pop();
+      print('test1');
 
-    try {} catch (e) {
+      //print(response);
+      var status = passwordUpdateJson.statusCode.toString();
+      print(status);
+
+      // await Future.delayed(Duration(seconds: 2));
+      Navigator.of(context).pop();
+      if (status == "204") {
+        print('test');
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content:
+                    const Text("Datos han sido actualizados correctamente."),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      } else {
+        var response = json.decode(passwordUpdateJson.body);
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: Text(response['message'].toString()),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      }
+    } catch (e) {
       Exception(e.toString());
     }
   }
