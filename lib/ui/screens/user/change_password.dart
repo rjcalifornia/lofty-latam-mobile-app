@@ -98,16 +98,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         ),
                       );
                     }),
+                const SizedBox(
+                  height: 28,
+                ),
                 StreamBuilder(
                   stream: userBloc.verifyPasswordsEqual,
                   builder: (context, AsyncSnapshot snapshot) {
                     if (!snapshot.hasData) {
-                      // ignore: avoid_unnecessary_containers
-                      return Container(
-                        child: const Column(
+                      return const SizedBox(
+                        child: Column(
                           children: [
                             Text(
-                              "Revise los datos ingresados",
+                              "Complete todos los datos requeridos",
                               style: TextStyle(color: BrandColors.hof),
                             )
                           ],
@@ -116,7 +118,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     } else {
                       return ElevatedButton(
                         onPressed: () {
-                          userBloc.generateReceipt(context, widget.lease.id);
+                          userBloc.updatePassword(context);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: BrandColors.arches,

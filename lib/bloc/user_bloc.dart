@@ -39,8 +39,13 @@ class UserBloc with Validators {
       _oldPasswordController.stream.transform(validatePassword);
   Stream<String> get passwordStream =>
       _passwordController.stream.transform(validatePassword);
-  Stream<String> get repeatPasswordStream =>
-      _repeatPasswordController.stream.transform(validatePassword);
+  Stream<String> get repeatPasswordStream => _repeatPasswordController.stream
+          .transform(validatePassword)
+          .doOnData((String c) {
+        if (0 != _passwordController.value.compareTo(c)) {
+          _repeatPasswordController.addError("No Match");
+        }
+      });
 
   String? get name => _nameController.value;
   String? get lastname => _lastnameController.value;
@@ -58,9 +63,11 @@ class UserBloc with Validators {
         return false;
       });
 
-  Stream<bool> get verifyPasswordsEqual => CombineLatestStream.combine3(
-          passwordStream, repeatPasswordStream, oldPasswordStream, (a, b, c) {
-        if ((a == b) && (c != '')) {
+  Stream<bool> get verifyPasswordsEqual =>
+      CombineLatestStream.combine2(oldPasswordStream, repeatPasswordStream,
+          (a, b) {
+        if ((b == _repeatPasswordController.value) &&
+            (a == _oldPasswordController.value)) {
           return true;
         }
         return false;
@@ -152,7 +159,7 @@ class UserBloc with Validators {
     }
   }
 
-  Future<void> updatePassword(context, infoType) async {
+  Future<void> updatePassword(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
 
