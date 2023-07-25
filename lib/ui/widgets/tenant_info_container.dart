@@ -137,7 +137,7 @@ class TenantInfoContainer extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              "Fecha de cobro: ${lease!.paymentDate}",
+              "Fecha de cobro: ${lease!.paymentDay} de cada mes",
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!

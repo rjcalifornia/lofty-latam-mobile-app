@@ -228,77 +228,73 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Actualiza tu nombre'),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 3.8,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Row(children: [
-                  Icon(
-                    Icons.person_2_outlined,
-                    color: BrandColors.hof,
-                    size: 14,
-                  ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    "Nombres",
-                    style: TextStyle(color: BrandColors.hof),
-                  ),
-                ]),
-                StreamBuilder(
-                    stream: userBloc.nameStream,
-                    builder: (context, AsyncSnapshot snapshot) {
-                      return TextFormField(
-                          onChanged: userBloc.changeName,
-                          initialValue: user!.name,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color(0xfff6f6f6),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide.none),
-                            errorText: snapshot.hasError
-                                ? snapshot.error.toString()
-                                : null,
-                          ));
-                    }),
-                const SizedBox(
-                  height: 22,
-                ),
-                const Row(children: [
-                  Icon(
-                    Icons.person_2_outlined,
-                    color: BrandColors.hof,
-                    size: 14,
-                  ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    "Apellidos",
-                    style: TextStyle(color: BrandColors.hof),
-                  ),
-                ]),
-                StreamBuilder(
-                    stream: userBloc.lastnameStream,
-                    builder: (context, AsyncSnapshot snapshot) {
-                      return TextFormField(
-                          onChanged: userBloc.changeLastname,
-                          initialValue: user!.lastname,
-                          decoration: InputDecoration(
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 3.5,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.person_2_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Nombres",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.nameStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changeName,
+                            initialValue: user!.name,
+                            decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xfff6f6f6),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide.none),
-                              errorText: snapshot.hasError
-                                  ? snapshot.error.toString()
-                                  : null,
-                              hintText: 'Apellidos'));
-                    }),
-              ],
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 22,
+                  ),
+                  const Row(children: [
+                    Icon(
+                      Icons.person_2_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Apellidos",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.lastnameStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changeLastname,
+                            initialValue: user!.lastname,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: const Color(0xfff6f6f6),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide.none),
+                                hintText: 'Apellidos'));
+                      }),
+                ],
+              ),
             ),
           ),
           actions: <Widget>[
@@ -354,46 +350,45 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Actualiza tu número telefónico'),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 6.75,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Row(children: [
-                  Icon(
-                    Icons.phone_android_outlined,
-                    color: BrandColors.hof,
-                    size: 14,
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 7,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.phone_android_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Número de teléfono",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.phoneStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changePhone,
+                            initialValue: user!.phone,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 12,
                   ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    "Número de teléfono",
-                    style: TextStyle(color: BrandColors.hof),
-                  ),
-                ]),
-                StreamBuilder(
-                    stream: userBloc.phoneStream,
-                    builder: (context, AsyncSnapshot snapshot) {
-                      return TextFormField(
-                          onChanged: userBloc.changePhone,
-                          initialValue: user!.phone,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color(0xfff6f6f6),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide.none),
-                            errorText: snapshot.hasError
-                                ? snapshot.error.toString()
-                                : null,
-                          ));
-                    }),
-                const SizedBox(
-                  height: 12,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           actions: <Widget>[
@@ -449,46 +444,45 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Actualiza tu correo'),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 6.75,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Row(children: [
-                  Icon(
-                    Icons.email_outlined,
-                    color: BrandColors.hof,
-                    size: 14,
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 5.5,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.email_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Correo electrónico",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.emailStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changeEmail,
+                            initialValue: user!.email,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 12,
                   ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    "Correo electrónico",
-                    style: TextStyle(color: BrandColors.hof),
-                  ),
-                ]),
-                StreamBuilder(
-                    stream: userBloc.emailStream,
-                    builder: (context, AsyncSnapshot snapshot) {
-                      return TextFormField(
-                          onChanged: userBloc.changeEmail,
-                          initialValue: user!.email,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color(0xfff6f6f6),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide.none),
-                            errorText: snapshot.hasError
-                                ? snapshot.error.toString()
-                                : null,
-                          ));
-                    }),
-                const SizedBox(
-                  height: 12,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           actions: <Widget>[
