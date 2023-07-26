@@ -232,12 +232,13 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const AppPage()),
-                                            );
+                                            Navigator.pop(context);
+                                            // Navigator.pushReplacement(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           const AppPage()),
+                                            // );
                                           },
                                         ),
                                         const Spacer(),
@@ -264,7 +265,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                         );
                                                       },
                                                     ),
-                                                  );
+                                                  ).then((value) =>
+                                                      _getProperty());
                                                 }),
                                                 child: const Column(
                                                   children: [

@@ -365,16 +365,16 @@ class PropertiesBloc with Validators {
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        // Navigator.of(context).pop(context);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PropertyDetailsScreen(
-                              id: propertyId,
-                              accessToken: accessToken,
-                            ),
-                          ),
-                        );
+                        Navigator.of(context).pop(context);
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => PropertyDetailsScreen(
+                        //       id: propertyId,
+                        //       accessToken: accessToken,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: const Text("Aceptar"))
                 ],
