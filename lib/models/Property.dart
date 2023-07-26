@@ -201,6 +201,7 @@ class Leases {
   String? deposit;
   int? duration;
   bool? active;
+  int? paymentDay;
   int? userCreates;
   Null? userModifies;
   String? createdAt;
@@ -212,6 +213,7 @@ class Leases {
       this.tenantId,
       this.propertyId,
       this.rentTypeId,
+      this.paymentDay,
       this.contractDate,
       this.paymentDate,
       this.expirationDate,
@@ -232,6 +234,7 @@ class Leases {
         : null;
     propertyId = json['property_id'];
     rentTypeId = json['rent_type_id'];
+    paymentDay = json['payment_day'];
     contractDate = json['contract_date'];
     paymentDate = json['payment_date'];
     expirationDate = json['expiration_date'];
@@ -254,6 +257,7 @@ class Leases {
     }
     data['property_id'] = this.propertyId;
     data['rent_type_id'] = this.rentTypeId;
+    data['payment_day'] = this.paymentDay;
     data['contract_date'] = this.contractDate;
     data['payment_date'] = this.paymentDate;
     data['expiration_date'] = this.expirationDate;

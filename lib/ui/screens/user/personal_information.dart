@@ -26,6 +26,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     setState(() {
       user = personalInfo;
       loader = true;
+
+      userBloc.changeName(user!.name.toString());
+      userBloc.changeLastname(user!.lastname.toString());
+      userBloc.changePhone(user!.phone.toString());
+      userBloc.changeEmail(user!.email.toString());
     });
     return loader;
   }
@@ -102,14 +107,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             ),
                           ),
                           onTap: () {
-                            _dialogBuilder(context);
-                          }
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                            fullNameDialogBuilder(context);
+                          }),
                       const Divider(
                         thickness: 1,
                       ),
@@ -145,13 +144,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               decorationStyle: TextDecorationStyle.solid,
                             ),
                           ),
-                          onTap: () {}
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                          onTap: () {
+                            phoneDialogBuilder(context);
+                          }),
                       const Divider(
                         thickness: 1,
                       ),
@@ -187,13 +182,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               decorationStyle: TextDecorationStyle.solid,
                             ),
                           ),
-                          onTap: () {}
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                          onTap: () {
+                            emailDialogBuilder(context);
+                          }),
                       const Divider(
                         thickness: 1,
                       ),
@@ -214,28 +205,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               )
                             ],
                           ),
-                          trailing: const Text(
-                            "Edita",
-                            style: TextStyle(
-                              shadows: [
-                                Shadow(
-                                    color: Colors.black, offset: Offset(0, -5))
-                              ],
-                              fontWeight: FontWeight.bold,
-                              color: Colors.transparent,
-                              decoration: TextDecoration.underline,
-                              decorationColor: BrandColors.hof,
-                              decorationThickness: 4,
-                              decorationStyle: TextDecorationStyle.solid,
-                            ),
-                          ),
-                          onTap: () {}
-                          /*
-                () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationScreen())),*/
-                          ),
+                          onTap: null),
                       const Divider(
                         thickness: 1,
                       ),
@@ -251,66 +221,80 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> fullNameDialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Actualiza tu nombre'),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Row(children: [
-                  Icon(
-                    Icons.person_2_outlined,
-                    color: BrandColors.hof,
-                    size: 14,
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 3.5,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.person_2_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Nombres",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.nameStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changeName,
+                            initialValue: user!.name,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 22,
                   ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    "Nombres",
-                    style: TextStyle(color: BrandColors.hof),
-                  ),
-                ]),
-                TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xfff6f6f6),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none),
-                        hintText: 'Nombres')),
-                const SizedBox(
-                  height: 22,
-                ),
-                const Row(children: [
-                  Icon(
-                    Icons.person_2_outlined,
-                    color: BrandColors.hof,
-                    size: 14,
-                  ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    "Apellidos",
-                    style: TextStyle(color: BrandColors.hof),
-                  ),
-                ]),
-                TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xfff6f6f6),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none),
-                        hintText: 'Apellidos')),
-              ],
+                  const Row(children: [
+                    Icon(
+                      Icons.person_2_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Apellidos",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.lastnameStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changeLastname,
+                            initialValue: user!.lastname,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: const Color(0xfff6f6f6),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide.none),
+                                hintText: 'Apellidos'));
+                      }),
+                ],
+              ),
             ),
           ),
           actions: <Widget>[
@@ -320,16 +304,223 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               ),
               child: const Text('Cancelar'),
               onPressed: () {
+                getPersonalInfo();
                 Navigator.of(context).pop();
               },
             ),
+            StreamBuilder(
+              stream: userBloc.verifyFullName,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  // ignore: avoid_unnecessary_containers
+                  return TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      onPressed: null,
+                      child: const Text('Actualizar'));
+                } else {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text('Actualizar'),
+                    onPressed: () {
+                      //Navigator.of(context).pop();
+                      userBloc
+                          .updateUserInformation(context, 'name')
+                          .then((_) => setState(() {
+                                getPersonalInfo();
+                              }));
+                    },
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> phoneDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Actualiza tu número telefónico'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 7,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.phone_android_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Número de teléfono",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.phoneStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changePhone,
+                            initialValue: user!.phone,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Actualizar'),
+              child: const Text('Cancelar'),
               onPressed: () {
+                getPersonalInfo();
                 Navigator.of(context).pop();
+              },
+            ),
+            StreamBuilder(
+              stream: userBloc.verifyPhone,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  // ignore: avoid_unnecessary_containers
+                  return TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      onPressed: null,
+                      child: const Text('Actualizar'));
+                } else {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text('Actualizar'),
+                    onPressed: () {
+                      //Navigator.of(context).pop();
+                      userBloc
+                          .updateUserInformation(context, 'phone')
+                          .then((_) => setState(() {
+                                getPersonalInfo();
+                              }));
+                    },
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> emailDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Actualiza tu correo'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 5.5,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.email_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Correo electrónico",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: userBloc.emailStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: userBloc.changeEmail,
+                            initialValue: user!.email,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                getPersonalInfo();
+                Navigator.of(context).pop();
+              },
+            ),
+            StreamBuilder(
+              stream: userBloc.verifyEmail,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  return TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      onPressed: null,
+                      child: const Text('Actualizar'));
+                } else {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    child: const Text('Actualizar'),
+                    onPressed: () {
+                      userBloc
+                          .updateUserInformation(context, 'email')
+                          .then((_) => setState(() {
+                                getPersonalInfo();
+                              }));
+                    },
+                  );
+                }
               },
             ),
           ],

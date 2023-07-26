@@ -119,17 +119,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         MaterialPageRoute(
                             builder: (context) => ChangePasswordScreen())),
                   ),
+                  /*
                   ListTile(
                     leading: Icon(Icons.settings),
                     title: Text('Preferencias'),
                     trailing: Icon(Icons.chevron_right_outlined),
-                  ),
+                  ),*/
                   ListTile(
                     leading: Icon(Icons.logout),
                     title: Text('Cerrar Sesion'),
                     trailing: Icon(Icons.chevron_right_outlined),
                     onTap: () {
-                      _loginBloc.logout(context);
+                      logoutDialogBuilder(context);
                     },
                   )
                 ],
@@ -137,5 +138,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> logoutDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: const Text('Atención'),
+              content: SizedBox(
+                height: 70,
+                child: Center(
+                  child: Text('¿Está seguro que quiere salir?'),
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  child: const Text('Cancelar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  child: const Text('Cerrar sesión'),
+                  onPressed: () {
+                    _loginBloc.logout(context);
+                    // Navigator.of(context).pop();
+                  },
+                ),
+              ]);
+        });
   }
 }
