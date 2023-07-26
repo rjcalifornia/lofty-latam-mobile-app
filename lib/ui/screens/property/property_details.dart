@@ -106,216 +106,198 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          //print('The user tries to pop()');
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const AppPage()),
-          );
-          return false;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CreateLeaseScreen(
+                        property: propertyDetails,
+                      )));
         },
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CreateLeaseScreen(
-                            property: propertyDetails,
-                          )));
-            },
-            backgroundColor: BrandColors.rausch,
-            child: const Icon(Icons.add_outlined),
-          ),
-          body: SafeArea(
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  bottom: 0,
-                  child: FutureBuilder(
-                    future: getDetails,
-                    builder: ((context, snapshot) {
-                      if (snapshot.hasData) {
-                        return SingleChildScrollView(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height / 2,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    left: 0,
-                                    bottom: 150,
-                                    child: Container(
-                                      alignment: Alignment.topCenter,
-                                      color: const Color(0xffFF5A5F),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15.0),
-                                      child: const Row(children: []),
+        backgroundColor: BrandColors.rausch,
+        child: const Icon(Icons.add_outlined),
+      ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              child: FutureBuilder(
+                future: getDetails,
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SingleChildScrollView(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height / 2,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                left: 0,
+                                bottom: 150,
+                                child: Container(
+                                  alignment: Alignment.topCenter,
+                                  color: const Color(0xffFF5A5F),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15.0),
+                                  child: const Row(children: []),
+                                ),
+                              ),
+                              Positioned(
+                                left: 0,
+                                right: 0,
+                                bottom: 15,
+                                child: Container(
+                                  margin: const EdgeInsets.all(25.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 5.0,
+                                        offset: Offset(0, 5),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    child: CachedNetworkImage(
+                                      imageUrl: propertyDetails!
+                                          .propertyPictures!.imageLinkName
+                                          .toString(),
+                                      httpHeaders: {
+                                        'Authorization': 'Bearer $accessToken'
+                                      },
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Positioned(
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 15,
-                                    child: Container(
-                                      margin: const EdgeInsets.all(25.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 5.0,
-                                            offset: Offset(0, 5),
-                                          ),
-                                        ],
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
-                                        child: CachedNetworkImage(
-                                          imageUrl: propertyDetails!
-                                              .propertyPictures!.imageLinkName
-                                              .toString(),
-                                          httpHeaders: {
-                                            'Authorization':
-                                                'Bearer $accessToken'
-                                          },
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                ),
+                              ),
+                              Align(
+                                  alignment: const Alignment(0.8, 0.72),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: BrandColors.rausch,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: BrandColors.foggy,
+                                            blurRadius: 2.2,
+                                            offset: Offset(0, 1)),
+                                      ],
                                     ),
-                                  ),
-                                  Align(
-                                      alignment: const Alignment(0.8, 0.72),
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: BrandColors.rausch,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: BrandColors.foggy,
-                                                blurRadius: 2.2,
-                                                offset: Offset(0, 1)),
-                                          ],
-                                        ),
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Icons.image_outlined,
-                                            color: Colors.white,
-                                          ),
-                                          onPressed: () {
-                                            pickImage(context);
-                                          },
-                                        ),
-                                      )),
-                                  Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: Row(
-                                      children: <Widget>[
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.chevron_left,
-                                            color: Colors.white,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            // Navigator.pushReplacement(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //       builder: (context) =>
-                                            //           const AppPage()),
-                                            // );
-                                          },
-                                        ),
-                                        const Spacer(),
-                                        PopupMenuButton(
-                                          color: Colors.white,
-                                          onSelected: (value) {},
-                                          itemBuilder: (BuildContext ctx) {
-                                            return [
-                                              PopupMenuItem(
-                                                //Yeah this is the only way
-                                                //to navigate without a named route:
-                                                //https://github.com/flutter/flutter/issues/87766
-                                                onTap: () => WidgetsBinding
-                                                    .instance
-                                                    .addPostFrameCallback((_) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return EditPropertyScreen(
-                                                          property:
-                                                              propertyDetails,
-                                                        );
-                                                      },
-                                                    ),
-                                                  ).then((value) =>
-                                                      _getProperty());
-                                                }),
-                                                child: const Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.edit_outlined,
-                                                          color:
-                                                              BrandColors.hof,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 3,
-                                                        ),
-                                                        Text(
-                                                          "Editar",
-                                                          style: TextStyle(
-                                                              color: BrandColors
-                                                                  .hof),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.image_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        pickImage(context);
+                                      },
+                                    ),
+                                  )),
+                              Positioned(
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                child: Row(
+                                  children: <Widget>[
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.chevron_left,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        // Navigator.pushReplacement(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //       builder: (context) =>
+                                        //           const AppPage()),
+                                        // );
+                                      },
+                                    ),
+                                    const Spacer(),
+                                    PopupMenuButton(
+                                      color: Colors.white,
+                                      onSelected: (value) {},
+                                      itemBuilder: (BuildContext ctx) {
+                                        return [
+                                          PopupMenuItem(
+                                            //Yeah this is the only way
+                                            //to navigate without a named route:
+                                            //https://github.com/flutter/flutter/issues/87766
+                                            onTap: () => WidgetsBinding.instance
+                                                .addPostFrameCallback((_) {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return EditPropertyScreen(
+                                                      property: propertyDetails,
+                                                    );
+                                                  },
                                                 ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 'delete',
-                                                child: Column(children: [
-                                                  Row(children: [
+                                              ).then((value) => _getProperty());
+                                            }),
+                                            child: const Column(
+                                              children: [
+                                                Row(
+                                                  children: [
                                                     Icon(
-                                                      Icons
-                                                          .delete_forever_outlined,
+                                                      Icons.edit_outlined,
                                                       color: BrandColors.hof,
                                                     ),
                                                     SizedBox(
                                                       width: 3,
                                                     ),
                                                     Text(
-                                                      "Eliminar",
+                                                      "Editar",
                                                       style: TextStyle(
                                                           color:
                                                               BrandColors.hof),
-                                                    )
-                                                  ])
-                                                ]),
-                                              )
-                                            ];
-                                          },
-                                        ),
-                                        /*
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          const PopupMenuItem(
+                                            value: 'delete',
+                                            child: Column(children: [
+                                              Row(children: [
+                                                Icon(
+                                                  Icons.delete_forever_outlined,
+                                                  color: BrandColors.hof,
+                                                ),
+                                                SizedBox(
+                                                  width: 3,
+                                                ),
+                                                Text(
+                                                  "Eliminar",
+                                                  style: TextStyle(
+                                                      color: BrandColors.hof),
+                                                )
+                                              ])
+                                            ]),
+                                          )
+                                        ];
+                                      },
+                                    ),
+                                    /*
                                     IconButton(
                                       icon: const Icon(
                                         Icons.edit_outlined,
@@ -323,187 +305,185 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       ),
                                       onPressed: () {},
                                     ),*/
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 4, bottom: 18, left: 22, right: 22),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(children: [
+                                Expanded(
+                                    child: Text(
+                                  propertyDetails!.name.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          color: BrandColors.rausch,
+                                          fontWeight: FontWeight.bold),
+                                )),
+                              ]),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "${propertyDetails!.bedrooms}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                                color: BrandColors.hof,
+                                                fontSize: 16),
+                                      ),
+                                      Text("Cuartos",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: BrandColors.hof,
+                                                  fontSize: 16)),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text("${propertyDetails!.beds}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: BrandColors.hof,
+                                                  fontSize: 16)),
+                                      Text("Camas",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: BrandColors.hof,
+                                                  fontSize: 16)),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text("${propertyDetails!.bathrooms}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: BrandColors.hof,
+                                                  fontSize: 16)),
+                                      Text("Baños",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  color: BrandColors.hof,
+                                                  fontSize: 16)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.location_on_outlined,
+                                          color: BrandColors.foggy,
+                                        ),
+                                        const SizedBox(
+                                            width:
+                                                8), // Add some spacing between the icon and text
+
+                                        Expanded(
+                                          child: Text(
+                                            propertyDetails!.address.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .apply(
+                                                    color: BrandColors.foggy),
+                                            softWrap:
+                                                true, // Allow the text to wrap to the next line
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 4, bottom: 18, left: 22, right: 22),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(children: [
-                                    Expanded(
-                                        child: Text(
-                                      propertyDetails!.name.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge!
-                                          .copyWith(
-                                              color: BrandColors.rausch,
-                                              fontWeight: FontWeight.bold),
-                                    )),
-                                  ]),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Column(
-                                        children: [
-                                          Text(
-                                            "${propertyDetails!.bedrooms}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall!
-                                                .copyWith(
-                                                    color: BrandColors.hof,
-                                                    fontSize: 16),
-                                          ),
-                                          Text("Cuartos",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                      color: BrandColors.hof,
-                                                      fontSize: 16)),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text("${propertyDetails!.beds}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                      color: BrandColors.hof,
-                                                      fontSize: 16)),
-                                          Text("Camas",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                      color: BrandColors.hof,
-                                                      fontSize: 16)),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text("${propertyDetails!.bathrooms}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                      color: BrandColors.hof,
-                                                      fontSize: 16)),
-                                          Text("Baños",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                      color: BrandColors.hof,
-                                                      fontSize: 16)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.location_on_outlined,
-                                              color: BrandColors.foggy,
-                                            ),
-                                            const SizedBox(
-                                                width:
-                                                    8), // Add some spacing between the icon and text
-
-                                            Expanded(
-                                              child: Text(
-                                                propertyDetails!.address
-                                                    .toString(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium!
-                                                    .apply(
-                                                        color:
-                                                            BrandColors.foggy),
-                                                softWrap:
-                                                    true, // Allow the text to wrap to the next line
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  HomeServicesContainer(
-                                    propertyDetails: propertyDetails,
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    "Contratos",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(
-                                            color: BrandColors.loft,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                  propertyDetails!.leases!.isEmpty
-                                      ? const Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Center(
-                                              child: Text(
-                                                "No se encontraron contratos de alquiler",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: BrandColors.foggy),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                          ],
-                                        )
-                                      : HomeLeasesContainer(
-                                          propertyDetails: propertyDetails),
-                                ],
+                              HomeServicesContainer(
+                                propertyDetails: propertyDetails,
                               ),
-                            ),
-                          ],
-                        ));
-                      } else {
-                        return Center(
-                          child: LoadingAnimationWidget.inkDrop(
-                              color: const Color(0xffff385c), size: 28),
-                        );
-                      }
-                    }),
-                  ),
-                ),
-
-                //ending
-              ],
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "Contratos",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                        color: BrandColors.loft,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                              propertyDetails!.leases!.isEmpty
+                                  ? const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            "No se encontraron contratos de alquiler",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: BrandColors.foggy),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                      ],
+                                    )
+                                  : HomeLeasesContainer(
+                                      propertyDetails: propertyDetails),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ));
+                  } else {
+                    return Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                          color: const Color(0xffff385c), size: 28),
+                    );
+                  }
+                }),
+              ),
             ),
-          ),
-        ));
+
+            //ending
+          ],
+        ),
+      ),
+    );
   }
 }
