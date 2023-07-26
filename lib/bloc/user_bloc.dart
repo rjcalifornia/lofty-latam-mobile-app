@@ -190,17 +190,12 @@ class UserBloc with Validators {
         throw TimeoutException(
             'Se ha perdido la conexión a internet, por favor intente más tarde.');
       });
-      // Navigator.of(context).pop();
-      print('test1');
 
-      //print(response);
       var status = passwordUpdateJson.statusCode.toString();
-      print(status);
-
-      // await Future.delayed(Duration(seconds: 2));
+  
       Navigator.of(context).pop();
       if (status == "204") {
-        print('test');
+
         showDialog(
             barrierDismissible: false,
             context: context,

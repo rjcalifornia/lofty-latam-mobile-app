@@ -59,11 +59,32 @@ class LoginBloc with Validators {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-                color: BrandColors.arches, size: 38),
-          );
+          return Dialog(
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: LoadingAnimationWidget.inkDrop(
+                          color: BrandColors.arches, size: 38),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      "Validando, espere un momento por favor",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: BrandColors.foggy),
+                    )
+                  ],
+                ),
+              ));
         });
+
     try {
       // Perform login logic here using username and password
       var appAuthJson = await http.post(
