@@ -115,7 +115,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
               MaterialPageRoute(
                   builder: (context) => CreateLeaseScreen(
                         property: propertyDetails,
-                      )));
+                      ))).then((value) => _getProperty());
         },
         backgroundColor: BrandColors.rausch,
         child: const Icon(Icons.add_outlined),
