@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/models/PaymentClass.dart';
 import 'package:home_management_app/models/RentClass.dart';
 import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
@@ -19,6 +20,7 @@ class CreateLeaseScreen extends StatefulWidget {
 class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
   final LeaseBloc _leaseBloc = LeaseBloc();
   List<RentClass> rentClass = [];
+  List<PaymentClass> paymentClass = [];
   DateTime selectedContractDate = DateTime.now();
   DateTime selectedPaymentDate = DateTime.now();
   DateTime selectedExpirationDate = DateTime.now();
@@ -33,8 +35,10 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
 
   Future _getLeaseData() async {
     final rentClassJson = await _leaseBloc.getRentClass();
+    final paymentClassJson = await _leaseBloc.getPaymentClass();
     setState(() {
       rentClass = rentClassJson;
+      paymentClass = paymentClassJson;
     });
   }
 
@@ -47,6 +51,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
   @override
   Widget build(BuildContext context) {
     String? selectedRentClass;
+    String? selectedPaymentClass;
     return GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -113,6 +118,53 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                                   });
                                 },
                                 value: selectedRentClass,
+                              ),
+                            );
+                          }),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Modalidad de pago",
+                        style: TextStyle(color: BrandColors.hof),
+                      ),
+                      StreamBuilder(
+                          stream: _leaseBloc.paymentClassStream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: const Color(0xfff6f6f6),
+                              ),
+                              child: DropdownButtonFormField(
+                                decoration: const InputDecoration(
+                                    enabledBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none),
+                                icon: const Icon(Icons.arrow_drop_down),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: const TextStyle(color: Colors.black),
+                                isExpanded: true,
+                                hint: const Center(
+                                    child:
+                                        Text("Seleccione modalidad de pago")),
+                                items: paymentClass.map((item) {
+                                  return DropdownMenuItem(
+                                    value: item.id.toString(),
+                                    child: Center(
+                                      child: Text(item.name.toString()),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  _leaseBloc
+                                      .changePaymentClass(value.toString());
+                                  setState(() {
+                                    selectedPaymentClass = value.toString();
+                                  });
+                                },
+                                value: selectedPaymentClass,
                               ),
                             );
                           }),
