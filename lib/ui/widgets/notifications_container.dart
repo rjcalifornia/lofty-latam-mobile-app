@@ -84,10 +84,8 @@ class NotificationsContainer extends StatelessWidget {
               );
             }
           } else {
-            return Center(
-              child: LoadingAnimationWidget.inkDrop(
-                  color: BrandColors.arches, size: 28),
-            );
+            return CustomDialogs.navigationLoader(
+                "Cargando notificaciones, por favor espere.");
           }
         })));
   }
