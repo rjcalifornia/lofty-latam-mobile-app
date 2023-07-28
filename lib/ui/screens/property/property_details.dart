@@ -10,7 +10,6 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
-import 'package:home_management_app/ui/screens/app.dart';
 import 'package:home_management_app/ui/screens/lease/create_lease.dart';
 import 'package:home_management_app/ui/screens/property/edit_property.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
@@ -115,7 +114,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
               MaterialPageRoute(
                   builder: (context) => CreateLeaseScreen(
                         property: propertyDetails,
-                      )));
+                      ))).then((value) => _getProperty());
         },
         backgroundColor: BrandColors.rausch,
         child: const Icon(Icons.add_outlined),
