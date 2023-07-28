@@ -93,7 +93,7 @@ class PropertiesContainer extends StatelessWidget {
                         ),
                       ));
                 } else {
-                  return LoadingAnimationWidget.staggeredDotsWave(
+                  return LoadingAnimationWidget.waveDots(
                       color: BrandColors.arches, size: 26);
                 }
               },

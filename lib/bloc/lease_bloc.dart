@@ -155,15 +155,8 @@ class LeaseBloc with Validators {
   Future<void> storeLease(var context, propertyId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-                color: BrandColors.arches, size: 38),
-          );
-        });
+    CustomDialogs.loadingDialog(
+        context, "Almacenando contrato, espere un momento por favor");
     try {
       var leaseJson = await http.post(
           Uri.parse(
@@ -187,29 +180,16 @@ class LeaseBloc with Validators {
             "Content-Type": "application/json; charset=utf-8",
             "Accept": "application/json",
             'Authorization': 'Bearer $accessToken',
-          }).timeout(const Duration(seconds: 5),
-          onTimeout: () => throw TimeoutException(
-              'No se puede conectar, intente más tarde.'));
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
       Navigator.of(context).pop();
 
       if (leaseJson.statusCode > 400) {
         dynamic response = json.decode(leaseJson.body);
-        return showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text("Atención"),
-                content: Text(response['message'].toString()),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text("Aceptar"))
-                ],
-              );
-            });
+        CustomDialogs.fatalErrorDialog(context, response['message']);
       }
       showDialog(
           barrierDismissible: false,
@@ -230,22 +210,7 @@ class LeaseBloc with Validators {
           });
     } catch (e) {
       Navigator.of(context).pop();
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: Text(e.toString()),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Aceptar"))
-              ],
-            );
-          });
+      CustomDialogs.fatalErrorDialog(context, e);
     }
   }
 
