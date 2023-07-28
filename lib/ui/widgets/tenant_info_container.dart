@@ -132,6 +132,25 @@ class TenantInfoContainer extends StatelessWidget {
         Row(
           children: [
             const Icon(
+              Icons.document_scanner_outlined,
+              color: BrandColors.foggy,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              "Modalidad de pago: ${lease!.paymentClassId!.name}",
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .apply(color: BrandColors.foggy),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 4,
+        ),
+        Row(
+          children: [
+            const Icon(
               Icons.today_outlined,
               color: BrandColors.foggy,
             ),

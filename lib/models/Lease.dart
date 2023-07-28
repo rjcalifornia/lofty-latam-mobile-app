@@ -6,6 +6,7 @@ class Lease {
   TenantId? tenantId;
   PropertyId? propertyId;
   int? rentTypeId;
+  PaymentClassId? paymentClassId;
   String? contractDate;
   String? paymentDate;
   String? expirationDate;
@@ -27,6 +28,7 @@ class Lease {
       this.tenantId,
       this.propertyId,
       this.rentTypeId,
+      this.paymentClassId,
       this.paymentDay,
       this.contractDate,
       this.paymentDate,
@@ -52,6 +54,9 @@ class Lease {
         ? new PropertyId.fromJson(json['property_id'])
         : null;
     rentTypeId = json['rent_type_id'];
+    paymentClassId = json['payment_class_id'] != null
+        ? new PaymentClassId.fromJson(json['payment_class_id'])
+        : null;
     paymentDay = json['payment_day'];
     contractDate = json['contract_date'];
     paymentDate = json['payment_date'];
@@ -86,6 +91,9 @@ class Lease {
       data['property_id'] = this.propertyId!.toJson();
     }
     data['rent_type_id'] = this.rentTypeId;
+    if (this.paymentClassId != null) {
+      data['payment_class_id'] = this.paymentClassId!.toJson();
+    }
     data['payment_day'] = this.paymentDay;
     data['contract_date'] = this.contractDate;
     data['payment_date'] = this.paymentDate;
@@ -523,6 +531,7 @@ class LeaseId {
       data['property_id'] = this.propertyId!.toJson();
     }
     data['rent_type_id'] = this.rentTypeId;
+
     data['contract_date'] = this.contractDate;
     data['payment_date'] = this.paymentDate;
     data['expiration_date'] = this.expirationDate;
@@ -650,6 +659,35 @@ class PaymentTypeId {
       {this.id, this.name, this.active, this.createdAt, this.updatedAt});
 
   PaymentTypeId.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    active = json['active'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['active'] = this.active;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+class PaymentClassId {
+  int? id;
+  String? name;
+  int? active;
+  String? createdAt;
+  String? updatedAt;
+
+  PaymentClassId(
+      {this.id, this.name, this.active, this.createdAt, this.updatedAt});
+
+  PaymentClassId.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     active = json['active'];

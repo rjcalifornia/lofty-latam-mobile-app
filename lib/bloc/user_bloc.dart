@@ -132,8 +132,6 @@ class UserBloc with Validators {
 
       Navigator.of(context).pop();
 
-      print(userUpdateJson.statusCode);
-
       if (userUpdateJson.statusCode > 400) {
         dynamic response = json.decode(userUpdateJson.body);
         Exception(Text(response['message'].toString()));
@@ -192,10 +190,9 @@ class UserBloc with Validators {
       });
 
       var status = passwordUpdateJson.statusCode.toString();
-  
+
       Navigator.of(context).pop();
       if (status == "204") {
-
         showDialog(
             barrierDismissible: false,
             context: context,

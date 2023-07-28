@@ -31,8 +31,8 @@ class NotificationsContainer extends StatelessWidget {
                       children: [
                         Text(
                           emptyMessage.toString(),
-                          style:
-                              TextStyle(color: BrandColors.foggy, fontSize: 18),
+                          style: const TextStyle(
+                              color: BrandColors.foggy, fontSize: 18),
                         )
                       ],
                     ))
