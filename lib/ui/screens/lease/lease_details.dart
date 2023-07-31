@@ -75,15 +75,80 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
               child: const Icon(Icons.add_outlined),
             ),
             appBar: AppBar(
-              iconTheme: const IconThemeData(color: Colors.black),
-              backgroundColor: Colors.white,
-              elevation: 0,
-              leading: IconButton(
-                  icon: const Icon(Icons.chevron_left),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ),
+                iconTheme: const IconThemeData(color: Colors.black),
+                backgroundColor: Colors.white,
+                elevation: 0,
+                leading: IconButton(
+                    icon: const Icon(Icons.chevron_left),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                actions: [
+                  PopupMenuButton(
+                    onSelected: (value) {},
+                    itemBuilder: (BuildContext ctx) {
+                      return [
+                        PopupMenuItem(
+                          //Yeah this is the only way
+                          //to navigate without a named route:
+                          //https://github.com/flutter/flutter/issues/87766
+                          onTap: () {},
+                          // WidgetsBinding.instance
+                          //     .addPostFrameCallback((_) {
+                          //   Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder:
+                          //           (BuildContext context) {
+                          //         return EditPropertyScreen(
+                          //           property: propertyDetails,
+                          //         );
+                          //       },
+                          //     ),
+                          //   ).then((value) => _getProperty());
+                          // }),
+                          child: const Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.edit_outlined,
+                                    color: BrandColors.hof,
+                                  ),
+                                  SizedBox(
+                                    width: 3,
+                                  ),
+                                  Text(
+                                    "Editar",
+                                    style: TextStyle(color: BrandColors.hof),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        const PopupMenuItem(
+                          value: 'delete',
+                          child: Column(children: [
+                            Row(children: [
+                              Icon(
+                                Icons.delete_forever_outlined,
+                                color: BrandColors.hof,
+                              ),
+                              SizedBox(
+                                width: 3,
+                              ),
+                              Text(
+                                "Finalizar contrato",
+                                style: TextStyle(color: BrandColors.hof),
+                              )
+                            ])
+                          ]),
+                        )
+                      ];
+                    },
+                  ),
+                ]),
             body: FutureBuilder(
               future: getLeaseDetails,
               builder: ((context, snapshot) {
