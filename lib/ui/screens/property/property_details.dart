@@ -463,7 +463,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       ],
                                     )
                                   : HomeLeasesContainer(
-                                      propertyDetails: propertyDetails),
+                                      propertyDetails: propertyDetails,
+                                    ),
                             ],
                           ),
                         ),

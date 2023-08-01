@@ -86,72 +86,75 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                       Navigator.pop(context);
                     }),
                 actions: [
-                  PopupMenuButton(
-                    onSelected: (value) {},
-                    itemBuilder: (BuildContext ctx) {
-                      return [
-                        PopupMenuItem(
-                          //Yeah this is the only way
-                          //to navigate without a named route:
-                          //https://github.com/flutter/flutter/issues/87766
-                          onTap: () {},
-                          // WidgetsBinding.instance
-                          //     .addPostFrameCallback((_) {
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder:
-                          //           (BuildContext context) {
-                          //         return EditPropertyScreen(
-                          //           property: propertyDetails,
-                          //         );
-                          //       },
-                          //     ),
-                          //   ).then((value) => _getProperty());
-                          // }),
-                          child: const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.edit_outlined,
-                                    color: BrandColors.hof,
-                                  ),
-                                  SizedBox(
-                                    width: 3,
-                                  ),
-                                  Text(
-                                    "Editar",
-                                    style: TextStyle(color: BrandColors.hof),
-                                  ),
-                                ],
-                              )
-                            ],
+                  if (lease?.active == true)
+                    PopupMenuButton(
+                      onSelected: (value) {},
+                      itemBuilder: (BuildContext ctx) {
+                        return [
+                          PopupMenuItem(
+                            //Yeah this is the only way
+                            //to navigate without a named route:
+                            //https://github.com/flutter/flutter/issues/87766
+                            onTap: () {},
+                            // WidgetsBinding.instance
+                            //     .addPostFrameCallback((_) {
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder:
+                            //           (BuildContext context) {
+                            //         return EditPropertyScreen(
+                            //           property: propertyDetails,
+                            //         );
+                            //       },
+                            //     ),
+                            //   ).then((value) => _getProperty());
+                            // }),
+                            child: const Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.edit_outlined,
+                                      color: BrandColors.hof,
+                                    ),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
+                                    Text(
+                                      "Editar",
+                                      style: TextStyle(color: BrandColors.hof),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        PopupMenuItem(
-                          onTap: () {
-                            leaseBloc.endLease(lease!.id, context);
-                          },
-                          child: const Column(children: [
-                            Row(children: [
-                              Icon(
-                                Icons.delete_forever_outlined,
-                                color: BrandColors.hof,
-                              ),
-                              SizedBox(
-                                width: 3,
-                              ),
-                              Text(
-                                "Finalizar contrato",
-                                style: TextStyle(color: BrandColors.hof),
-                              )
-                            ])
-                          ]),
-                        )
-                      ];
-                    },
-                  ),
+                          PopupMenuItem(
+                            onTap: () {
+                              leaseBloc
+                                  .endLease(lease!.id, context)
+                                  .then((value) => _getLeaseDetails());
+                            },
+                            child: const Column(children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.delete_forever_outlined,
+                                  color: BrandColors.hof,
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  "Finalizar contrato",
+                                  style: TextStyle(color: BrandColors.hof),
+                                )
+                              ])
+                            ]),
+                          )
+                        ];
+                      },
+                    ),
                 ]),
             body: FutureBuilder(
               future: getLeaseDetails,
@@ -178,4 +181,43 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
               }),
             )));
   }
+
+  // Future<void> endContractDialogBuilder(BuildContext context) {
+  //   return showDialog<void>(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //             title: const Text('Atención'),
+  //             content: const SizedBox(
+  //               height: 70,
+  //               child: Center(
+  //                 child: Text('¿Está seguro que quiere finalizar el contrato?'),
+  //               ),
+  //             ),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 style: TextButton.styleFrom(
+  //                   textStyle: Theme.of(context).textTheme.labelLarge,
+  //                 ),
+  //                 child: const Text('Cancelar'),
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop();
+  //                 },
+  //               ),
+  //               TextButton(
+  //                 style: TextButton.styleFrom(
+  //                   textStyle: Theme.of(context).textTheme.labelLarge,
+  //                 ),
+  //                 child: const Text('Finalizar contrato'),
+  //                 onPressed: () {
+  //                   leaseBloc
+  //                       .endLease(lease!.id, context)
+  //                       .then((value) => _getLeaseDetails());
+  //                   // Navigator.of(context).pop();
+  //                 },
+  //               ),
+  //             ]);
+  //       });
+  // }
 }
