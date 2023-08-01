@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
@@ -20,6 +21,7 @@ class LeaseDetailsScreen extends StatefulWidget {
 
 class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
   final PropertiesBloc _propertiesBloc = PropertiesBloc();
+  final LeaseBloc leaseBloc = LeaseBloc();
   bool loader = false;
   late final Future getPayments;
   Future? getLeaseDetails;
@@ -127,9 +129,11 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                             ],
                           ),
                         ),
-                        const PopupMenuItem(
-                          value: 'delete',
-                          child: Column(children: [
+                        PopupMenuItem(
+                          onTap: () {
+                            leaseBloc.endLease(lease!.id, context);
+                          },
+                          child: const Column(children: [
                             Row(children: [
                               Icon(
                                 Icons.delete_forever_outlined,

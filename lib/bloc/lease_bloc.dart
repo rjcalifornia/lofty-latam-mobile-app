@@ -214,6 +214,39 @@ class LeaseBloc with Validators {
     }
   }
 
+  Future<void> endLease(leaseId, context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    CustomDialogs.loadingDialog(
+        context, "Procesando, espere un momento por favor...");
+
+    try {
+      var leaseJson = await http.delete(
+          Uri.parse(
+              '${authEndpoint}api/v1/property/lease/$leaseId/termination'),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
+      Navigator.of(context).pop();
+      if (leaseJson.statusCode > 400) {
+        dynamic response = json.decode(leaseJson.body);
+        Exception(Text(response['message'].toString()));
+      }
+
+      CustomDialogs.infoDialog(
+          context, "Atención", "Contrato ha sido marcado como finalizado");
+    } catch (e) {
+      Navigator.of(context).pop();
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
+
   dispose() {
     _contractDateController.close();
     _paymentDateController.close();

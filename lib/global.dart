@@ -81,4 +81,24 @@ class CustomDialogs {
           ]),
     );
   }
+
+  static infoDialog(context, dialogTitle, dialogMessage) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(dialogTitle.toString()),
+            content: Text(dialogMessage.toString()),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    //Navigator.of(context).pop();
+                  },
+                  child: const Text("Aceptar"))
+            ],
+          );
+        });
+  }
 }
