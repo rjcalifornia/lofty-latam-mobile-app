@@ -463,17 +463,15 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       ],
                                     )
                                   : HomeLeasesContainer(
-                                      propertyDetails: propertyDetails),
+                                      propertyDetails: propertyDetails,
+                                    ),
                             ],
                           ),
                         ),
                       ],
                     ));
                   } else {
-                    return Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: const Color(0xffff385c), size: 28),
-                    );
+                    return CustomDialogs.navigationLoader("Cargando...");
                   }
                 }),
               ),

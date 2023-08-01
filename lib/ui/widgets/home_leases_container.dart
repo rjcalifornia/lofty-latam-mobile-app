@@ -11,7 +11,7 @@ class HomeLeasesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 170,
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(vertical: 15),
       child: ListView.builder(
@@ -85,9 +85,24 @@ class HomeLeasesContainer extends StatelessWidget {
                               style: const TextStyle(
                                   color: BrandColors.loft,
                                   fontWeight: FontWeight.bold),
-                            )
+                            ),
                           ],
-                        )
+                        ),
+                        if (propertyDetails!.leases![i].active == false)
+                          const Row(
+                            children: [
+                              Icon(
+                                Icons.done_outlined,
+                                color: BrandColors.rausch,
+                              ),
+                              Text(
+                                "Contrato finalizado",
+                                style: TextStyle(
+                                    color: BrandColors.rausch,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          )
                       ],
                     )));
           }),

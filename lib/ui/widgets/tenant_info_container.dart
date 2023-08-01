@@ -19,24 +19,40 @@ class TenantInfoContainer extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (lease!.active == true)
-                  const Icon(
+            if (lease?.active == true)
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
                     Icons.check_circle_outline_rounded,
                     color: BrandColors.rausch,
                   ),
-                if (lease!.active == true)
-                  const SizedBox(
+                  SizedBox(
                     width: 2,
                   ),
-                const Text(
-                  "Arrendatario",
-                  style: TextStyle(color: BrandColors.foggy),
-                )
-              ],
-            )
+                  Text(
+                    "Arrendatario",
+                    style: TextStyle(color: BrandColors.foggy),
+                  )
+                ],
+              ),
+            if (lease?.active == false)
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.done_outlined,
+                    color: BrandColors.rausch,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "Contrato finalizado",
+                    style: TextStyle(color: BrandColors.rausch),
+                  )
+                ],
+              ),
           ]),
         ),
         const SizedBox(

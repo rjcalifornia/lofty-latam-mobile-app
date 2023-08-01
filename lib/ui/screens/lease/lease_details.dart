@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
@@ -20,6 +21,7 @@ class LeaseDetailsScreen extends StatefulWidget {
 
 class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
   final PropertiesBloc _propertiesBloc = PropertiesBloc();
+  final LeaseBloc leaseBloc = LeaseBloc();
   bool loader = false;
   late final Future getPayments;
   Future? getLeaseDetails;
@@ -75,15 +77,85 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
               child: const Icon(Icons.add_outlined),
             ),
             appBar: AppBar(
-              iconTheme: const IconThemeData(color: Colors.black),
-              backgroundColor: Colors.white,
-              elevation: 0,
-              leading: IconButton(
-                  icon: const Icon(Icons.chevron_left),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ),
+                iconTheme: const IconThemeData(color: Colors.black),
+                backgroundColor: Colors.white,
+                elevation: 0,
+                leading: IconButton(
+                    icon: const Icon(Icons.chevron_left),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                actions: [
+                  if (lease?.active == true)
+                    PopupMenuButton(
+                      onSelected: (value) {},
+                      itemBuilder: (BuildContext ctx) {
+                        return [
+                          PopupMenuItem(
+                            //Yeah this is the only way
+                            //to navigate without a named route:
+                            //https://github.com/flutter/flutter/issues/87766
+                            onTap: () {},
+                            // WidgetsBinding.instance
+                            //     .addPostFrameCallback((_) {
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder:
+                            //           (BuildContext context) {
+                            //         return EditPropertyScreen(
+                            //           property: propertyDetails,
+                            //         );
+                            //       },
+                            //     ),
+                            //   ).then((value) => _getProperty());
+                            // }),
+                            child: const Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.edit_outlined,
+                                      color: BrandColors.hof,
+                                    ),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
+                                    Text(
+                                      "Editar",
+                                      style: TextStyle(color: BrandColors.hof),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            onTap: () {
+                              leaseBloc
+                                  .endLease(lease!.id, context)
+                                  .then((value) => _getLeaseDetails());
+                            },
+                            child: const Column(children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.delete_forever_outlined,
+                                  color: BrandColors.hof,
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  "Finalizar contrato",
+                                  style: TextStyle(color: BrandColors.hof),
+                                )
+                              ])
+                            ]),
+                          )
+                        ];
+                      },
+                    ),
+                ]),
             body: FutureBuilder(
               future: getLeaseDetails,
               builder: ((context, snapshot) {
@@ -104,12 +176,48 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                     ),
                   );
                 } else {
-                  return Center(
-                    child: LoadingAnimationWidget.inkDrop(
-                        color: const Color(0xffff385c), size: 28),
-                  );
+                  return CustomDialogs.navigationLoader("Cargando...");
                 }
               }),
             )));
   }
+
+  // Future<void> endContractDialogBuilder(BuildContext context) {
+  //   return showDialog<void>(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //             title: const Text('Atención'),
+  //             content: const SizedBox(
+  //               height: 70,
+  //               child: Center(
+  //                 child: Text('¿Está seguro que quiere finalizar el contrato?'),
+  //               ),
+  //             ),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 style: TextButton.styleFrom(
+  //                   textStyle: Theme.of(context).textTheme.labelLarge,
+  //                 ),
+  //                 child: const Text('Cancelar'),
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop();
+  //                 },
+  //               ),
+  //               TextButton(
+  //                 style: TextButton.styleFrom(
+  //                   textStyle: Theme.of(context).textTheme.labelLarge,
+  //                 ),
+  //                 child: const Text('Finalizar contrato'),
+  //                 onPressed: () {
+  //                   leaseBloc
+  //                       .endLease(lease!.id, context)
+  //                       .then((value) => _getLeaseDetails());
+  //                   // Navigator.of(context).pop();
+  //                 },
+  //               ),
+  //             ]);
+  //       });
+  // }
 }
