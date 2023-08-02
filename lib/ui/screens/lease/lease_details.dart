@@ -9,7 +9,7 @@ import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/ui/screens/property/create_payment_receipt.dart';
 import 'package:home_management_app/ui/widgets/tenant_info_container.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+//import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LeaseDetailsScreen extends StatefulWidget {
   final leaseId;
@@ -181,43 +181,4 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
               }),
             )));
   }
-
-  // Future<void> endContractDialogBuilder(BuildContext context) {
-  //   return showDialog<void>(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //             title: const Text('Atención'),
-  //             content: const SizedBox(
-  //               height: 70,
-  //               child: Center(
-  //                 child: Text('¿Está seguro que quiere finalizar el contrato?'),
-  //               ),
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 style: TextButton.styleFrom(
-  //                   textStyle: Theme.of(context).textTheme.labelLarge,
-  //                 ),
-  //                 child: const Text('Cancelar'),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //               TextButton(
-  //                 style: TextButton.styleFrom(
-  //                   textStyle: Theme.of(context).textTheme.labelLarge,
-  //                 ),
-  //                 child: const Text('Finalizar contrato'),
-  //                 onPressed: () {
-  //                   leaseBloc
-  //                       .endLease(lease!.id, context)
-  //                       .then((value) => _getLeaseDetails());
-  //                   // Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //             ]);
-  //       });
-  // }
 }
