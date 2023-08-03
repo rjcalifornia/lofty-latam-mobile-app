@@ -7,6 +7,8 @@ import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
+import 'package:home_management_app/ui/screens/lease/edit_lease.dart';
+import 'package:home_management_app/ui/screens/lease/terminate_lease.dart';
 import 'package:home_management_app/ui/screens/property/create_payment_receipt.dart';
 import 'package:home_management_app/ui/widgets/tenant_info_container.dart';
 //import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -98,21 +100,20 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                             //Yeah this is the only way
                             //to navigate without a named route:
                             //https://github.com/flutter/flutter/issues/87766
-                            onTap: () {},
-                            // WidgetsBinding.instance
-                            //     .addPostFrameCallback((_) {
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder:
-                            //           (BuildContext context) {
-                            //         return EditPropertyScreen(
-                            //           property: propertyDetails,
-                            //         );
-                            //       },
-                            //     ),
-                            //   ).then((value) => _getProperty());
-                            // }),
+                            onTap: () {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return const EditLeaseScreen(
+                                          //property: propertyDetails,
+                                          );
+                                    },
+                                  ),
+                                );
+                              });
+                            },
                             child: const Column(
                               children: [
                                 Row(
@@ -135,6 +136,18 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                           ),
                           PopupMenuItem(
                             onTap: () {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return const TerminateLeaseScreen(
+                                          //property: propertyDetails,
+                                          );
+                                    },
+                                  ),
+                                );
+                              });
                               // leaseBloc
                               //     .endLease(lease!.id, context)
                               //     .then((value) => _getLeaseDetails());
