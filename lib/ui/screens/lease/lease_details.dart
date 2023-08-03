@@ -64,18 +64,21 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
         },
         child: Scaffold(
             backgroundColor: Colors.white,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CreateReceiptScreen(
-                              lease: lease,
-                            )));
-              },
-              backgroundColor: BrandColors.rausch,
-              child: const Icon(Icons.add_outlined),
-            ),
+            floatingActionButton: Column(children: [
+              if (lease?.active == true)
+                FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateReceiptScreen(
+                                  lease: lease,
+                                )));
+                  },
+                  backgroundColor: BrandColors.rausch,
+                  child: const Icon(Icons.add_outlined),
+                )
+            ]),
             appBar: AppBar(
                 iconTheme: const IconThemeData(color: Colors.black),
                 backgroundColor: Colors.white,
@@ -132,9 +135,9 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                           ),
                           PopupMenuItem(
                             onTap: () {
-                              leaseBloc
-                                  .endLease(lease!.id, context)
-                                  .then((value) => _getLeaseDetails());
+                              // leaseBloc
+                              //     .endLease(lease!.id, context)
+                              //     .then((value) => _getLeaseDetails());
                             },
                             child: const Column(children: [
                               Row(children: [
