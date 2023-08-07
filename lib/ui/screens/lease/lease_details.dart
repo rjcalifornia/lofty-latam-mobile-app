@@ -136,22 +136,12 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                           ),
                           PopupMenuItem(
                             onTap: () {
+                              //Yeah this is the only way
+                              //to safely open a dialog
+                              //https://github.com/flutter/flutter/issues/87766
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                testDialogBuilder(context);
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (BuildContext context) {
-                                //       return const TerminateLeaseScreen(
-                                //           //property: propertyDetails,
-                                //           );
-                                //     },
-                                //   ),
-                                // );
+                                leaseTerminationDialogBuilder(context);
                               });
-                              // leaseBloc
-                              //     .endLease(lease!.id, context)
-                              //     .then((value) => _getLeaseDetails());
                             },
                             child: const Column(children: [
                               Row(children: [
@@ -199,7 +189,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
             )));
   }
 
-  Future<void> testDialogBuilder(BuildContext context) {
+  Future<void> leaseTerminationDialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
