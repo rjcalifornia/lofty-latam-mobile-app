@@ -206,13 +206,47 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Actualiza tu correo'),
+          title: const Text('Finalizar contrato'),
           content: SingleChildScrollView(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height / 5.5,
-              child: const Column(
+              //height: MediaQuery.of(context).size.height / 6.5,
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [],
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.comment_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Observaciones",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: leaseBloc.leaseTerminationCommentsStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: leaseBloc.changeLeaseTerminationComments,
+                            minLines: 2,
+                            maxLines: null,
+                            //initialValue: null,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                ],
               ),
             ),
           ),
@@ -227,22 +261,30 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                 Navigator.of(context).pop();
               },
             ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Actualizar'),
-              onPressed: () {
-                leaseBloc
-                    .endLease(lease!.id, context)
-                    .then((value) => _getLeaseDetails());
-                // userBloc
-                //     .updateUserInformation(context, 'email')
-                //     .then((_) => setState(() {
-                //           getPersonalInfo();
-                //         }));
-              },
-            ),
+            StreamBuilder(
+                stream: leaseBloc.verifyLeaseComments,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle: Theme.of(context).textTheme.labelLarge,
+                        ),
+                        onPressed: null,
+                        child: const Text('Continuar'));
+                  } else {
+                    return TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      child: const Text('Continuar'),
+                      onPressed: () {
+                        leaseBloc
+                            .endLease(lease!.id, context)
+                            .then((value) => _getLeaseDetails());
+                      },
+                    );
+                  }
+                })
           ],
         );
       },

@@ -36,6 +36,7 @@ class LeaseBloc with Validators {
   final _tenantUsernameController = BehaviorSubject<String>();
   final _tenantPhoneController = BehaviorSubject<String>();
   final _tenantEmailController = BehaviorSubject<String>();
+  final _leaseTerminationCommentsController = BehaviorSubject<String>();
 
   Function(String) get changeRentClass => _rentClassController.sink.add;
   Function(String) get changePaymentClass => _paymentClassController.sink.add;
@@ -52,6 +53,8 @@ class LeaseBloc with Validators {
       _tenantUsernameController.sink.add;
   Function(String) get changeTenantPhone => _tenantPhoneController.sink.add;
   Function(String) get changeTenantEmail => _tenantEmailController.sink.add;
+  Function(String) get changeLeaseTerminationComments =>
+      _leaseTerminationCommentsController.sink.add;
 
   Stream<String> get rentClassStream =>
       _rentClassController.stream.transform(validateLeaseFields);
@@ -77,6 +80,8 @@ class LeaseBloc with Validators {
       _tenantPhoneController.stream.transform(validateLeaseFields);
   Stream<String> get tenantEmailStream =>
       _tenantEmailController.stream.transform(validateLeaseFields);
+  Stream<String> get leaseTerminationCommentsStream =>
+      _leaseTerminationCommentsController.stream.transform(validateLeaseFields);
 
   String? get rentClass => _rentClassController.value;
   String? get paymentClass => _paymentClassController.value;
@@ -90,6 +95,8 @@ class LeaseBloc with Validators {
   String? get tenantUsername => _tenantUsernameController.value;
   String? get tenantPhone => _tenantPhoneController.value;
   String? get tenantEmail => _tenantEmailController.value;
+  String? get leaseTerminationComments =>
+      _leaseTerminationCommentsController.value;
 
   // Stream<bool> get verifyLeaseData => CombineLatestStream.combine5(
   //     rentClassStream,
@@ -113,6 +120,9 @@ class LeaseBloc with Validators {
         paymentClassStream,
         // tenantEmailStream
       ], (_) => true);
+
+  Stream<bool> get verifyLeaseComments =>
+      leaseTerminationCommentsStream.map((comments) => true);
 
   Future getRentClass() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -222,6 +232,7 @@ class LeaseBloc with Validators {
       var leaseJson = await http.delete(
           Uri.parse(
               '${authEndpoint}api/v1/property/lease/$leaseId/termination'),
+          body: json.encode({'comments': leaseTerminationComments.toString()}),
           headers: {
             "Content-Type": "application/json; charset=utf-8",
             "Accept": "application/json",
