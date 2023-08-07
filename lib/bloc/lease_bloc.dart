@@ -217,8 +217,6 @@ class LeaseBloc with Validators {
   Future<void> endLease(leaseId, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
-    CustomDialogs.loadingDialog(
-        context, "Procesando, espere un momento por favor...");
 
     try {
       var leaseJson = await http.delete(

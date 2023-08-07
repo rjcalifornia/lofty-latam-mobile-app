@@ -66,7 +66,8 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
         },
         child: Scaffold(
             backgroundColor: Colors.white,
-            floatingActionButton: Column(children: [
+            floatingActionButton:
+                Column(mainAxisAlignment: MainAxisAlignment.end, children: [
               if (lease?.active == true)
                 FloatingActionButton(
                   onPressed: () {
@@ -137,16 +138,17 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                           PopupMenuItem(
                             onTap: () {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return const TerminateLeaseScreen(
-                                          //property: propertyDetails,
-                                          );
-                                    },
-                                  ),
-                                );
+                                testDialogBuilder(context);
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (BuildContext context) {
+                                //       return const TerminateLeaseScreen(
+                                //           //property: propertyDetails,
+                                //           );
+                                //     },
+                                //   ),
+                                // );
                               });
                               // leaseBloc
                               //     .endLease(lease!.id, context)
@@ -196,5 +198,54 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                 }
               }),
             )));
+  }
+
+  Future<void> testDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Actualiza tu correo'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 5.5,
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                //  getPersonalInfo();
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Actualizar'),
+              onPressed: () {
+                leaseBloc
+                    .endLease(lease!.id, context)
+                    .then((value) => _getLeaseDetails());
+                // userBloc
+                //     .updateUserInformation(context, 'email')
+                //     .then((_) => setState(() {
+                //           getPersonalInfo();
+                //         }));
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
