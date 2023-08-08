@@ -107,6 +107,25 @@ class TenantInfoContainer extends StatelessWidget {
         Row(
           children: [
             const Icon(
+              Icons.article_outlined,
+              color: BrandColors.foggy,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              "Plazo: ${lease!.rentType!.name}",
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .apply(color: BrandColors.foggy),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 4,
+        ),
+        Row(
+          children: [
+            const Icon(
               Icons.calendar_month_outlined,
               color: BrandColors.foggy,
             ),

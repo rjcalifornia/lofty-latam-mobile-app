@@ -111,7 +111,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                                       );
                                     },
                                   ),
-                                );
+                                ).then((value) => _getLeaseDetails());
                               });
                             },
                             child: const Column(
