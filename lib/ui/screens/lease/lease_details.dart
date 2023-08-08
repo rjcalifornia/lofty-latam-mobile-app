@@ -106,9 +106,9 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (BuildContext context) {
-                                      return const EditLeaseScreen(
-                                          //property: propertyDetails,
-                                          );
+                                      return EditLeaseScreen(
+                                        lease: lease,
+                                      );
                                     },
                                   ),
                                 );

@@ -256,6 +256,42 @@ class LeaseBloc with Validators {
     }
   }
 
+  Future<void> updateLease(leaseId, context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    try {
+      var leaseJson = await http.patch(
+          Uri.parse('${authEndpoint}api/v1/property/lease/$leaseId/details'),
+          body: json.encode({
+            "rent_type_id": rentClass,
+            "payment_class_id": paymentClass,
+            "payment_date": paymentDate.toString(),
+            "expiration_date": expirationDate.toString(),
+          }),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
+      Navigator.of(context).pop();
+      if (leaseJson.statusCode > 400) {
+        dynamic response = json.decode(leaseJson.body);
+        Exception(Text(response['message'].toString()));
+      }
+
+      CustomDialogs.infoDialog(
+          context, "Atención", "Contrato actualizado correctamente");
+    } catch (e) {
+      Navigator.of(context).pop();
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
+
   dispose() {
     _contractDateController.close();
     _paymentDateController.close();

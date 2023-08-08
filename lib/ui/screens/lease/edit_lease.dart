@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Lease.dart';
 
 class EditLeaseScreen extends StatefulWidget {
-  const EditLeaseScreen({super.key});
+  final Lease? lease;
+  const EditLeaseScreen({super.key, required this.lease});
 
   @override
   State<EditLeaseScreen> createState() => _EditLeaseScreenState();
