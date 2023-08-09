@@ -28,7 +28,11 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
   late DateTime selectedExpirationDate =
       DateTime.parse(widget.lease!.expirationDate.toString());
 
+  late DateTime selectedContractDate =
+      DateTime.parse(widget.lease!.contractDate.toString());
+
   dynamic paymentDate = TextEditingController();
+  dynamic contractDate = TextEditingController();
   dynamic expirationDate = TextEditingController();
 
   List<RentClass> rentClass = [];
@@ -42,6 +46,7 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
     setState(() {
       rentClass = rentClassJson;
       paymentClass = paymentClassJson;
+      contractDate.text = selectedContractDate.toIso8601String().split('T')[0];
       paymentDate.text = selectedPaymentDate.toIso8601String().split('T')[0];
       expirationDate.text =
           selectedExpirationDate.toIso8601String().split('T')[0];
@@ -54,6 +59,8 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
       _leaseBloc.changeRentClass(widget.lease!.rentType!.id.toString());
       _leaseBloc
           .changePaymentClass(widget.lease!.paymentClassId!.id.toString());
+      _leaseBloc.changeContractDate(
+          selectedContractDate.toIso8601String().split('T')[0]);
       _leaseBloc.changePaymentDate(
           selectedPaymentDate.toIso8601String().split('T')[0]);
       _leaseBloc.changeExpirationDate(
@@ -200,6 +207,21 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                                       },
                                       value: selectedPaymentClass,
                                     ),
+                                  );
+                                }),
+                            const SizedBox(
+                              height: 22,
+                            ),
+                            StreamBuilder(
+                                stream: _leaseBloc.contractDateStream,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  return DatePickerField(
+                                    selectedPickerDate: selectedContractDate,
+                                    textController: contractDate,
+                                    labelText:
+                                        'Seleccione fecha de inicio de contrato',
+                                    dateFieldChange:
+                                        _leaseBloc.changeContractDate,
                                   );
                                 }),
                             const SizedBox(

@@ -101,6 +101,7 @@ class LeaseBloc with Validators {
   Stream<bool> get verifyEditLeaseFields => CombineLatestStream([
         rentClassStream,
         paymentClassStream,
+        contractDateStream,
         paymentDateStream,
         expirationDateStream,
         priceStream,
@@ -263,12 +264,12 @@ class LeaseBloc with Validators {
     CustomDialogs.loadingDialog(
         context, "Procesando, espere un momento por favor");
     try {
-      print(price.toString());
       var leaseJson = await http.patch(
           Uri.parse('${authEndpoint}api/v1/property/lease/${leaseId}/details'),
           body: json.encode({
             "rent_type_id": rentClass.toString(),
             "payment_class_id": paymentClass.toString(),
+            "contract_date": contractDate.toString(),
             "payment_date": paymentDate.toString(),
             "expiration_date": expirationDate.toString(),
             "price": price.toString(),
