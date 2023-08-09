@@ -5,7 +5,6 @@ import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentClass.dart';
 import 'package:home_management_app/models/RentClass.dart';
 import 'package:home_management_app/ui/utils/datepickerField.dart';
-import 'package:home_management_app/ui/utils/moneyField.dart';
 
 class EditLeaseScreen extends StatefulWidget {
   final Lease? lease;
@@ -31,7 +30,6 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
 
   dynamic paymentDate = TextEditingController();
   dynamic expirationDate = TextEditingController();
-  dynamic priceTextController = TextEditingController();
 
   List<RentClass> rentClass = [];
   List<PaymentClass> paymentClass = [];
@@ -47,14 +45,27 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
       paymentDate.text = selectedPaymentDate.toIso8601String().split('T')[0];
       expirationDate.text =
           selectedExpirationDate.toIso8601String().split('T')[0];
-      priceTextController.text = widget.lease!.price.toString();
     });
     return rentClass;
+  }
+
+  void setValues() {
+    setState(() {
+      _leaseBloc.changeRentClass(widget.lease!.rentType!.id.toString());
+      _leaseBloc
+          .changePaymentClass(widget.lease!.paymentClassId!.id.toString());
+      _leaseBloc.changePaymentDate(
+          selectedPaymentDate.toIso8601String().split('T')[0]);
+      _leaseBloc.changeExpirationDate(
+          selectedExpirationDate.toIso8601String().split('T')[0]);
+      _leaseBloc.changePrice(widget.lease!.price.toString());
+    });
   }
 
   @override
   void initState() {
     getLeaseDetails = _getLeaseData();
+    setValues();
     super.initState();
   }
 
@@ -241,8 +252,9 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                             StreamBuilder(
                                 stream: _leaseBloc.priceStream,
                                 builder: (context, AsyncSnapshot snapshot) {
-                                  return TextField(
-                                    controller: priceTextController,
+                                  return TextFormField(
+                                    initialValue:
+                                        widget.lease!.price.toString(),
                                     keyboardType:
                                         const TextInputType.numberWithOptions(
                                             decimal: true),
@@ -254,7 +266,6 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(15),
                                             borderSide: BorderSide.none),
-                                        hintText: 'Pago mensual',
                                         errorText: snapshot.hasError
                                             ? snapshot.error.toString()
                                             : null),
@@ -263,6 +274,49 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                             const SizedBox(
                               height: 22,
                             ),
+                            StreamBuilder(
+                                stream: _leaseBloc.verifyEditLeaseFields,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Container(
+                                      child: const Column(
+                                        children: [
+                                          Center(
+                                            child: Text(
+                                              "Complete todos los datos requeridos",
+                                              style: TextStyle(
+                                                  color: BrandColors.foggy),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return ElevatedButton(
+                                      onPressed: () {
+                                        _leaseBloc.updateLease(
+                                            widget.lease!.id, context);
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: BrandColors.arches,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 24, vertical: 12),
+                                      ),
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("Actualizar contrato",
+                                              style: TextStyle(fontSize: 22)),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                }),
                           ]),
                     ),
                   );

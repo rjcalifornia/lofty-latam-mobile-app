@@ -98,13 +98,13 @@ class LeaseBloc with Validators {
   String? get leaseTerminationComments =>
       _leaseTerminationCommentsController.value;
 
-  // Stream<bool> get verifyLeaseData => CombineLatestStream.combine5(
-  //     rentClassStream,
-  //     contractDateStream,
-  //     paymentDateStream,
-  //     expirationDateStream,
-  //     priceStream,
-  //     (a, b, c, d, e) {});
+  Stream<bool> get verifyEditLeaseFields => CombineLatestStream([
+        rentClassStream,
+        paymentClassStream,
+        paymentDateStream,
+        expirationDateStream,
+        priceStream,
+      ], (_) => true);
 
   Stream<bool> get verifyLeaseData => CombineLatestStream([
         rentClassStream,
@@ -260,14 +260,18 @@ class LeaseBloc with Validators {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
 
+    CustomDialogs.loadingDialog(
+        context, "Procesando, espere un momento por favor");
     try {
+      print(price.toString());
       var leaseJson = await http.patch(
-          Uri.parse('${authEndpoint}api/v1/property/lease/$leaseId/details'),
+          Uri.parse('${authEndpoint}api/v1/property/lease/${leaseId}/details'),
           body: json.encode({
-            "rent_type_id": rentClass,
-            "payment_class_id": paymentClass,
+            "rent_type_id": rentClass.toString(),
+            "payment_class_id": paymentClass.toString(),
             "payment_date": paymentDate.toString(),
             "expiration_date": expirationDate.toString(),
+            "price": price.toString(),
           }),
           headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -279,11 +283,13 @@ class LeaseBloc with Validators {
             'No se puede conectar, verifique su conexión a internet e intente más tarde.');
       });
       Navigator.of(context).pop();
+
       if (leaseJson.statusCode > 400) {
         dynamic response = json.decode(leaseJson.body);
-        Exception(Text(response['message'].toString()));
-      }
 
+        throw Exception(Text(response['message'].toString()));
+      }
+      Navigator.of(context).pop();
       CustomDialogs.infoDialog(
           context, "Atención", "Contrato actualizado correctamente");
     } catch (e) {
@@ -293,9 +299,18 @@ class LeaseBloc with Validators {
   }
 
   dispose() {
+    _rentClassController.close();
+    _paymentClassController.close();
     _contractDateController.close();
     _paymentDateController.close();
     _expirationDateController.close();
     _priceController.close();
+    _depositController.close();
+    _tenantNameController.close();
+    _tenantLastnameController.close();
+    _tenantUsernameController.close();
+    _tenantPhoneController.close();
+    _tenantEmailController.close();
+    _leaseTerminationCommentsController.close();
   }
 }
