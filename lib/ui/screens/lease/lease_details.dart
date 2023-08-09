@@ -7,9 +7,10 @@ import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
+import 'package:home_management_app/ui/screens/lease/edit_lease.dart';
 import 'package:home_management_app/ui/screens/property/create_payment_receipt.dart';
 import 'package:home_management_app/ui/widgets/tenant_info_container.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+//import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LeaseDetailsScreen extends StatefulWidget {
   final leaseId;
@@ -64,18 +65,22 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
         },
         child: Scaffold(
             backgroundColor: Colors.white,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CreateReceiptScreen(
-                              lease: lease,
-                            )));
-              },
-              backgroundColor: BrandColors.rausch,
-              child: const Icon(Icons.add_outlined),
-            ),
+            floatingActionButton:
+                Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+              if (lease?.active == true)
+                FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateReceiptScreen(
+                                  lease: lease,
+                                ))).then((value) => _getLeaseDetails());
+                  },
+                  backgroundColor: BrandColors.rausch,
+                  child: const Icon(Icons.add_outlined),
+                )
+            ]),
             appBar: AppBar(
                 iconTheme: const IconThemeData(color: Colors.black),
                 backgroundColor: Colors.white,
@@ -95,21 +100,20 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                             //Yeah this is the only way
                             //to navigate without a named route:
                             //https://github.com/flutter/flutter/issues/87766
-                            onTap: () {},
-                            // WidgetsBinding.instance
-                            //     .addPostFrameCallback((_) {
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder:
-                            //           (BuildContext context) {
-                            //         return EditPropertyScreen(
-                            //           property: propertyDetails,
-                            //         );
-                            //       },
-                            //     ),
-                            //   ).then((value) => _getProperty());
-                            // }),
+                            onTap: () {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return EditLeaseScreen(
+                                        lease: lease,
+                                      );
+                                    },
+                                  ),
+                                ).then((value) => _getLeaseDetails());
+                              });
+                            },
                             child: const Column(
                               children: [
                                 Row(
@@ -132,9 +136,12 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                           ),
                           PopupMenuItem(
                             onTap: () {
-                              leaseBloc
-                                  .endLease(lease!.id, context)
-                                  .then((value) => _getLeaseDetails());
+                              //Yeah this is the only way
+                              //to safely open a dialog
+                              //https://github.com/flutter/flutter/issues/87766
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                leaseTerminationDialogBuilder(context);
+                              });
                             },
                             child: const Column(children: [
                               Row(children: [
@@ -182,42 +189,94 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
             )));
   }
 
-  // Future<void> endContractDialogBuilder(BuildContext context) {
-  //   return showDialog<void>(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //             title: const Text('Atención'),
-  //             content: const SizedBox(
-  //               height: 70,
-  //               child: Center(
-  //                 child: Text('¿Está seguro que quiere finalizar el contrato?'),
-  //               ),
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 style: TextButton.styleFrom(
-  //                   textStyle: Theme.of(context).textTheme.labelLarge,
-  //                 ),
-  //                 child: const Text('Cancelar'),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //               TextButton(
-  //                 style: TextButton.styleFrom(
-  //                   textStyle: Theme.of(context).textTheme.labelLarge,
-  //                 ),
-  //                 child: const Text('Finalizar contrato'),
-  //                 onPressed: () {
-  //                   leaseBloc
-  //                       .endLease(lease!.id, context)
-  //                       .then((value) => _getLeaseDetails());
-  //                   // Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //             ]);
-  //       });
-  // }
+  Future<void> leaseTerminationDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Finalizar contrato'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              //height: MediaQuery.of(context).size.height / 6.5,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Row(children: [
+                    Icon(
+                      Icons.comment_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Observaciones",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: leaseBloc.leaseTerminationCommentsStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextFormField(
+                            onChanged: leaseBloc.changeLeaseTerminationComments,
+                            minLines: 2,
+                            maxLines: null,
+                            //initialValue: null,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                            ));
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                //  getPersonalInfo();
+                Navigator.of(context).pop();
+              },
+            ),
+            StreamBuilder(
+                stream: leaseBloc.verifyLeaseComments,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle: Theme.of(context).textTheme.labelLarge,
+                        ),
+                        onPressed: null,
+                        child: const Text('Continuar'));
+                  } else {
+                    return TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      child: const Text('Continuar'),
+                      onPressed: () {
+                        leaseBloc
+                            .endLease(lease!.id, context)
+                            .then((value) => _getLeaseDetails());
+                      },
+                    );
+                  }
+                })
+          ],
+        );
+      },
+    );
+  }
 }

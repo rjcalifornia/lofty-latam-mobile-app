@@ -16,7 +16,7 @@ class Lease {
   int? duration;
   bool? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
   RentType? rentType;
@@ -475,7 +475,7 @@ class LeaseId {
   int? duration;
   bool? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
 

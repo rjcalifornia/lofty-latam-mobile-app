@@ -36,6 +36,7 @@ class LeaseBloc with Validators {
   final _tenantUsernameController = BehaviorSubject<String>();
   final _tenantPhoneController = BehaviorSubject<String>();
   final _tenantEmailController = BehaviorSubject<String>();
+  final _leaseTerminationCommentsController = BehaviorSubject<String>();
 
   Function(String) get changeRentClass => _rentClassController.sink.add;
   Function(String) get changePaymentClass => _paymentClassController.sink.add;
@@ -52,6 +53,8 @@ class LeaseBloc with Validators {
       _tenantUsernameController.sink.add;
   Function(String) get changeTenantPhone => _tenantPhoneController.sink.add;
   Function(String) get changeTenantEmail => _tenantEmailController.sink.add;
+  Function(String) get changeLeaseTerminationComments =>
+      _leaseTerminationCommentsController.sink.add;
 
   Stream<String> get rentClassStream =>
       _rentClassController.stream.transform(validateLeaseFields);
@@ -77,6 +80,8 @@ class LeaseBloc with Validators {
       _tenantPhoneController.stream.transform(validateLeaseFields);
   Stream<String> get tenantEmailStream =>
       _tenantEmailController.stream.transform(validateLeaseFields);
+  Stream<String> get leaseTerminationCommentsStream =>
+      _leaseTerminationCommentsController.stream.transform(validateLeaseFields);
 
   String? get rentClass => _rentClassController.value;
   String? get paymentClass => _paymentClassController.value;
@@ -90,14 +95,17 @@ class LeaseBloc with Validators {
   String? get tenantUsername => _tenantUsernameController.value;
   String? get tenantPhone => _tenantPhoneController.value;
   String? get tenantEmail => _tenantEmailController.value;
+  String? get leaseTerminationComments =>
+      _leaseTerminationCommentsController.value;
 
-  // Stream<bool> get verifyLeaseData => CombineLatestStream.combine5(
-  //     rentClassStream,
-  //     contractDateStream,
-  //     paymentDateStream,
-  //     expirationDateStream,
-  //     priceStream,
-  //     (a, b, c, d, e) {});
+  Stream<bool> get verifyEditLeaseFields => CombineLatestStream([
+        rentClassStream,
+        paymentClassStream,
+        contractDateStream,
+        paymentDateStream,
+        expirationDateStream,
+        priceStream,
+      ], (_) => true);
 
   Stream<bool> get verifyLeaseData => CombineLatestStream([
         rentClassStream,
@@ -113,6 +121,9 @@ class LeaseBloc with Validators {
         paymentClassStream,
         // tenantEmailStream
       ], (_) => true);
+
+  Stream<bool> get verifyLeaseComments =>
+      leaseTerminationCommentsStream.map((comments) => true);
 
   Future getRentClass() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -217,13 +228,12 @@ class LeaseBloc with Validators {
   Future<void> endLease(leaseId, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
-    CustomDialogs.loadingDialog(
-        context, "Procesando, espere un momento por favor...");
 
     try {
       var leaseJson = await http.delete(
           Uri.parse(
               '${authEndpoint}api/v1/property/lease/$leaseId/termination'),
+          body: json.encode({'comments': leaseTerminationComments.toString()}),
           headers: {
             "Content-Type": "application/json; charset=utf-8",
             "Accept": "application/json",
@@ -247,10 +257,61 @@ class LeaseBloc with Validators {
     }
   }
 
+  Future<void> updateLease(leaseId, context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    CustomDialogs.loadingDialog(
+        context, "Procesando, espere un momento por favor");
+    try {
+      var leaseJson = await http.patch(
+          Uri.parse('${authEndpoint}api/v1/property/lease/${leaseId}/details'),
+          body: json.encode({
+            "rent_type_id": rentClass.toString(),
+            "payment_class_id": paymentClass.toString(),
+            "contract_date": contractDate.toString(),
+            "payment_date": paymentDate.toString(),
+            "expiration_date": expirationDate.toString(),
+            "price": price.toString(),
+          }),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
+      Navigator.of(context).pop();
+
+      if (leaseJson.statusCode > 400) {
+        dynamic response = json.decode(leaseJson.body);
+
+        throw Exception(Text(response['message'].toString()));
+      }
+      Navigator.of(context).pop();
+      CustomDialogs.infoDialog(
+          context, "Atención", "Contrato actualizado correctamente");
+    } catch (e) {
+      Navigator.of(context).pop();
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
+
   dispose() {
+    _rentClassController.close();
+    _paymentClassController.close();
     _contractDateController.close();
     _paymentDateController.close();
     _expirationDateController.close();
     _priceController.close();
+    _depositController.close();
+    _tenantNameController.close();
+    _tenantLastnameController.close();
+    _tenantUsernameController.close();
+    _tenantPhoneController.close();
+    _tenantEmailController.close();
+    _leaseTerminationCommentsController.close();
   }
 }

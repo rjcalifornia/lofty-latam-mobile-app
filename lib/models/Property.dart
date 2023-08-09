@@ -203,7 +203,7 @@ class Leases {
   bool? active;
   int? paymentDay;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
 
