@@ -4,6 +4,8 @@ import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentClass.dart';
 import 'package:home_management_app/models/RentClass.dart';
+import 'package:home_management_app/ui/utils/datepickerField.dart';
+import 'package:home_management_app/ui/utils/moneyField.dart';
 
 class EditLeaseScreen extends StatefulWidget {
   final Lease? lease;
@@ -29,9 +31,12 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
 
   dynamic paymentDate = TextEditingController();
   dynamic expirationDate = TextEditingController();
+  dynamic priceTextController = TextEditingController();
 
   List<RentClass> rentClass = [];
   List<PaymentClass> paymentClass = [];
+
+  Future? getLeaseDetails;
 
   Future _getLeaseData() async {
     final rentClassJson = await _leaseBloc.getRentClass();
@@ -39,14 +44,17 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
     setState(() {
       rentClass = rentClassJson;
       paymentClass = paymentClassJson;
+      paymentDate.text = selectedPaymentDate.toIso8601String().split('T')[0];
+      expirationDate.text =
+          selectedExpirationDate.toIso8601String().split('T')[0];
+      priceTextController.text = widget.lease!.price.toString();
     });
     return rentClass;
   }
 
   @override
   void initState() {
-    // TODO: implement initState
-    _getLeaseData();
+    getLeaseDetails = _getLeaseData();
     super.initState();
   }
 
@@ -70,7 +78,7 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
         ),
         body: SafeArea(
           child: FutureBuilder(
-              future: _getLeaseData(),
+              future: getLeaseDetails,
               builder: ((context, snapshot) {
                 if (snapshot.hasData) {
                   return SingleChildScrollView(
@@ -181,6 +189,75 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                                       },
                                       value: selectedPaymentClass,
                                     ),
+                                  );
+                                }),
+                            const SizedBox(
+                              height: 22,
+                            ),
+                            StreamBuilder(
+                                stream: _leaseBloc.paymentDateStream,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  return DatePickerField(
+                                    selectedPickerDate: selectedPaymentDate,
+                                    textController: paymentDate,
+                                    labelText: 'Seleccione fecha de pago',
+                                    dateFieldChange:
+                                        _leaseBloc.changePaymentDate,
+                                  );
+                                }),
+                            const SizedBox(
+                              height: 22,
+                            ),
+                            StreamBuilder(
+                                stream: _leaseBloc.expirationDateStream,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  return DatePickerField(
+                                    selectedPickerDate: selectedExpirationDate,
+                                    textController: expirationDate,
+                                    labelText: 'Finalización de contrato',
+                                    dateFieldChange:
+                                        _leaseBloc.changeExpirationDate,
+                                  );
+                                }),
+                            const SizedBox(
+                              height: 22,
+                            ),
+                            const Row(
+                              children: [
+                                Icon(
+                                  Icons.payment_outlined,
+                                  color: BrandColors.hof,
+                                  size: 14,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  "Pago de alquiler mensual",
+                                  style: TextStyle(color: BrandColors.hof),
+                                ),
+                              ],
+                            ),
+                            StreamBuilder(
+                                stream: _leaseBloc.priceStream,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  return TextField(
+                                    controller: priceTextController,
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
+                                    onChanged: _leaseBloc.changePrice,
+                                    decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: const Color(0xfff6f6f6),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            borderSide: BorderSide.none),
+                                        hintText: 'Pago mensual',
+                                        errorText: snapshot.hasError
+                                            ? snapshot.error.toString()
+                                            : null),
                                   );
                                 }),
                             const SizedBox(
