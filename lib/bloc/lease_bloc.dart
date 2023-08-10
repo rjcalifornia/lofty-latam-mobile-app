@@ -100,11 +100,11 @@ class LeaseBloc with Validators {
 
   Stream<bool> get verifyEditLeaseFields => CombineLatestStream([
         rentClassStream,
-        paymentClassStream,
+      //  paymentClassStream,
         contractDateStream,
         paymentDateStream,
         expirationDateStream,
-        priceStream,
+      //  priceStream,
       ], (_) => true);
 
   Stream<bool> get verifyLeaseData => CombineLatestStream([
@@ -270,9 +270,9 @@ class LeaseBloc with Validators {
             "rent_type_id": rentClass.toString(),
             "payment_class_id": paymentClass.toString(),
             "contract_date": contractDate.toString(),
-            "payment_date": paymentDate.toString(),
+        //    "payment_date": paymentDate.toString(),
             "expiration_date": expirationDate.toString(),
-            "price": price.toString(),
+        //    "price": price.toString(),
           }),
           headers: {
             "Content-Type": "application/json; charset=utf-8",

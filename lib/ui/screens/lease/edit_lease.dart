@@ -212,35 +212,35 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                             const SizedBox(
                               height: 22,
                             ),
-                            StreamBuilder(
-                                stream: _leaseBloc.contractDateStream,
-                                builder: (context, AsyncSnapshot snapshot) {
-                                  return DatePickerField(
-                                    selectedPickerDate: selectedContractDate,
-                                    textController: contractDate,
-                                    labelText:
-                                        'Seleccione fecha de inicio de contrato',
-                                    dateFieldChange:
-                                        _leaseBloc.changeContractDate,
-                                  );
-                                }),
-                            const SizedBox(
-                              height: 22,
-                            ),
-                            StreamBuilder(
-                                stream: _leaseBloc.paymentDateStream,
-                                builder: (context, AsyncSnapshot snapshot) {
-                                  return DatePickerField(
-                                    selectedPickerDate: selectedPaymentDate,
-                                    textController: paymentDate,
-                                    labelText: 'Seleccione fecha de pago',
-                                    dateFieldChange:
-                                        _leaseBloc.changePaymentDate,
-                                  );
-                                }),
-                            const SizedBox(
-                              height: 22,
-                            ),
+                            // StreamBuilder(
+                            //     stream: _leaseBloc.contractDateStream,
+                            //     builder: (context, AsyncSnapshot snapshot) {
+                            //       return DatePickerField(
+                            //         selectedPickerDate: selectedContractDate,
+                            //         textController: contractDate,
+                            //         labelText:
+                            //             'Seleccione fecha de inicio de contrato',
+                            //         dateFieldChange:
+                            //             _leaseBloc.changeContractDate,
+                            //       );
+                            //     }),
+                            // const SizedBox(
+                            //   height: 22,
+                            // ),
+                            // StreamBuilder(
+                            //     stream: _leaseBloc.paymentDateStream,
+                            //     builder: (context, AsyncSnapshot snapshot) {
+                            //       return DatePickerField(
+                            //         selectedPickerDate: selectedPaymentDate,
+                            //         textController: paymentDate,
+                            //         labelText: 'Seleccione fecha de pago',
+                            //         dateFieldChange:
+                            //             _leaseBloc.changePaymentDate,
+                            //       );
+                            //     }),
+                            // const SizedBox(
+                            //   height: 22,
+                            // ),
                             StreamBuilder(
                                 stream: _leaseBloc.expirationDateStream,
                                 builder: (context, AsyncSnapshot snapshot) {
@@ -255,47 +255,47 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                             const SizedBox(
                               height: 22,
                             ),
-                            const Row(
-                              children: [
-                                Icon(
-                                  Icons.payment_outlined,
-                                  color: BrandColors.hof,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text(
-                                  "Pago de alquiler mensual",
-                                  style: TextStyle(color: BrandColors.hof),
-                                ),
-                              ],
-                            ),
-                            StreamBuilder(
-                                stream: _leaseBloc.priceStream,
-                                builder: (context, AsyncSnapshot snapshot) {
-                                  return TextFormField(
-                                    initialValue:
-                                        widget.lease!.price.toString(),
-                                    keyboardType:
-                                        const TextInputType.numberWithOptions(
-                                            decimal: true),
-                                    onChanged: _leaseBloc.changePrice,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: const Color(0xfff6f6f6),
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            borderSide: BorderSide.none),
-                                        errorText: snapshot.hasError
-                                            ? snapshot.error.toString()
-                                            : null),
-                                  );
-                                }),
-                            const SizedBox(
-                              height: 22,
-                            ),
+                            // const Row(
+                            //   children: [
+                            //     Icon(
+                            //       Icons.payment_outlined,
+                            //       color: BrandColors.hof,
+                            //       size: 14,
+                            //     ),
+                            //     SizedBox(
+                            //       width: 2,
+                            //     ),
+                            //     Text(
+                            //       "Pago de alquiler mensual",
+                            //       style: TextStyle(color: BrandColors.hof),
+                            //     ),
+                            //   ],
+                            // ),
+                            // StreamBuilder(
+                            //     stream: _leaseBloc.priceStream,
+                            //     builder: (context, AsyncSnapshot snapshot) {
+                            //       return TextFormField(
+                            //         initialValue:
+                            //             widget.lease!.price.toString(),
+                            //         keyboardType:
+                            //             const TextInputType.numberWithOptions(
+                            //                 decimal: true),
+                            //         onChanged: _leaseBloc.changePrice,
+                            //         decoration: InputDecoration(
+                            //             filled: true,
+                            //             fillColor: const Color(0xfff6f6f6),
+                            //             border: OutlineInputBorder(
+                            //                 borderRadius:
+                            //                     BorderRadius.circular(15),
+                            //                 borderSide: BorderSide.none),
+                            //             errorText: snapshot.hasError
+                            //                 ? snapshot.error.toString()
+                            //                 : null),
+                            //       );
+                            //     }),
+                            // const SizedBox(
+                            //   height: 22,
+                            // ),
                             StreamBuilder(
                                 stream: _leaseBloc.verifyEditLeaseFields,
                                 builder: (context, AsyncSnapshot snapshot) {
