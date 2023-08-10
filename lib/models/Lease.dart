@@ -205,7 +205,7 @@ class PropertyId {
   int? propertyTypeId;
   bool? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
 

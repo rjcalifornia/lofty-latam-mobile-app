@@ -19,7 +19,7 @@ class Property {
   int? propertyTypeId;
   bool? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
   List<Leases>? leases;
@@ -282,7 +282,7 @@ class TenantId {
   String? email;
   int? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
 
@@ -337,7 +337,7 @@ class PropertyPictures {
   int? active;
   Null? order;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
   String? imageLinkName;

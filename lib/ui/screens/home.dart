@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     );
                                   }),
                             ))
-                        : const Text('No se encontraron datos'),
+                        : const Text('No hay propiedades registradas'),
                   ],
                 );
               } else {
