@@ -11,6 +11,7 @@ import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/ui/screens/lease/create_lease.dart';
+import 'package:home_management_app/ui/screens/lease/lease_details.dart';
 import 'package:home_management_app/ui/screens/property/edit_property.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
 import 'package:home_management_app/ui/widgets/home_services_container.dart';
@@ -472,9 +473,37 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         ),
                                       ],
                                     )
-                                  : HomeLeasesContainer(
-                                      propertyDetails: propertyDetails,
-                                    ),
+                                  : Container(
+                                      height: 170,
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 15),
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount:
+                                              propertyDetails!.leases!.length,
+                                          itemBuilder: (ctx, i) {
+                                            return GestureDetector(
+                                                onTap: () => Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LeaseDetailsScreen(
+                                                              leaseId:
+                                                                  propertyDetails!
+                                                                      .leases![
+                                                                          i]
+                                                                      .id,
+                                                            ))).then(
+                                                    (value) => {
+                                                          {_getProperty()}
+                                                        }),
+                                                child: HomeLeasesContainer(
+                                                    propertyDetails:
+                                                        propertyDetails,
+                                                    iterator: i));
+                                          })),
                             ],
                           ),
                         ),

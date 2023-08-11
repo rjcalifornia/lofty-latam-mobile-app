@@ -150,7 +150,7 @@ class TenantInfoContainer extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              "Finalización: ${lease!.humanReadableExpirationDate}",
+              "Finaliza: ${lease!.humanReadableExpirationDate}",
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
