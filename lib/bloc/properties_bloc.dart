@@ -399,4 +399,34 @@ class PropertiesBloc with Validators {
     return user;
     //return '${prefs.getString("first_name")} ${prefs.getString("last_name")}';
   }
+
+  Future<void> removeProperty(propertyId, context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    try {
+      var leaseJson = await http.delete(
+          Uri.parse('${authEndpoint}api/v1/property/$propertyId/view'),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
+      Navigator.of(context).pop();
+      if (leaseJson.statusCode > 400) {
+        dynamic response = json.decode(leaseJson.body);
+        Exception(Text(response['message'].toString()));
+      }
+      Navigator.of(context).pop(true);
+      CustomDialogs.infoDialog(
+          context, "Atención", "Propiedad ha sido removida");
+    } catch (e) {
+      Navigator.of(context).pop();
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
 }
