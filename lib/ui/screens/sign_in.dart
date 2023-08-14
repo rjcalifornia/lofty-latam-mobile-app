@@ -14,9 +14,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final LoginBloc bloc = LoginBloc();
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<LoginBloc>(context);
+    //final bloc = Provider.of<LoginBloc>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
