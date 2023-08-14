@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:provider/provider.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
 
