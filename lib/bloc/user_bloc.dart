@@ -86,9 +86,13 @@ class UserBloc with Validators {
         return false;
       });
 
-  Stream<bool> get verifyRegistrationData => CombineLatestStream(
-      [nameStream, lastnameStream, documentStream, usernameStream],
-      (_) => true);
+  Stream<bool> get verifyRegistrationData => CombineLatestStream([
+        nameStream,
+        lastnameStream,
+        documentStream,
+        usernameStream,
+        passwordStream
+      ], (_) => true);
   Stream<bool> get verifyPhone => phoneStream.map((phone) => true);
   Stream<bool> get verifyEmail => emailStream.map((email) => true);
   Stream<bool> get verifyDocument => documentStream.map((document) => true);
