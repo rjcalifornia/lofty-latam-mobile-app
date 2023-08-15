@@ -288,6 +288,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   const SizedBox(
                     height: 22,
                   ),
+                  const Text(
+                    "Contraseña",
+                    style: TextStyle(color: BrandColors.hof),
+                  ),
+                  StreamBuilder(
+                      stream: userBloc.passwordStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return TextField(
+                            obscureText: true,
+                            onChanged: userBloc.changePassword,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xfff6f6f6),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide.none),
+                              hintText: "Escriba una contraseña",
+                            ));
+                      }),
                   const SizedBox(
                     height: 40,
                   )
