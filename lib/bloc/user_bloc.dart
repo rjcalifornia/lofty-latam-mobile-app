@@ -19,6 +19,8 @@ class UserBloc with Validators {
   final _oldPasswordController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
   final _repeatPasswordController = BehaviorSubject<String>();
+  final _documentController = BehaviorSubject<String>();
+  final _usernameController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeLastname => _lastnameController.sink.add;
@@ -28,13 +30,15 @@ class UserBloc with Validators {
   Function(String) get changePassword => _passwordController.sink.add;
   Function(String) get changeRepeatPassword =>
       _repeatPasswordController.sink.add;
+  Function(String) get changeDocument => _documentController.sink.add;
+  Function(String) get changeUsername => _usernameController.sink.add;
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(simpleValidation);
   Stream<String> get lastnameStream =>
       _lastnameController.stream.transform(simpleValidation);
   Stream<String> get phoneStream =>
-      _phoneController.stream.transform(simpleValidation);
+      _phoneController.stream.transform(simplePhoneValidation);
   Stream<String> get emailStream =>
       _emailController.stream.transform(simpleValidation);
   Stream<String> get oldPasswordStream =>
@@ -49,6 +53,11 @@ class UserBloc with Validators {
         }
       });
 
+  Stream<String> get documentStream =>
+      _documentController.stream.transform(simpleDocumentValidation);
+  Stream<String> get usernameStream =>
+      _usernameController.stream.transform(simpleValidation);
+
   String? get name => _nameController.value;
   String? get lastname => _lastnameController.value;
   String? get phone => _phoneController.value;
@@ -56,6 +65,8 @@ class UserBloc with Validators {
   String? get oldPassword => _oldPasswordController.value;
   String? get password => _passwordController.value;
   String? get repeatPassword => _repeatPasswordController.value;
+  String? get document => _documentController.value;
+  String? get username => _usernameController.value;
 
   Stream<bool> get verifyFullName =>
       CombineLatestStream.combine2(nameStream, lastnameStream, (a, b) {
@@ -77,6 +88,7 @@ class UserBloc with Validators {
 
   Stream<bool> get verifyPhone => phoneStream.map((phone) => true);
   Stream<bool> get verifyEmail => emailStream.map((email) => true);
+  Stream<bool> get verifyDocument => documentStream.map((document) => true);
 
   Future getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
