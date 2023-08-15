@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
@@ -308,8 +309,63 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ));
                       }),
                   const SizedBox(
-                    height: 40,
-                  )
+                    height: 20,
+                  ),
+                  RichText(
+                      text: TextSpan(
+                          style: const TextStyle(
+                              fontSize: 10, color: BrandColors.hof),
+                          children: <TextSpan>[
+                        const TextSpan(
+                            text: 'Al seleccionar Aceptar y Continuar, '),
+                        TextSpan(
+                            text: 'acepta todos los términos y condiciones',
+                            style: const TextStyle(
+                                fontSize: 10,
+                                color: BrandColors.hof,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print('test');
+                              }),
+                        const TextSpan(
+                            text: ' de Lofty Latam.',
+                            style:
+                                TextStyle(fontSize: 10, color: BrandColors.hof))
+                      ])),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  StreamBuilder(
+                      stream: userBloc.verifyRegistrationData,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (!snapshot.hasData) {
+                          return Container();
+                        } else {
+                          return ElevatedButton(
+                            onPressed: () {
+                              userBloc.createNewUser(context);
+                              //_paymentsBloc.generateReceipt(context, widget.lease.id);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: BrandColors.arches,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 12),
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Aceptar y continuar",
+                                    style: TextStyle(fontSize: 22)),
+                              ],
+                            ),
+                          );
+                        }
+                      }),
                 ],
               ),
             ),
