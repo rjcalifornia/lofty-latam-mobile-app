@@ -1,9 +1,11 @@
-import 'dart:async';
+// ignore_for_file: unused_local_variable, prefer_const_constructors
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/User.dart';
+import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -254,5 +256,87 @@ class UserBloc with Validators {
     }
   }
 
-  Future<void> createNewUser(context) async {}
+  Future<void> createNewUser(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userEmail = '';
+    if (_emailController.hasValue) {
+      userEmail = email.toString();
+    }
+
+    CustomDialogs.loadingDialog(
+        context, "Registrando datos, espere un momento por favor");
+
+    try {
+      var newUserJson =
+          await http.post(Uri.parse('${authEndpoint}api/v1/user/registration'),
+              body: json.encode({
+                "name": name.toString(),
+                "lastname": lastname.toString(),
+                "username": username.toString(),
+                "dui": document.toString(),
+                "email": userEmail.toString(),
+                "phone": phone.toString(),
+                "password": password.toString(),
+              }),
+              headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
+
+      dynamic jsonBody = await json.decode(newUserJson.body);
+
+      var status = newUserJson.statusCode.toString();
+      Navigator.of(context).pop();
+      if (status == '200') {
+        prefs.setString("access_token", jsonBody["access_token"]);
+        prefs.setString("first_name", jsonBody["user"]["first_name"]);
+        prefs.setString("last_name", jsonBody["user"]["first_lastname"]);
+        prefs.setString("role_name", jsonBody["user"]["rol_name"]);
+
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: const Text("Cuenta ha sido creada exitosamente."),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Route route =
+                            MaterialPageRoute(builder: (context) => AppPage());
+
+                        Navigator.of(context)
+                            .pushNamedAndRemoveUntil('home', (route) => false);
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      } else {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: Text(jsonBody['message'].toString()),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      }
+    } catch (e) {
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
 }
