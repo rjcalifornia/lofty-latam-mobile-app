@@ -287,10 +287,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_native_splash
-      sha256: e37964a0e7b08c3703e72b4d968c0596928c57b43400ade2037b655546742b6b
+      sha256: "6777a3abb974021a39b5fdd2d46a03ca390e03903b6351f21d10e7ecc969f12d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.9"
+    version: "2.2.16"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -437,14 +437,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.7.0"
-  lint:
-    dependency: transitive
-    description:
-      name: lint
-      sha256: "4a539aa34ec5721a2c7574ae2ca0336738ea4adc2a34887d54b7596310b33c85"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.10.0"
   lints:
     dependency: transitive
     description:

@@ -159,7 +159,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    "${user!.email}",
+                                    user!.email != null
+                                        ? user!.email!
+                                        : '(Vacío)',
                                     style: const TextStyle(
                                         color: BrandColors.foggy),
                                   )

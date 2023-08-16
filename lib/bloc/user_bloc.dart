@@ -260,6 +260,9 @@ class UserBloc with Validators {
   Future<void> createNewUser(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String userEmail = '';
+    _emailController.stream.listen((email) {
+      // You can access the email value here
+    });
     if (_emailController.hasValue) {
       userEmail = email.toString();
     }
