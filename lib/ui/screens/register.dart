@@ -16,28 +16,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final UserBloc userBloc = UserBloc();
     final PageController controller = PageController();
 
-    return Scaffold(
-        //backgroundColor: const Color(0xfff5f5f5),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-              icon: const Icon(Icons.chevron_left),
-              color: Colors.black,
-              onPressed: () => Navigator.pop(context)),
-        ),
-        body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: controller,
-          children: [
-            PhoneRegistrationPage(
-              userBloc: userBloc,
+    return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+            //backgroundColor: const Color(0xfff5f5f5),
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                  icon: const Icon(Icons.chevron_left),
+                  color: Colors.black,
+                  onPressed: () => Navigator.pop(context)),
+            ),
+            body: PageView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: controller,
-            ),
-            UserDetailsRegistrationPage(
-              userBloc: userBloc,
-            ),
-          ],
-        ));
+              children: [
+                PhoneRegistrationPage(
+                  userBloc: userBloc,
+                  controller: controller,
+                ),
+                UserDetailsRegistrationPage(
+                  userBloc: userBloc,
+                ),
+              ],
+            )));
   }
 }

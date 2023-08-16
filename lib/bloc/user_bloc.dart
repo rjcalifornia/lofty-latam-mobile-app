@@ -155,26 +155,27 @@ class UserBloc with Validators {
 
       if (userUpdateJson.statusCode > 400) {
         dynamic response = json.decode(userUpdateJson.body);
-        Exception(Text(response['message'].toString()));
+        CustomDialogs.fatalErrorDialog(context, response['message'].toString());
+      } else {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content:
+                    const Text("Datos han sido actualizados correctamente."),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
       }
-
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: const Text("Datos han sido actualizados correctamente."),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      //Navigator.of(context).pop();
-                    },
-                    child: const Text("Aceptar"))
-              ],
-            );
-          });
     } catch (e) {
       Exception(e.toString());
     }
