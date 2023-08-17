@@ -33,6 +33,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             body: PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: controller,
+              onPageChanged: (index) {
+                WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+              },
               children: [
                 PhoneRegistrationPage(
                   userBloc: userBloc,

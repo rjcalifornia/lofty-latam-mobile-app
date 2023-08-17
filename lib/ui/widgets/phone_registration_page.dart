@@ -49,7 +49,8 @@ class PhoneRegistrationPage extends StatelessWidget {
               stream: userBloc.phoneStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return TextField(
-                    keyboardType: TextInputType.name,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: false),
                     inputFormatters: [phoneFormatter],
                     onChanged: userBloc.changePhone,
                     decoration: InputDecoration(

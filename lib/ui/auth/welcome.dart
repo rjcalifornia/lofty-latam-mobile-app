@@ -23,10 +23,13 @@ class _WelcomePageState extends State<WelcomePage> {
               top: 0,
               right: 0,
               left: 0,
-              child: Image.asset(
-                "assets/img/main.jpg",
-                fit: BoxFit.fitHeight,
-              )),
+              child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                      Colors.grey.withOpacity(.35), BlendMode.srcOver),
+                  child: Image.asset(
+                    "assets/img/main.jpg",
+                    fit: BoxFit.fitHeight,
+                  ))),
           Container(
             width: double.infinity,
             child: Column(
@@ -59,7 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 Spacer(),
                 CustomAuthButtons(
-                    buttonColor: BrandColors.arches,
+                    buttonColor: BrandColors.fty,
                     border: Border.all(
                       color: Colors.transparent,
                     ),

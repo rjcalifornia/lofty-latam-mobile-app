@@ -98,7 +98,8 @@ class UserDetailsRegistrationPage extends StatelessWidget {
               stream: userBloc.documentStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return TextField(
-                    keyboardType: TextInputType.name,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: false),
                     inputFormatters: [duiFormatter],
                     onChanged: userBloc.changeDocument,
                     decoration: InputDecoration(
