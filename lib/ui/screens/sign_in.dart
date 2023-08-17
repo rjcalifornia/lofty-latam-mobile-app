@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 left: 0,
                                 bottom: 0,
                                 child: Image.asset(
-                                  "assets/img/lofty.png",
+                                  "assets/img/home.png",
                                   height: 100,
                                 ),
                               ),

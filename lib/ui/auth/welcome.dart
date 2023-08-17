@@ -33,7 +33,7 @@ class _WelcomePageState extends State<WelcomePage> {
               children: <Widget>[
                 Spacer(),
                 Image.asset(
-                  "assets/img/lofty.png",
+                  "assets/img/home.png",
                   height: 120,
                 ),
                 SizedBox(
