@@ -343,6 +343,9 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                             return TextField(
                               onChanged: _leaseBloc.changeTenantUsername,
                               inputFormatters: [duiFormatter],
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: false),
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: const Color(0xfff6f6f6),
