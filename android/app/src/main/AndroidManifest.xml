@@ -4,10 +4,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="home_management_app"
+        android:label="Lofty"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
             android:name=".MainActivity"

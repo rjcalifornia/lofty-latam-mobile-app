@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+import 'package:home_management_app/bloc/user_bloc.dart';
+import 'package:home_management_app/ui/widgets/phone_registration_page.dart';
+import 'package:home_management_app/ui/widgets/user_details_registration_page.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -12,17 +13,38 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xfff5f5f5),
-      body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: SingleChildScrollView(
-            child: Column(
-              children: [],
+    final UserBloc userBloc = UserBloc();
+    final PageController controller = PageController();
+
+    return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+            //backgroundColor: const Color(0xfff5f5f5),
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                  icon: const Icon(Icons.chevron_left),
+                  color: Colors.black,
+                  onPressed: () => Navigator.pop(context)),
             ),
-          )),
-    );
+            body: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: controller,
+              onPageChanged: (index) {
+                WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+              },
+              children: [
+                PhoneRegistrationPage(
+                  userBloc: userBloc,
+                  controller: controller,
+                ),
+                UserDetailsRegistrationPage(
+                  userBloc: userBloc,
+                ),
+              ],
+            )));
   }
 }

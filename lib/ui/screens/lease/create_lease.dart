@@ -32,6 +32,10 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
       mask: '########-#',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
+  dynamic phoneFormatter = MaskTextInputFormatter(
+      mask: '####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   Future _getLeaseData() async {
     final rentClassJson = await _leaseBloc.getRentClass();
@@ -339,6 +343,9 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                             return TextField(
                               onChanged: _leaseBloc.changeTenantUsername,
                               inputFormatters: [duiFormatter],
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: false),
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: const Color(0xfff6f6f6),
@@ -371,6 +378,7 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                           builder: (context, AsyncSnapshot snapshot) {
                             return TextField(
                                 onChanged: _leaseBloc.changeTenantPhone,
+                                inputFormatters: [phoneFormatter],
                                 keyboardType:
                                     const TextInputType.numberWithOptions(
                                         decimal: false),

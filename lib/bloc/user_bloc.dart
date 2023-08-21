@@ -1,9 +1,11 @@
-import 'dart:async';
+// ignore_for_file: unused_local_variable, prefer_const_constructors
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/User.dart';
+import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +21,8 @@ class UserBloc with Validators {
   final _oldPasswordController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
   final _repeatPasswordController = BehaviorSubject<String>();
+  final _documentController = BehaviorSubject<String>();
+  final _usernameController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeLastname => _lastnameController.sink.add;
@@ -28,13 +32,15 @@ class UserBloc with Validators {
   Function(String) get changePassword => _passwordController.sink.add;
   Function(String) get changeRepeatPassword =>
       _repeatPasswordController.sink.add;
+  Function(String) get changeDocument => _documentController.sink.add;
+  Function(String) get changeUsername => _usernameController.sink.add;
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(simpleValidation);
   Stream<String> get lastnameStream =>
       _lastnameController.stream.transform(simpleValidation);
   Stream<String> get phoneStream =>
-      _phoneController.stream.transform(simpleValidation);
+      _phoneController.stream.transform(simplePhoneValidation);
   Stream<String> get emailStream =>
       _emailController.stream.transform(simpleValidation);
   Stream<String> get oldPasswordStream =>
@@ -49,6 +55,11 @@ class UserBloc with Validators {
         }
       });
 
+  Stream<String> get documentStream =>
+      _documentController.stream.transform(simpleDocumentValidation);
+  Stream<String> get usernameStream =>
+      _usernameController.stream.transform(simpleValidation);
+
   String? get name => _nameController.value;
   String? get lastname => _lastnameController.value;
   String? get phone => _phoneController.value;
@@ -56,6 +67,8 @@ class UserBloc with Validators {
   String? get oldPassword => _oldPasswordController.value;
   String? get password => _passwordController.value;
   String? get repeatPassword => _repeatPasswordController.value;
+  String? get document => _documentController.value;
+  String? get username => _usernameController.value;
 
   Stream<bool> get verifyFullName =>
       CombineLatestStream.combine2(nameStream, lastnameStream, (a, b) {
@@ -75,8 +88,16 @@ class UserBloc with Validators {
         return false;
       });
 
+  Stream<bool> get verifyRegistrationData => CombineLatestStream([
+        nameStream,
+        lastnameStream,
+        documentStream,
+        usernameStream,
+        passwordStream
+      ], (_) => true);
   Stream<bool> get verifyPhone => phoneStream.map((phone) => true);
   Stream<bool> get verifyEmail => emailStream.map((email) => true);
+  Stream<bool> get verifyDocument => documentStream.map((document) => true);
 
   Future getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -134,26 +155,27 @@ class UserBloc with Validators {
 
       if (userUpdateJson.statusCode > 400) {
         dynamic response = json.decode(userUpdateJson.body);
-        Exception(Text(response['message'].toString()));
+        CustomDialogs.fatalErrorDialog(context, response['message'].toString());
+      } else {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content:
+                    const Text("Datos han sido actualizados correctamente."),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
       }
-
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: const Text("Datos han sido actualizados correctamente."),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      //Navigator.of(context).pop();
-                    },
-                    child: const Text("Aceptar"))
-              ],
-            );
-          });
     } catch (e) {
       Exception(e.toString());
     }
@@ -232,6 +254,93 @@ class UserBloc with Validators {
       }
     } catch (e) {
       Exception(e.toString());
+    }
+  }
+
+  Future<void> createNewUser(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userEmail = '';
+    _emailController.stream.listen((email) {
+      // You can access the email value here
+    });
+    if (_emailController.hasValue) {
+      userEmail = email.toString();
+    }
+
+    CustomDialogs.loadingDialog(
+        context, "Registrando datos, espere un momento por favor");
+
+    try {
+      var newUserJson =
+          await http.post(Uri.parse('${authEndpoint}api/v1/user/registration'),
+              body: json.encode({
+                "name": name.toString(),
+                "lastname": lastname.toString(),
+                "username": username.toString(),
+                "dui": document.toString(),
+                "email": userEmail.toString(),
+                "phone": phone.toString(),
+                "password": password.toString(),
+              }),
+              headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
+
+      dynamic jsonBody = await json.decode(newUserJson.body);
+
+      var status = newUserJson.statusCode.toString();
+      Navigator.of(context).pop();
+      if (status == '200') {
+        prefs.setString("access_token", jsonBody["access_token"]);
+        prefs.setString("first_name", jsonBody["user"]["first_name"]);
+        prefs.setString("last_name", jsonBody["user"]["first_lastname"]);
+        prefs.setString("role_name", jsonBody["user"]["rol_name"]);
+
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: const Text("Cuenta ha sido creada exitosamente."),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Route route =
+                            MaterialPageRoute(builder: (context) => AppPage());
+
+                        Navigator.of(context)
+                            .pushNamedAndRemoveUntil('home', (route) => false);
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      } else {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: Text(jsonBody['message'].toString()),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      }
+    } catch (e) {
+      CustomDialogs.fatalErrorDialog(context, e);
     }
   }
 }

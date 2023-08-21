@@ -7,7 +7,8 @@ class BrandColors {
       arches = Color(0xffFC642D),
       hof = Color(0xff484848),
       foggy = Color(0xff767676),
-      loft = Color(0xff2e2d2d);
+      loft = Color(0xff2e2d2d),
+      fty = Color(0xffff405c);
 }
 
 class CustomDialogs {

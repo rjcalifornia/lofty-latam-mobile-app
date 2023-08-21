@@ -300,8 +300,8 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                                 stream: _leaseBloc.verifyEditLeaseFields,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   if (!snapshot.hasData) {
-                                    return Container(
-                                      child: const Column(
+                                    return const SizedBox(
+                                      child: Column(
                                         children: [
                                           Center(
                                             child: Text(

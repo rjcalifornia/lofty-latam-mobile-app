@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class NotificationsContainer extends StatelessWidget {
   final List? notifications;

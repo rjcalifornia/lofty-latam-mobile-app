@@ -18,6 +18,23 @@ class Validators {
       sink.addError("Ingrese correctamente la información");
     }
   });
+  final simplePhoneValidation =
+      StreamTransformer<String, String>.fromHandlers(handleData: (data, sink) {
+    if (data.length > 8) {
+      sink.add(data);
+    } else {
+      sink.addError("Ingrese correctamente la información");
+    }
+  });
+
+  final simpleDocumentValidation =
+      StreamTransformer<String, String>.fromHandlers(handleData: (data, sink) {
+    if (data.length > 9) {
+      sink.add(data);
+    } else {
+      sink.addError("Ingrese correctamente la información");
+    }
+  });
 
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (password, sink) {
