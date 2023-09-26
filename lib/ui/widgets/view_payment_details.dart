@@ -8,11 +8,13 @@ class PaymentDetailsScreen extends StatelessWidget {
   final paymentDetails;
   final tenantName;
   final tenantLastname;
+  final tenantEmail;
   const PaymentDetailsScreen(
       {super.key,
       required this.paymentDetails,
       this.tenantLastname,
-      this.tenantName});
+      this.tenantName,
+      this.tenantEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +163,6 @@ class PaymentDetailsScreen extends StatelessWidget {
                     // Add your onPressed logic here
                     _paymentsBloc.downloadReceipt(context, paymentDetails.id);
                   },
-                  
                   color: Colors.blue,
                   textColor: Colors.white,
                   padding: const EdgeInsets.all(16.0),
@@ -170,6 +171,29 @@ class PaymentDetailsScreen extends StatelessWidget {
                   ),
                   child: const Text('Descargar recibo'),
                 ),
+                tenantEmail != null
+                    ? Column(
+                        children: [
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          MaterialButton(
+                            onPressed: () {
+                              _paymentsBloc.sendPaymentReceipt(
+                                  context, paymentDetails.id);
+                            },
+                            color: BrandColors.fty,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: const Text(
+                                'Enviar recibo por correo electrónico'),
+                          )
+                        ],
+                      )
+                    : Container(),
               ],
             ),
           ))
