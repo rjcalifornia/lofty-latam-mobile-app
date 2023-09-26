@@ -96,7 +96,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                                 color: BrandColors.foggy,
                               ),
                               onTap: () {
-                                //fullNameDialogBuilder(context);
+                                resendValidationEmailDialogBuilder(context);
                               }),
                           const Divider(
                             thickness: 1,
@@ -140,6 +140,50 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
               );
             }
           })),
+    );
+  }
+
+  Future<void> resendValidationEmailDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Reenviar correo de validación'),
+          content: const SingleChildScrollView(
+            child: SizedBox(
+              //height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("¿Desea reenviar el correo de validación de cuenta?")
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Reenviar correo'),
+              onPressed: () {
+                //  Navigator.of(context).pop();
+                userBloc.resendVerificationEmail(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

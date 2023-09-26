@@ -343,4 +343,51 @@ class UserBloc with Validators {
       CustomDialogs.fatalErrorDialog(context, e);
     }
   }
+
+  Future<void> resendVerificationEmail(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    try {
+      var sendEmailRequestJson = await http.post(
+          Uri.parse('${authEndpoint}api/v1/user/resend-validation-email'),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
+
+      Navigator.of(context).pop();
+
+      if (sendEmailRequestJson.statusCode > 400) {
+        dynamic response = json.decode(sendEmailRequestJson.body);
+        CustomDialogs.fatalErrorDialog(context, response['message'].toString());
+      } else {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: const Text(
+                    "Correo de validación de cuenta ha sido enviado correctamente"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //Navigator.of(context).pop();
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      }
+    } catch (e) {
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
 }
