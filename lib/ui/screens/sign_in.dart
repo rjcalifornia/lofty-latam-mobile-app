@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   bloc.submit(context);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: BrandColors.arches,
+                                  backgroundColor: BrandColors.fty,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),

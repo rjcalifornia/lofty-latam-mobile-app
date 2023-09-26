@@ -28,7 +28,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       Colors.grey.withOpacity(.35), BlendMode.srcOver),
                   child: Image.asset(
                     "assets/img/main.jpg",
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.cover,
                   ))),
           Container(
             width: double.infinity,

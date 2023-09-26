@@ -100,11 +100,11 @@ class LeaseBloc with Validators {
 
   Stream<bool> get verifyEditLeaseFields => CombineLatestStream([
         rentClassStream,
-      //  paymentClassStream,
+        //  paymentClassStream,
         contractDateStream,
         paymentDateStream,
         expirationDateStream,
-      //  priceStream,
+        //  priceStream,
       ], (_) => true);
 
   Stream<bool> get verifyLeaseData => CombineLatestStream([
@@ -165,6 +165,13 @@ class LeaseBloc with Validators {
 
   Future<void> storeLease(var context, propertyId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userEmail = '';
+    _tenantEmailController.stream.listen((tenantEmail) {
+      // You can access the email value here
+    });
+    if (_tenantEmailController.hasValue) {
+      userEmail = tenantEmail.toString();
+    }
     final accessToken = prefs.getString("access_token");
     CustomDialogs.loadingDialog(
         context, "Almacenando contrato, espere un momento por favor");
@@ -185,7 +192,7 @@ class LeaseBloc with Validators {
             "tenant_lastname": tenantLastname.toString(),
             "tenant_username": tenantUsername.toString(),
             "tenant_phone": tenantPhone.toString(),
-            //  "tenant_email": tenantEmail!.isEmpty ? '' : tenantEmail.toString(),
+            "tenant_email": userEmail,
           }),
           headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -270,9 +277,9 @@ class LeaseBloc with Validators {
             "rent_type_id": rentClass.toString(),
             "payment_class_id": paymentClass.toString(),
             "contract_date": contractDate.toString(),
-        //    "payment_date": paymentDate.toString(),
+            //    "payment_date": paymentDate.toString(),
             "expiration_date": expirationDate.toString(),
-        //    "price": price.toString(),
+            //    "price": price.toString(),
           }),
           headers: {
             "Content-Type": "application/json; charset=utf-8",

@@ -97,7 +97,7 @@ class PhoneRegistrationPage extends StatelessWidget {
                         curve: Curves.easeIn);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: BrandColors.arches,
+                    backgroundColor: BrandColors.fty,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),

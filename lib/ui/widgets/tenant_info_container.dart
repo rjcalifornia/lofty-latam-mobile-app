@@ -264,6 +264,7 @@ class TenantInfoContainer extends StatelessWidget {
                                         tenantName: lease!.tenantId!.name,
                                         tenantLastname:
                                             lease!.tenantId!.lastname,
+                                        tenantEmail: lease!.tenantId!.email,
                                       ))),
                           leading: Container(
                             padding: const EdgeInsets.all(9.0),

@@ -197,6 +197,48 @@ class PaymentsBloc with Validators {
     }
   }
 
+  Future<void> sendPaymentReceipt(context, receiptId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    CustomDialogs.loadingDialog(
+        context, "Procesando, espere un momento por favor");
+
+    try {
+      var paymentJson = await http.post(
+          Uri.parse('${authEndpoint}api/v1/payments/send-payment-receipt'),
+          body: json.encode({"payment_id": receiptId.toString()}),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
+      Navigator.of(context).pop();
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text("Recibo ha sido enviado correctamente."),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    } catch (e) {
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
+
   Future getPaymentNotifications() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
