@@ -390,4 +390,51 @@ class UserBloc with Validators {
       CustomDialogs.fatalErrorDialog(context, e);
     }
   }
+
+  Future<void> deleteAccount(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    try {
+      var deleteRequestJson = await http.post(
+          Uri.parse('${authEndpoint}api/v1/user/deactivate-account'),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
+
+      Navigator.of(context).pop();
+
+      if (deleteRequestJson.statusCode > 400) {
+        dynamic response = json.decode(deleteRequestJson.body);
+        CustomDialogs.fatalErrorDialog(context, response['message'].toString());
+      } else {
+        await prefs.clear();
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Atención"),
+                content: const Text("Su cuenta ha sido eliminada"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            'welcome', (route) => false);
+                      },
+                      child: const Text("Aceptar"))
+                ],
+              );
+            });
+      }
+    } catch (e) {
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
 }

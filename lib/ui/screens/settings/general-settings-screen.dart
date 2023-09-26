@@ -113,7 +113,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                               children: [
                                 Expanded(
                                     child: Text(
-                                  "Eliminará todos sus datos personales y registros de cobros",
+                                  "Eliminará todos sus datos personales, propiedades creadas, y registros de cobros",
                                   style: TextStyle(color: BrandColors.foggy),
                                 ))
                               ],
@@ -125,7 +125,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                           color: BrandColors.arches,
                         ),
                         onTap: () {
-                          //fullNameDialogBuilder(context);
+                          deactivateAccountDialogBuilder(context);
                         }),
                     const Divider(
                       thickness: 1,
@@ -179,6 +179,51 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
               onPressed: () {
                 //  Navigator.of(context).pop();
                 userBloc.resendVerificationEmail(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> deactivateAccountDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Eliminar cuenta'),
+          content: const SingleChildScrollView(
+            child: SizedBox(
+              //height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                      "¿Está seguro que desea eliminar su cuenta? Esta acción no se puede revertir.")
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Sí, eliminar mi cuenta'),
+              onPressed: () {
+                //  Navigator.of(context).pop();
+                userBloc.deleteAccount(context);
               },
             ),
           ],
