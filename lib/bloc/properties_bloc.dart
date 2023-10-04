@@ -238,6 +238,8 @@ class PropertiesBloc with Validators {
   Future<void> createProperty(var context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
+    CustomDialogs.loadingDialog(
+        context, "Almacenando propiedad, espere un momento por favor");
     try {
       var propertyJson = await http
           .post(Uri.parse('${authEndpoint}api/v1/dashboard/properties/add-new'),
@@ -263,9 +265,11 @@ class PropertiesBloc with Validators {
             "Content-Type": "application/json; charset=utf-8",
             "Accept": "application/json",
             'Authorization': 'Bearer $accessToken',
-          }).timeout(const Duration(seconds: 5),
-              onTimeout: () => throw TimeoutException(
-                  'No se puede conectar, intente más tarde.'));
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
 
       var auth = await json.decode(propertyJson.body);
 
@@ -290,37 +294,15 @@ class PropertiesBloc with Validators {
             );
           });
     } catch (e) {
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: Text(e.toString()),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Aceptar"))
-              ],
-            );
-          });
+      CustomDialogs.fatalErrorDialog(context, e);
     }
   }
 
   Future<void> updateProperty(propertyId, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //print(name.toString());
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-                color: BrandColors.arches, size: 38),
-          );
-        });
+    CustomDialogs.loadingDialog(
+        context, "Procesando, espere un momento por favor");
     final accessToken = prefs.getString("access_token");
     try {
       var propertyJson = await http.patch(
@@ -345,9 +327,11 @@ class PropertiesBloc with Validators {
             "Content-Type": "application/json; charset=utf-8",
             "Accept": "application/json",
             'Authorization': 'Bearer $accessToken',
-          }).timeout(const Duration(seconds: 5),
-          onTimeout: () => throw TimeoutException(
-              'No se puede conectar, intente más tarde.'));
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
 
       dynamic jsonBody = await json.decode(propertyJson.body);
 
@@ -399,22 +383,7 @@ class PropertiesBloc with Validators {
             });
       }
     } catch (e) {
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: Text(e.toString()),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Aceptar"))
-              ],
-            );
-          });
+      CustomDialogs.fatalErrorDialog(context, e);
     }
   }
 
@@ -429,5 +398,35 @@ class PropertiesBloc with Validators {
 
     return user;
     //return '${prefs.getString("first_name")} ${prefs.getString("last_name")}';
+  }
+
+  Future<void> removeProperty(propertyId, context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    try {
+      var leaseJson = await http.delete(
+          Uri.parse('${authEndpoint}api/v1/property/$propertyId/view'),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'No se puede conectar, verifique su conexión a internet e intente más tarde.');
+      });
+      Navigator.of(context).pop();
+      if (leaseJson.statusCode > 400) {
+        dynamic response = json.decode(leaseJson.body);
+        Exception(Text(response['message'].toString()));
+      }
+      Navigator.of(context).pop(true);
+      CustomDialogs.infoDialog(
+          context, "Atención", "Propiedad ha sido removida");
+    } catch (e) {
+      Navigator.of(context).pop();
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
   }
 }

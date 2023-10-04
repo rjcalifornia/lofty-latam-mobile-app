@@ -436,7 +436,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                       _propertyBloc.createProperty(context);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: BrandColors.arches,
+                                      backgroundColor: BrandColors.fty,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(12.0),

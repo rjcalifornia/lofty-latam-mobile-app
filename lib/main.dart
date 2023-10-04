@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/ui/screens/app.dart';
+import 'package:home_management_app/ui/screens/register.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             'signin': (context) => LoginScreen(),
+            'signup': (context) => RegistrationScreen(),
             'home': (context) => AppPage(),
             'welcome': (context) => WelcomePage(),
           },

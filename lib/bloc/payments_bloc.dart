@@ -96,35 +96,8 @@ class PaymentsBloc with Validators {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
     String? getAdditionalNote = "";
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Dialog(
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: BrandColors.arches, size: 38),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "Procesando, espere un momento por favor",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: BrandColors.foggy),
-                    )
-                  ],
-                ),
-              ));
-        });
+    CustomDialogs.loadingDialog(
+        context, "Procesando, espere un momento por favor");
     if (_additionalNoteController.hasValue) {
       getAdditionalNote = additionalNote.toString();
     }
@@ -166,22 +139,7 @@ class PaymentsBloc with Validators {
             );
           });
     } catch (e) {
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: Text(e.toString()),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Aceptar"))
-              ],
-            );
-          });
+      CustomDialogs.fatalErrorDialog(context, e);
     }
   }
 
@@ -190,38 +148,11 @@ class PaymentsBloc with Validators {
     final accessToken = prefs.getString("access_token");
     final dio = Dio();
 
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Dialog(
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: BrandColors.arches, size: 38),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "Procesando, espere un momento por favor",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: BrandColors.foggy),
-                    )
-                  ],
-                ),
-              ));
-        });
+    CustomDialogs.loadingDialog(
+        context, "Descargando recibo, espere un momento por favor");
 
     try {
-      Directory dir = Directory('/storage/emulated/0/Download');
+      Directory dir = Directory('/storage/emulated/0/Documents');
       var savePath = dir.path;
 
       var uuid = Uuid();
@@ -261,38 +192,73 @@ class PaymentsBloc with Validators {
       Future.delayed(Duration(seconds: 2)).then((_) {
         Navigator.of(context).pop();
       });
+
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
+
+  Future<void> sendPaymentReceipt(context, receiptId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    CustomDialogs.loadingDialog(
+        context, "Procesando, espere un momento por favor");
+
+    try {
+      var paymentJson = await http.post(
+          Uri.parse('${authEndpoint}api/v1/payments/send-payment-receipt'),
+          body: json.encode({"payment_id": receiptId.toString()}),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        Navigator.of(context).pop();
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
+      Navigator.of(context).pop();
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text("Atención"),
-              content: Text(e.toString()),
+              content: Text("Recibo ha sido enviado correctamente."),
               actions: [
                 TextButton(
                     onPressed: () {
+                      Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },
                     child: const Text("Aceptar"))
               ],
             );
           });
-      //print('Error downloading receipt: $e');
+    } catch (e) {
+      CustomDialogs.fatalErrorDialog(context, e);
     }
   }
 
   Future getPaymentNotifications() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
-    var notificationsJson = await http.get(
-        Uri.parse('${authEndpoint}api/v1/notifications/payments/status'),
-        headers: {
-          "Accept": "application/json",
-          'Authorization': 'Bearer $accessToken',
-        });
 
-    final notificationsList = json.decode(notificationsJson.body);
-    return notificationsList;
+    try {
+      var notificationsJson = await http.get(
+          Uri.parse('${authEndpoint}api/v1/notifications/payments/status'),
+          headers: {
+            "Accept": "application/json",
+            'Authorization': 'Bearer $accessToken',
+          }).timeout(const Duration(seconds: 5), onTimeout: () {
+        throw TimeoutException(
+            'Se ha perdido la conexión a internet, por favor intente más tarde.');
+      });
+
+      final notificationsList = json.decode(notificationsJson.body);
+      return notificationsList;
+    } catch (e) {
+      Exception(e.toString());
+    }
   }
 
   dispose() {

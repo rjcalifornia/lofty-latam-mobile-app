@@ -3,7 +3,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/screens/property/property_details.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PropertiesContainer extends StatelessWidget {
@@ -25,95 +24,84 @@ class PropertiesContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PropertyDetailsScreen(
-                      id: property[id]['id'],
-                      accessToken: token,
-                    ))),
-        child: Column(
-          children: <Widget>[
-            FutureBuilder(
-              future: getImage(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Container(
-                      height: MediaQuery.of(context).size.height / 3,
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(boxShadow: const [
-                        //BoxShadow(blurRadius: 4, color: Colors.grey, offset: Offset(0, 3))
-                      ], borderRadius: BorderRadius.circular(15)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(14.0),
-                        child: Container(
-                          alignment: Alignment.bottomLeft,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                colorFilter: ColorFilter.mode(
-                                    Colors.grey.withOpacity(.3),
-                                    BlendMode.srcOver),
-                                image: CachedNetworkImageProvider(
-                                    property[id]['property_pictures']
-                                            ['image_link_name']
-                                        .toString(),
-                                    headers: {
-                                      'Authorization': 'Bearer $token'
-                                    }),
-                                fit: BoxFit.cover),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            width: double.infinity,
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Colors.transparent, Colors.black],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "${property[id]['name']}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
+    return Column(
+      children: <Widget>[
+        FutureBuilder(
+          future: getImage(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(boxShadow: const [
+                    //BoxShadow(blurRadius: 4, color: Colors.grey, offset: Offset(0, 3))
+                  ], borderRadius: BorderRadius.circular(15)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14.0),
+                    child: Container(
+                      alignment: Alignment.bottomLeft,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            colorFilter: ColorFilter.mode(
+                                Colors.grey.withOpacity(.3), BlendMode.srcOver),
+                            image: CachedNetworkImageProvider(
+                                property[id]['property_pictures']
+                                        ['image_link_name']
+                                    .toString(),
+                                headers: {'Authorization': 'Bearer $token'}),
+                            fit: BoxFit.cover),
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.all(15.0),
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.transparent, Colors.black],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
                           ),
                         ),
-                      ));
-                } else {
-                  return LoadingAnimationWidget.staggeredDotsWave(
-                      color: BrandColors.arches, size: 26);
-                }
-              },
-            ),
-            const SizedBox(
-              height: 14,
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: Column(
-                  children: [
-                    Text("${property[id]['address']}",
-                        style: const TextStyle(color: BrandColors.foggy))
-                  ],
-                ))
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "${property[id]['name']}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ));
+            } else {
+              return LoadingAnimationWidget.waveDots(
+                  color: BrandColors.arches, size: 26);
+            }
+          },
+        ),
+        const SizedBox(
+          height: 14,
+        ),
+        Row(
+          children: <Widget>[
+            Expanded(
+                child: Column(
+              children: [
+                Text("${property[id]['address']}",
+                    style: const TextStyle(color: BrandColors.foggy))
               ],
-            ),
-            const SizedBox(height: 3),
-            /*
+            ))
+          ],
+        ),
+        const SizedBox(height: 3),
+        /*
         Row(
           children: const <Widget>[
             Text(
@@ -122,13 +110,13 @@ class PropertiesContainer extends StatelessWidget {
             )
           ],
         ),*/
-            const SizedBox(height: 6),
-            const Divider(
-              height: 21,
-              color: BrandColors.hof,
-            ),
-            const SizedBox(height: 6),
-          ],
-        ));
+        const SizedBox(height: 6),
+        const Divider(
+          height: 21,
+          color: BrandColors.hof,
+        ),
+        const SizedBox(height: 6),
+      ],
+    );
   }
 }

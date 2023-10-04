@@ -19,24 +19,40 @@ class TenantInfoContainer extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (lease!.active == true)
-                  const Icon(
+            if (lease?.active == true)
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
                     Icons.check_circle_outline_rounded,
                     color: BrandColors.rausch,
                   ),
-                if (lease!.active == true)
-                  const SizedBox(
+                  SizedBox(
                     width: 2,
                   ),
-                const Text(
-                  "Arrendatario",
-                  style: TextStyle(color: BrandColors.foggy),
-                )
-              ],
-            )
+                  Text(
+                    "Arrendatario",
+                    style: TextStyle(color: BrandColors.foggy),
+                  )
+                ],
+              ),
+            if (lease?.active == false)
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.done_outlined,
+                    color: BrandColors.rausch,
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "Contrato finalizado",
+                    style: TextStyle(color: BrandColors.rausch),
+                  )
+                ],
+              ),
           ]),
         ),
         const SizedBox(
@@ -91,12 +107,31 @@ class TenantInfoContainer extends StatelessWidget {
         Row(
           children: [
             const Icon(
+              Icons.article_outlined,
+              color: BrandColors.foggy,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              "Plazo: ${lease!.rentType!.name}",
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .apply(color: BrandColors.foggy),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 4,
+        ),
+        Row(
+          children: [
+            const Icon(
               Icons.calendar_month_outlined,
               color: BrandColors.foggy,
             ),
             const SizedBox(width: 8),
             Text(
-              "Inicio: ${lease!.contractDate}",
+              "Inicio: ${lease!.humanReadableContractDate}",
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
@@ -115,7 +150,7 @@ class TenantInfoContainer extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              "Finalización: ${lease!.expirationDate}",
+              "Finaliza: ${lease!.humanReadableExpirationDate}",
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
@@ -229,6 +264,7 @@ class TenantInfoContainer extends StatelessWidget {
                                         tenantName: lease!.tenantId!.name,
                                         tenantLastname:
                                             lease!.tenantId!.lastname,
+                                        tenantEmail: lease!.tenantId!.email,
                                       ))),
                           leading: Container(
                             padding: const EdgeInsets.all(9.0),

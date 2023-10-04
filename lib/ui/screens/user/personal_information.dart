@@ -5,6 +5,7 @@ import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/User.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({
@@ -20,6 +21,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   User? user;
   bool loader = false;
   Future? personalInfo;
+
+  dynamic phoneFormatter = MaskTextInputFormatter(
+      mask: '####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   Future<bool> getPersonalInfo() async {
     final personalInfo = await userBloc.getUserInformation();
@@ -159,7 +165,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    "${user!.email}",
+                                    user!.email != null
+                                        ? user!.email!
+                                        : '(Vacío)',
                                     style: const TextStyle(
                                         color: BrandColors.foggy),
                                   )
@@ -376,6 +384,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         return TextFormField(
                             onChanged: userBloc.changePhone,
                             initialValue: user!.phone,
+                            inputFormatters: [phoneFormatter],
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: false),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xfff6f6f6),

@@ -8,15 +8,17 @@ class Lease {
   int? rentTypeId;
   PaymentClassId? paymentClassId;
   String? contractDate;
+  String? humanReadableContractDate;
   String? paymentDate;
   String? expirationDate;
+  String? humanReadableExpirationDate;
   String? price;
   String? deposit;
   int? paymentDay;
   int? duration;
   bool? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
   RentType? rentType;
@@ -31,8 +33,10 @@ class Lease {
       this.paymentClassId,
       this.paymentDay,
       this.contractDate,
+      this.humanReadableContractDate,
       this.paymentDate,
       this.expirationDate,
+      this.humanReadableExpirationDate,
       this.price,
       this.deposit,
       this.duration,
@@ -59,8 +63,10 @@ class Lease {
         : null;
     paymentDay = json['payment_day'];
     contractDate = json['contract_date'];
+    humanReadableContractDate = json['human_readable_contract_date'];
     paymentDate = json['payment_date'];
     expirationDate = json['expiration_date'];
+    humanReadableExpirationDate = json['human_readable_expiration_date'];
     price = json['price'];
     deposit = json['deposit'];
     duration = json['duration'];
@@ -96,8 +102,10 @@ class Lease {
     }
     data['payment_day'] = this.paymentDay;
     data['contract_date'] = this.contractDate;
+    data['human_readable_contract_date'] = this.humanReadableContractDate;
     data['payment_date'] = this.paymentDate;
     data['expiration_date'] = this.expirationDate;
+    data['human_readable_expiration_date'] = this.humanReadableExpirationDate;
     data['price'] = this.price;
     data['deposit'] = this.deposit;
     data['duration'] = this.duration;
@@ -197,7 +205,7 @@ class PropertyId {
   int? propertyTypeId;
   bool? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
 
@@ -475,7 +483,7 @@ class LeaseId {
   int? duration;
   bool? active;
   int? userCreates;
-  Null? userModifies;
+  int? userModifies;
   String? createdAt;
   String? updatedAt;
 

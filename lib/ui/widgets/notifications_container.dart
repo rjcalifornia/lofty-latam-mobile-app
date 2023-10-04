@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class NotificationsContainer extends StatelessWidget {
   final List? notifications;
@@ -84,10 +83,8 @@ class NotificationsContainer extends StatelessWidget {
               );
             }
           } else {
-            return Center(
-              child: LoadingAnimationWidget.inkDrop(
-                  color: BrandColors.arches, size: 28),
-            );
+            return CustomDialogs.navigationLoader(
+                "Cargando notificaciones, por favor espere.");
           }
         })));
   }

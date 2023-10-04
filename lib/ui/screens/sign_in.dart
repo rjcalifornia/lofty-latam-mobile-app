@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:provider/provider.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
 
@@ -14,9 +13,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final LoginBloc bloc = LoginBloc();
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<LoginBloc>(context);
+    //final bloc = Provider.of<LoginBloc>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 left: 0,
                                 bottom: 0,
                                 child: Image.asset(
-                                  "assets/img/lofty.png",
+                                  "assets/img/home.png",
                                   height: 100,
                                 ),
                               ),
@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   bloc.submit(context);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: BrandColors.arches,
+                                  backgroundColor: BrandColors.fty,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),

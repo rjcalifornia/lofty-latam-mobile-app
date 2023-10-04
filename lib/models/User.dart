@@ -8,6 +8,7 @@ class User {
   String? phone;
   String? dui;
   String? email;
+  bool? isEmailVerified;
   //Null? emailVerifiedAt;
   //int? idRol;
   //int? isAdmin;
@@ -24,6 +25,7 @@ class User {
       this.phone,
       this.dui,
       this.email,
+      this.isEmailVerified,
       //this.emailVerifiedAt,
       //this.idRol,
       //this.isAdmin,
@@ -40,6 +42,7 @@ class User {
     phone = json['phone'];
     dui = json['dui'];
     email = json['email'];
+    isEmailVerified = json['is_email_verified'];
     //emailVerifiedAt = json['email_verified_at'];
     //idRol = json['id_rol'];
     //isAdmin = json['is_admin'];
@@ -58,6 +61,7 @@ class User {
     data['phone'] = this.phone;
     data['dui'] = this.dui;
     data['email'] = this.email;
+    data['is_email_verified'] = this.isEmailVerified;
     //data['email_verified_at'] = this.emailVerifiedAt;
     //data['id_rol'] = this.idRol;
     //xdata['is_admin'] = this.isAdmin;

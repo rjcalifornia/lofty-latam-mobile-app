@@ -11,11 +11,12 @@ import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/ui/screens/lease/create_lease.dart';
+import 'package:home_management_app/ui/screens/lease/lease_details.dart';
 import 'package:home_management_app/ui/screens/property/edit_property.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
 import 'package:home_management_app/ui/widgets/home_services_container.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+//import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PropertyDetailsScreen extends StatefulWidget {
   final id;
@@ -274,9 +275,19 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                           ),
-                                          const PopupMenuItem(
+                                          PopupMenuItem(
+                                            onTap: () {
+                                              //Yeah this is the only way
+                                              //to safely open a dialog
+                                              //https://github.com/flutter/flutter/issues/87766
+                                              WidgetsBinding.instance
+                                                  .addPostFrameCallback((_) {
+                                                removePropertyDialogBuilder(
+                                                    context);
+                                              });
+                                            },
                                             value: 'delete',
-                                            child: Column(children: [
+                                            child: const Column(children: [
                                               Row(children: [
                                                 Icon(
                                                   Icons.delete_forever_outlined,
@@ -462,18 +473,44 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         ),
                                       ],
                                     )
-                                  : HomeLeasesContainer(
-                                      propertyDetails: propertyDetails),
+                                  : Container(
+                                      height: 170,
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 15),
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount:
+                                              propertyDetails!.leases!.length,
+                                          itemBuilder: (ctx, i) {
+                                            return GestureDetector(
+                                                onTap: () => Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LeaseDetailsScreen(
+                                                              leaseId:
+                                                                  propertyDetails!
+                                                                      .leases![
+                                                                          i]
+                                                                      .id,
+                                                            ))).then(
+                                                    (value) => {
+                                                          {_getProperty()}
+                                                        }),
+                                                child: HomeLeasesContainer(
+                                                    propertyDetails:
+                                                        propertyDetails,
+                                                    iterator: i));
+                                          })),
                             ],
                           ),
                         ),
                       ],
                     ));
                   } else {
-                    return Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: const Color(0xffff385c), size: 28),
-                    );
+                    return CustomDialogs.navigationLoader("Cargando...");
                   }
                 }),
               ),
@@ -483,6 +520,76 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> removePropertyDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Eliminar propiedad'),
+          content: const SingleChildScrollView(
+            child: SizedBox(
+              //height: MediaQuery.of(context).size.height / 6.5,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text('¿Está seguro que desea eliminar la propiedad?'),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .center, //Center Row contents horizontally,
+                    crossAxisAlignment: CrossAxisAlignment
+                        .center, //Center Row contents vertically,
+                    children: [
+                      Icon(
+                        Icons.warning_amber_outlined,
+                        color: BrandColors.arches,
+                        size: 14,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text(
+                        "Acción es irreversible",
+                        style: TextStyle(color: BrandColors.arches),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                //  getPersonalInfo();
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Continuar'),
+              onPressed: () {
+                _propertiesBloc.removeProperty(propertyDetails!.id, context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

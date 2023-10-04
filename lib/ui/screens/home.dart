@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/ui/screens/property/property_details.dart';
 import 'package:home_management_app/ui/widgets/home_options_container.dart';
 import 'package:home_management_app/ui/widgets/properties_container.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -102,19 +103,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                   physics: const ClampingScrollPhysics(),
                                   itemCount: listProperties?.length,
                                   itemBuilder: (ctx, i) {
-                                    return PropertiesContainer(
-                                      id: i,
-                                      property: listProperties,
-                                      token: accessToken,
+                                    return GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PropertyDetailsScreen(
+                                                    id: listProperties![i]
+                                                        ['id'],
+                                                    accessToken: accessToken,
+                                                  ))).then((value) => {
+                                            if (value == true)
+                                              {_getPropertiesList()}
+                                          }),
+                                      child: PropertiesContainer(
+                                        id: i,
+                                        property: listProperties,
+                                        token: accessToken,
+                                      ),
                                     );
                                   }),
                             ))
-                        : const Text('No se encontraron datos'),
+                        : const Text('No hay propiedades registradas'),
                   ],
                 );
               } else {
                 return Center(
-                  child: LoadingAnimationWidget.staggeredDotsWave(
+                  child: LoadingAnimationWidget.waveDots(
                       color: BrandColors.arches, size: 28),
                 );
               }
