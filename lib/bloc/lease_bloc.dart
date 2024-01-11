@@ -232,6 +232,60 @@ class LeaseBloc with Validators {
     }
   }
 
+  Future<void> downloadLeaseContract(context, leaseId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+    final dio = Dio();
+
+    CustomDialogs.loadingDialog(
+        context, "Descargando contrato, espere un momento por favor");
+
+    try {
+      Directory dir = Directory('/storage/emulated/0/Download');
+      var savePath = dir.path;
+
+      var uuid = Uuid();
+
+      var fileName = "lofty_contrato_alquiler_${uuid.v1().toString()}.pdf";
+      var response = await dio.download(
+        '${authEndpoint}api/v1/property/lease/$leaseId/print',
+        savePath + '/${fileName}',
+        //  data: {"payment_id": receiptId.toString()},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $accessToken',
+          },
+          method: 'POST',
+        ),
+      );
+
+      Navigator.of(context).pop();
+
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Atención"),
+              content: Text("Contrato ha sido descargado correctamente."),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Aceptar"))
+              ],
+            );
+          });
+    } catch (e) {
+      Future.delayed(Duration(seconds: 2)).then((_) {
+        Navigator.of(context).pop();
+      });
+
+      CustomDialogs.fatalErrorDialog(context, e);
+    }
+  }
+
   Future<void> endLease(leaseId, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
