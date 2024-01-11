@@ -152,7 +152,7 @@ class PaymentsBloc with Validators {
         context, "Descargando recibo, espere un momento por favor");
 
     try {
-      Directory dir = Directory('/storage/emulated/0/Documents');
+      Directory dir = Directory('/storage/emulated/0/Download');
       var savePath = dir.path;
 
       var uuid = Uuid();

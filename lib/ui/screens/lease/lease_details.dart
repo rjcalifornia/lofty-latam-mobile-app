@@ -135,6 +135,31 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                             ),
                           ),
                           PopupMenuItem(
+                            child: const Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.print_outlined,
+                                      color: BrandColors.hof,
+                                    ),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
+                                    Text(
+                                      "Descargar contrato",
+                                      style: TextStyle(color: BrandColors.hof),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                            onTap: () {
+                              leaseBloc.downloadLeaseContract(
+                                  context, lease?.id);
+                            },
+                          ),
+                          PopupMenuItem(
                             onTap: () {
                               //Yeah this is the only way
                               //to safely open a dialog
