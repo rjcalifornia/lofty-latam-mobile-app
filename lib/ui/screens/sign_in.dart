@@ -162,7 +162,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text("Continuar",
-                                        style: TextStyle(fontSize: 22)),
+                                        style: TextStyle(
+                                            fontSize: 22, color: Colors.white)),
                                   ],
                                 ),
                               );

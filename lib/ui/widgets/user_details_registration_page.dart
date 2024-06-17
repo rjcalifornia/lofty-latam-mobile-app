@@ -82,6 +82,23 @@ class UserDetailsRegistrationPage extends StatelessWidget {
           ),
           const Row(children: [
             Icon(
+              Icons.location_city_outlined,
+              color: BrandColors.hof,
+              size: 14,
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              "Departamento",
+              style: TextStyle(color: BrandColors.hof),
+            ),
+          ]),
+          const SizedBox(
+            height: 22,
+          ),
+          const Row(children: [
+            Icon(
               Icons.badge_outlined,
               color: BrandColors.hof,
               size: 14,
