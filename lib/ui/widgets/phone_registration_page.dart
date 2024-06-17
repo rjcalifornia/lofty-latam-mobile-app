@@ -107,7 +107,8 @@ class PhoneRegistrationPage extends StatelessWidget {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Siguiente", style: TextStyle(fontSize: 22)),
+                      Text("Siguiente",
+                          style: TextStyle(fontSize: 22, color: Colors.white)),
                     ],
                   ),
                 );
