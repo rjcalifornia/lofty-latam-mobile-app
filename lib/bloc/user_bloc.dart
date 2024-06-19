@@ -23,6 +23,8 @@ class UserBloc with Validators {
   final _repeatPasswordController = BehaviorSubject<String>();
   final _documentController = BehaviorSubject<String>();
   final _distritoController = BehaviorSubject<String>();
+  final _municipioController = BehaviorSubject<String>();
+  final _departamentoController = BehaviorSubject<String>();
   final _usernameController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
@@ -35,6 +37,8 @@ class UserBloc with Validators {
       _repeatPasswordController.sink.add;
   Function(String) get changeDocument => _documentController.sink.add;
   Function(String) get changeDistrito => _distritoController.sink.add;
+  Function(String) get changeMunicipio => _municipioController.sink.add;
+  Function(String) get changeDepartamento => _departamentoController.sink.add;
   Function(String) get changeUsername => _usernameController.sink.add;
 
   Stream<String> get nameStream =>
@@ -124,6 +128,25 @@ class UserBloc with Validators {
     } catch (e) {
       return e.toString();
     }
+  }
+
+  Future getDepartamentos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    var receiptTypeJson = await http.get(
+        Uri.parse('${authEndpoint}api/v1/catalogs/departamentos'),
+        headers: {
+          "Accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        });
+
+    final receiptTypeParsed =
+        json.decode(receiptTypeJson.body).cast<Map<String, dynamic>>();
+
+    return receiptTypeParsed
+        .map<PaymentType>((json) => PaymentType.fromJson(json))
+        .toList();
   }
 
   Future<void> updateUserInformation(context, infoType) async {
