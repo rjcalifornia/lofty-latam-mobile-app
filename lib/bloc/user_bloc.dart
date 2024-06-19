@@ -66,6 +66,8 @@ class UserBloc with Validators {
       _documentController.stream.transform(simpleDocumentValidation);
   Stream<String> get distritoStream =>
       _distritoController.stream.transform(simpleValidation);
+  Stream<String> get departamentoStream =>
+      _departamentoController.stream.transform(simpleValidation);
   Stream<String> get usernameStream =>
       _usernameController.stream.transform(simpleValidation);
 

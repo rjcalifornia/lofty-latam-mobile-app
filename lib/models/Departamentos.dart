@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unnecessary_new, unnecessary_this
+// ignore_for_file: file_names, unnecessary_new, unnecessary_this, prefer_collection_literals
 
 class Departamentos {
   int? id;
