@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Departamentos.dart';
+import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/models/User.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -156,12 +157,12 @@ class UserBloc with Validators {
         .toList();
   }
 
-  Future getMunicipios() async {
+  Future getMunicipios(String departamentoId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
 
     dynamic departamentosJson = await http.get(
-        Uri.parse('${authEndpoint}api/v1/catalogs/departamentos'),
+        Uri.parse('${authEndpoint}api/v1/catalogs/municipios/$departamentoId'),
         headers: {
           "Accept": "application/json",
           'Authorization': 'Bearer $accessToken',
@@ -171,7 +172,7 @@ class UserBloc with Validators {
         json.decode(departamentosJson.body).cast<Map<String, dynamic>>();
 
     return departamentosParsed
-        .map<Departamentos>((json) => Departamentos.fromJson(json))
+        .map<Municipios>((json) => Municipios.fromJson(json))
         .toList();
   }
 

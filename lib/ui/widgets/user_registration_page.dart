@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Departamentos.dart';
+import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/ui/utils/formTextField.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -16,13 +17,21 @@ class UserRegistrationPage extends StatefulWidget {
 class _UserRegistrationPageState extends State<UserRegistrationPage> {
   final UserBloc userBloc = UserBloc();
   List<Departamentos> departamentosList = [];
-  List<Departamentos> municipiosList = [];
+  List<Municipios> municipiosList = [];
 
   Future getDepartamentosData() async {
     final departamentosJson = await userBloc.getDepartamentos();
 
     setState(() {
       departamentosList = departamentosJson;
+    });
+  }
+
+  Future getMunicipiosData(departamentoId) async {
+    final municipiosJson = await userBloc.getMunicipios(departamentoId);
+
+    setState(() {
+      municipiosList = municipiosJson;
     });
   }
 
@@ -106,6 +115,40 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
           ),
           const Row(children: [
             Icon(
+              Icons.badge_outlined,
+              color: BrandColors.hof,
+              size: 14,
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              "Número de DUI",
+              style: TextStyle(color: BrandColors.hof),
+            ),
+          ]),
+          StreamBuilder(
+              stream: userBloc.documentStream,
+              builder: (context, AsyncSnapshot snapshot) {
+                return TextField(
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: false),
+                    inputFormatters: [duiFormatter],
+                    onChanged: userBloc.changeDocument,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xfff6f6f6),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide.none),
+                      hintText: "Ingrese su número de DUI",
+                    ));
+              }),
+          const SizedBox(
+            height: 22,
+          ),
+          const Row(children: [
+            Icon(
               Icons.location_on_outlined,
               color: BrandColors.hof,
               size: 14,
@@ -149,6 +192,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
                       setState(() {
                         departamentoSelected = value.toString();
                       });
+                      getMunicipiosData(departamentoSelected);
                     },
                     value: departamentoSelected,
                   ),
@@ -212,7 +256,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
           ),
           const Row(children: [
             Icon(
-              Icons.badge_outlined,
+              Icons.email_outlined,
               color: BrandColors.hof,
               size: 14,
             ),
@@ -220,26 +264,16 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
               width: 2,
             ),
             Text(
-              "Número de DUI",
+              "Correo electrónico",
               style: TextStyle(color: BrandColors.hof),
             ),
           ]),
           StreamBuilder(
-              stream: userBloc.documentStream,
+              stream: userBloc.emailStream,
               builder: (context, AsyncSnapshot snapshot) {
-                return TextField(
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: false),
-                    inputFormatters: [duiFormatter],
-                    onChanged: userBloc.changeDocument,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xfff6f6f6),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide.none),
-                      hintText: "Ingrese su número de DUI",
-                    ));
+                return FormTextField(
+                    changeStream: userBloc.changeEmail,
+                    fieldHintText: 'Correo electrónico es opcional');
               }),
           const SizedBox(
             height: 22,
@@ -264,30 +298,6 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
                 return FormTextField(
                     changeStream: userBloc.changeUsername,
                     fieldHintText: 'Ingrese su nombre de usuario');
-              }),
-          const SizedBox(
-            height: 22,
-          ),
-          const Row(children: [
-            Icon(
-              Icons.email_outlined,
-              color: BrandColors.hof,
-              size: 14,
-            ),
-            SizedBox(
-              width: 2,
-            ),
-            Text(
-              "Correo electrónico",
-              style: TextStyle(color: BrandColors.hof),
-            ),
-          ]),
-          StreamBuilder(
-              stream: userBloc.emailStream,
-              builder: (context, AsyncSnapshot snapshot) {
-                return FormTextField(
-                    changeStream: userBloc.changeEmail,
-                    fieldHintText: 'Correo electrónico es opcional');
               }),
           const SizedBox(
             height: 22,
