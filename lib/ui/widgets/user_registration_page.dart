@@ -6,6 +6,7 @@ import 'package:home_management_app/models/Departamentos.dart';
 import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/ui/utils/formTextField.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserRegistrationPage extends StatefulWidget {
   const UserRegistrationPage({super.key});
@@ -44,6 +45,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
   Widget build(BuildContext context) {
     String? departamentoSelected;
     String? municipioSelected;
+    final Uri url = Uri.parse('https://loftylatam.com/terminos-de-servicio/');
     dynamic duiFormatter = MaskTextInputFormatter(
         mask: '########-#',
         filter: {"#": RegExp(r'[0-9]')},
@@ -338,6 +340,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
                         decoration: TextDecoration.underline),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
+                        launchUrl(url);
                         print('test');
                       }),
                 const TextSpan(
