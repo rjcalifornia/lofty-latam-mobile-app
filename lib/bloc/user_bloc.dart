@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Departamentos.dart';
 import 'package:home_management_app/models/User.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -77,6 +78,8 @@ class UserBloc with Validators {
   String? get repeatPassword => _repeatPasswordController.value;
   String? get document => _documentController.value;
   String? get distrito => _distritoController.value;
+  String? get municipio => _municipioController.value;
+  String? get departamento => _departamentoController.value;
   String? get username => _usernameController.value;
 
   Stream<bool> get verifyFullName =>
@@ -134,18 +137,18 @@ class UserBloc with Validators {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
 
-    var receiptTypeJson = await http.get(
+    dynamic departamentosJson = await http.get(
         Uri.parse('${authEndpoint}api/v1/catalogs/departamentos'),
         headers: {
           "Accept": "application/json",
           'Authorization': 'Bearer $accessToken',
         });
 
-    final receiptTypeParsed =
-        json.decode(receiptTypeJson.body).cast<Map<String, dynamic>>();
+    final departamentosParsed =
+        json.decode(departamentosJson.body).cast<Map<String, dynamic>>();
 
-    return receiptTypeParsed
-        .map<PaymentType>((json) => PaymentType.fromJson(json))
+    return departamentosParsed
+        .map<Departamentos>((json) => Departamentos.fromJson(json))
         .toList();
   }
 

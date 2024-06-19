@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/ui/widgets/phone_registration_page.dart';
+import 'package:home_management_app/ui/widgets/test.dart';
 import 'package:home_management_app/ui/widgets/user_details_registration_page.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -41,9 +42,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   userBloc: userBloc,
                   controller: controller,
                 ),
-                UserDetailsRegistrationPage(
-                  userBloc: userBloc,
-                ),
+                UserRegistrationPage(),
               ],
             )));
   }
