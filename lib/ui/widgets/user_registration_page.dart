@@ -16,6 +16,7 @@ class UserRegistrationPage extends StatefulWidget {
 class _UserRegistrationPageState extends State<UserRegistrationPage> {
   final UserBloc userBloc = UserBloc();
   List<Departamentos> departamentosList = [];
+  List<Departamentos> municipiosList = [];
 
   Future getDepartamentosData() async {
     final departamentosJson = await userBloc.getDepartamentos();
@@ -33,6 +34,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
 
   Widget build(BuildContext context) {
     String? departamentoSelected;
+    String? municipioSelected;
     dynamic duiFormatter = MaskTextInputFormatter(
         mask: '########-#',
         filter: {"#": RegExp(r'[0-9]')},
@@ -104,7 +106,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
           ),
           const Row(children: [
             Icon(
-              Icons.location_city_outlined,
+              Icons.location_on_outlined,
               color: BrandColors.hof,
               size: 14,
             ),
@@ -149,6 +151,59 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
                       });
                     },
                     value: departamentoSelected,
+                  ),
+                );
+              }),
+          const SizedBox(
+            height: 22,
+          ),
+          const Row(children: [
+            Icon(
+              Icons.location_on_outlined,
+              color: BrandColors.hof,
+              size: 14,
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              "Municipio",
+              style: TextStyle(color: BrandColors.hof),
+            ),
+          ]),
+          StreamBuilder(
+              stream: userBloc.municipioStream,
+              builder: (context, AsyncSnapshot snapshot) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: const Color(0xfff6f6f6),
+                  ),
+                  child: DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.black),
+                    isExpanded: true,
+                    hint: const Center(child: Text("Seleccione municipio")),
+                    items: municipiosList.map((item) {
+                      return DropdownMenuItem(
+                        value: item.id.toString(),
+                        child: Center(
+                          child: Text(item.nombre.toString()),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        municipioSelected = value.toString();
+                      });
+                    },
+                    value: municipioSelected,
                   ),
                 );
               }),

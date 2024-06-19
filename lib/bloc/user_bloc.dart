@@ -68,6 +68,8 @@ class UserBloc with Validators {
       _distritoController.stream.transform(simpleValidation);
   Stream<String> get departamentoStream =>
       _departamentoController.stream.transform(simpleValidation);
+  Stream<String> get municipioStream =>
+      _municipioController.stream.transform(simpleValidation);
   Stream<String> get usernameStream =>
       _usernameController.stream.transform(simpleValidation);
 
@@ -136,6 +138,25 @@ class UserBloc with Validators {
   }
 
   Future getDepartamentos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    dynamic departamentosJson = await http.get(
+        Uri.parse('${authEndpoint}api/v1/catalogs/departamentos'),
+        headers: {
+          "Accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        });
+
+    final departamentosParsed =
+        json.decode(departamentosJson.body).cast<Map<String, dynamic>>();
+
+    return departamentosParsed
+        .map<Departamentos>((json) => Departamentos.fromJson(json))
+        .toList();
+  }
+
+  Future getMunicipios() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
 
