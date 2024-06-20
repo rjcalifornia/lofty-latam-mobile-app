@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Departamentos.dart';
+import 'package:home_management_app/models/Distritos.dart';
 import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/ui/utils/formTextField.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -20,6 +21,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
   //final UserBloc userBloc = UserBloc();
   List<Departamentos> departamentosList = [];
   List<Municipios> municipiosList = [];
+  List<Distritos> distritosList = [];
 
   Future getDepartamentosData() async {
     final departamentosJson = await widget.userBloc.getDepartamentos();
@@ -37,6 +39,14 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
     });
   }
 
+  Future getDistritosData(municipioId) async {
+    final distritosJson = await widget.userBloc.getDistritos(municipioId);
+
+    setState(() {
+      distritosList = distritosJson;
+    });
+  }
+
   @override
   void initState() {
     getDepartamentosData();
@@ -46,6 +56,8 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
   Widget build(BuildContext context) {
     String? departamentoSelected;
     String? municipioSelected;
+    String? distritoSelected;
+
     final Uri url = Uri.parse('https://loftylatam.com/terminos-de-servicio/');
     dynamic duiFormatter = MaskTextInputFormatter(
         mask: '########-#',
@@ -249,8 +261,64 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
                       setState(() {
                         municipioSelected = value.toString();
                       });
+                      getDistritosData(municipioSelected);
                     },
                     value: municipioSelected,
+                  ),
+                );
+              }),
+          const SizedBox(
+            height: 22,
+          ),
+          const Row(children: [
+            Icon(
+              Icons.location_on_outlined,
+              color: BrandColors.hof,
+              size: 14,
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              "Distrito",
+              style: TextStyle(color: BrandColors.hof),
+            ),
+          ]),
+          StreamBuilder(
+              stream: widget.userBloc.distritoStream,
+              builder: (context, AsyncSnapshot snapshot) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: const Color(0xfff6f6f6),
+                  ),
+                  child: DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.black),
+                    isExpanded: true,
+                    hint: const Center(child: Text("Seleccione un distrito")),
+                    items: distritosList.map((item) {
+                      return DropdownMenuItem(
+                        value: item.id.toString(),
+                        child: Center(
+                          child: Text(item.nombre.toString()),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      widget.userBloc.changeDistrito(value.toString());
+                      print(value.toString());
+                      setState(() {
+                        distritoSelected = value.toString();
+                      });
+                    },
+                    value: distritoSelected,
                   ),
                 );
               }),

@@ -67,7 +67,7 @@ class UserBloc with Validators {
   Stream<String> get documentStream =>
       _documentController.stream.transform(simpleDocumentValidation);
   Stream<String> get distritoStream =>
-      _distritoController.stream.transform(simpleValidation);
+      _distritoController.stream.transform(compactValidation);
   Stream<String> get departamentoStream =>
       _departamentoController.stream.transform(simpleValidation);
   Stream<String> get municipioStream =>
@@ -106,18 +106,35 @@ class UserBloc with Validators {
         return false;
       });
 
-  Stream<bool> get verifyRegistrationData => CombineLatestStream([
+  Stream<bool> get verifyRe => CombineLatestStream([
         nameStream,
         lastnameStream,
         documentStream,
         usernameStream,
         passwordStream,
-        // distritoStream
+        distritoStream
       ], (_) => true);
+
+  Stream<bool> get verifyRegistrationData => CombineLatestStream.combine6(
+          nameStream,
+          lastnameStream,
+          documentStream,
+          usernameStream,
+          passwordStream,
+          distritoStream, (a, b, c, d, e, f) {
+        if ((a == _nameController.value) &&
+            (b == _lastnameController.value) &&
+            (c == _documentController.value) &&
+            (d == _usernameController.value) &&
+            (e == _passwordController.value) &&
+            (e == _distritoController.value)) {
+          return true;
+        }
+        return false;
+      });
   Stream<bool> get verifyPhone => phoneStream.map((phone) => true);
   Stream<bool> get verifyEmail => emailStream.map((email) => true);
   Stream<bool> get verifyDocument => documentStream.map((document) => true);
-  Stream<bool> get verifyDistrict => distritoStream.map((distrito) => true);
 
   Future getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
