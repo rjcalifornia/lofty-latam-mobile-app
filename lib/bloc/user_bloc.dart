@@ -111,7 +111,7 @@ class UserBloc with Validators {
         documentStream,
         usernameStream,
         passwordStream,
-        distritoStream
+        // distritoStream
       ], (_) => true);
   Stream<bool> get verifyPhone => phoneStream.map((phone) => true);
   Stream<bool> get verifyEmail => emailStream.map((email) => true);

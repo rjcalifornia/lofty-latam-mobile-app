@@ -9,19 +9,20 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserRegistrationPage extends StatefulWidget {
-  const UserRegistrationPage({super.key});
+  final UserBloc userBloc;
+  const UserRegistrationPage({super.key, required this.userBloc});
 
   @override
   State<UserRegistrationPage> createState() => _UserRegistrationPageState();
 }
 
 class _UserRegistrationPageState extends State<UserRegistrationPage> {
-  final UserBloc userBloc = UserBloc();
+  //final UserBloc userBloc = UserBloc();
   List<Departamentos> departamentosList = [];
   List<Municipios> municipiosList = [];
 
   Future getDepartamentosData() async {
-    final departamentosJson = await userBloc.getDepartamentos();
+    final departamentosJson = await widget.userBloc.getDepartamentos();
 
     setState(() {
       departamentosList = departamentosJson;
@@ -29,7 +30,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
   }
 
   Future getMunicipiosData(departamentoId) async {
-    final municipiosJson = await userBloc.getMunicipios(departamentoId);
+    final municipiosJson = await widget.userBloc.getMunicipios(departamentoId);
 
     setState(() {
       municipiosList = municipiosJson;
@@ -82,10 +83,10 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ],
           ),
           StreamBuilder(
-              stream: userBloc.nameStream,
+              stream: widget.userBloc.nameStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return FormTextField(
-                    changeStream: userBloc.changeName,
+                    changeStream: widget.userBloc.changeName,
                     fieldHintText: 'Ingrese sus nombres');
               }),
           const SizedBox(
@@ -106,10 +107,10 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ),
           ]),
           StreamBuilder(
-              stream: userBloc.lastnameStream,
+              stream: widget.userBloc.lastnameStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return FormTextField(
-                    changeStream: userBloc.changeLastname,
+                    changeStream: widget.userBloc.changeLastname,
                     fieldHintText: 'Ingrese sus apellidos');
               }),
           const SizedBox(
@@ -130,13 +131,13 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ),
           ]),
           StreamBuilder(
-              stream: userBloc.documentStream,
+              stream: widget.userBloc.documentStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return TextField(
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: false),
                     inputFormatters: [duiFormatter],
-                    onChanged: userBloc.changeDocument,
+                    onChanged: widget.userBloc.changeDocument,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xfff6f6f6),
@@ -164,7 +165,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ),
           ]),
           StreamBuilder(
-              stream: userBloc.departamentoStream,
+              stream: widget.userBloc.departamentoStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return Container(
                   decoration: BoxDecoration(
@@ -218,7 +219,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ),
           ]),
           StreamBuilder(
-              stream: userBloc.municipioStream,
+              stream: widget.userBloc.municipioStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return Container(
                   decoration: BoxDecoration(
@@ -271,10 +272,10 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ),
           ]),
           StreamBuilder(
-              stream: userBloc.emailStream,
+              stream: widget.userBloc.emailStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return FormTextField(
-                    changeStream: userBloc.changeEmail,
+                    changeStream: widget.userBloc.changeEmail,
                     fieldHintText: 'Correo electrónico es opcional');
               }),
           const SizedBox(
@@ -295,10 +296,10 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ),
           ]),
           StreamBuilder(
-              stream: userBloc.usernameStream,
+              stream: widget.userBloc.usernameStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return FormTextField(
-                    changeStream: userBloc.changeUsername,
+                    changeStream: widget.userBloc.changeUsername,
                     fieldHintText: 'Ingrese su nombre de usuario');
               }),
           const SizedBox(
@@ -309,11 +310,11 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             style: TextStyle(color: BrandColors.hof),
           ),
           StreamBuilder(
-              stream: userBloc.passwordStream,
+              stream: widget.userBloc.passwordStream,
               builder: (context, AsyncSnapshot snapshot) {
                 return TextField(
                     obscureText: true,
-                    onChanged: userBloc.changePassword,
+                    onChanged: widget.userBloc.changePassword,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xfff6f6f6),
@@ -351,14 +352,14 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             height: 20,
           ),
           StreamBuilder(
-              stream: userBloc.verifyRegistrationData,
+              stream: widget.userBloc.verifyRegistrationData,
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) {
                   return Container();
                 } else {
                   return ElevatedButton(
                     onPressed: () {
-                      userBloc.createNewUser(context);
+                      widget.userBloc.createNewUser(context);
                       //_paymentsBloc.generateReceipt(context, widget.lease.id);
                     },
                     style: ElevatedButton.styleFrom(
@@ -373,7 +374,8 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Aceptar y continuar",
-                            style: TextStyle(fontSize: 22)),
+                            style:
+                                TextStyle(fontSize: 22, color: Colors.white)),
                       ],
                     ),
                   );

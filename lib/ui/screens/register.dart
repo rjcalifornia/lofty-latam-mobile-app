@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/ui/widgets/phone_registration_page.dart';
+import 'package:home_management_app/ui/widgets/testing.dart';
 import 'package:home_management_app/ui/widgets/user_registration_page.dart';
 import 'package:home_management_app/ui/widgets/user_details_registration_page.dart';
 
@@ -42,7 +43,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   userBloc: userBloc,
                   controller: controller,
                 ),
-                UserRegistrationPage(),
+                //  TestingClass(),
+                UserRegistrationPage(userBloc: userBloc),
               ],
             )));
   }
