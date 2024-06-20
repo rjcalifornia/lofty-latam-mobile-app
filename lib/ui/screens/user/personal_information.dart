@@ -84,12 +84,21 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           title: Column(
                             children: [
                               Row(
-                                children: [Text("Nombre")],
+                                children: [Text("Nombre completo")],
                               ),
                               Row(
                                 children: [
                                   Text(
-                                    "${user!.name} ${user!.lastname}",
+                                    "${user!.name} ",
+                                    style: const TextStyle(
+                                        color: BrandColors.foggy),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${user!.lastname}",
                                     style: const TextStyle(
                                         color: BrandColors.foggy),
                                   )
