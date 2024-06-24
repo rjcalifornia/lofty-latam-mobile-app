@@ -96,19 +96,17 @@ class UserBloc with Validators {
         passwordStream
       ], (_) => true);
 
-  Stream<bool> get verifyRegistrationData => CombineLatestStream.combine6(
+  Stream<bool> get verifyRegistrationData => CombineLatestStream.combine5(
           nameStream,
           lastnameStream,
           documentStream,
           usernameStream,
-          passwordStream,
-          distritoStream, (a, b, c, d, e, f) {
+          passwordStream, (a, b, c, d, e) {
         if ((a == _nameController.value) &&
             (b == _lastnameController.value) &&
             (c == _documentController.value) &&
             (d == _usernameController.value) &&
-            (e == _passwordController.value) &&
-            (e == _distritoController.value)) {
+            (e == _passwordController.value)) {
           return true;
         }
         return false;

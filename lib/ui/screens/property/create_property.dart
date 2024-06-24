@@ -55,7 +55,15 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
   }
 
   @override
+  void initState() {
+    getDepartamentosData();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
+    String? departamentoSelected;
+    String? municipioSelected;
+    String? distritoSelected;
     return GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -168,7 +176,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               ),
                             ]),
                             StreamBuilder(
-                                stream: widget.userBloc.departamentoStream,
+                                stream: _propertyBloc.departamentoStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return Container(
                                     decoration: BoxDecoration(
@@ -226,7 +234,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               ),
                             ]),
                             StreamBuilder(
-                                stream: widget.userBloc.municipioStream,
+                                stream: _propertyBloc.municipioStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return Container(
                                     decoration: BoxDecoration(
@@ -282,7 +290,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                               ),
                             ]),
                             StreamBuilder(
-                                stream: widget.userBloc.distritoStream,
+                                stream: _propertyBloc.distritoStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return Container(
                                     decoration: BoxDecoration(
@@ -312,7 +320,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                         );
                                       }).toList(),
                                       onChanged: (value) {
-                                        widget.userBloc
+                                        _propertyBloc
                                             .changeDistrito(value.toString());
                                         print(value.toString());
                                         setState(() {
@@ -654,7 +662,9 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text("Almacenar datos",
-                                            style: TextStyle(fontSize: 22)),
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                color: Colors.white)),
                                       ],
                                     ),
                                   );

@@ -2,9 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Departamentos.dart';
-import 'package:home_management_app/models/Distritos.dart';
-import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/ui/utils/formTextField.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,10 +23,6 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
   }
 
   Widget build(BuildContext context) {
-    String? departamentoSelected;
-    String? municipioSelected;
-    String? distritoSelected;
-
     final Uri url = Uri.parse('https://loftylatam.com/terminos-de-servicio/');
     dynamic duiFormatter = MaskTextInputFormatter(
         mask: '########-#',
