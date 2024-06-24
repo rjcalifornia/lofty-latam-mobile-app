@@ -4,9 +4,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Departamentos.dart';
-import 'package:home_management_app/models/Distritos.dart';
-import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/models/User.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -25,9 +22,6 @@ class UserBloc with Validators {
   final _passwordController = BehaviorSubject<String>();
   final _repeatPasswordController = BehaviorSubject<String>();
   final _documentController = BehaviorSubject<String>();
-  final _distritoController = BehaviorSubject<String>();
-  final _municipioController = BehaviorSubject<String>();
-  final _departamentoController = BehaviorSubject<String>();
   final _usernameController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
@@ -39,9 +33,6 @@ class UserBloc with Validators {
   Function(String) get changeRepeatPassword =>
       _repeatPasswordController.sink.add;
   Function(String) get changeDocument => _documentController.sink.add;
-  Function(String) get changeDistrito => _distritoController.sink.add;
-  Function(String) get changeMunicipio => _municipioController.sink.add;
-  Function(String) get changeDepartamento => _departamentoController.sink.add;
   Function(String) get changeUsername => _usernameController.sink.add;
 
   Stream<String> get nameStream =>
@@ -66,12 +57,6 @@ class UserBloc with Validators {
 
   Stream<String> get documentStream =>
       _documentController.stream.transform(simpleDocumentValidation);
-  Stream<String> get distritoStream =>
-      _distritoController.stream.transform(compactValidation);
-  Stream<String> get departamentoStream =>
-      _departamentoController.stream.transform(simpleValidation);
-  Stream<String> get municipioStream =>
-      _municipioController.stream.transform(simpleValidation);
   Stream<String> get usernameStream =>
       _usernameController.stream.transform(simpleValidation);
 
@@ -83,9 +68,6 @@ class UserBloc with Validators {
   String? get password => _passwordController.value;
   String? get repeatPassword => _repeatPasswordController.value;
   String? get document => _documentController.value;
-  String? get distrito => _distritoController.value;
-  String? get municipio => _municipioController.value;
-  String? get departamento => _departamentoController.value;
   String? get username => _usernameController.value;
 
   Stream<bool> get verifyFullName =>
@@ -111,8 +93,7 @@ class UserBloc with Validators {
         lastnameStream,
         documentStream,
         usernameStream,
-        passwordStream,
-        distritoStream
+        passwordStream
       ], (_) => true);
 
   Stream<bool> get verifyRegistrationData => CombineLatestStream.combine6(
@@ -154,63 +135,6 @@ class UserBloc with Validators {
     } catch (e) {
       return e.toString();
     }
-  }
-
-  Future getDepartamentos() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final accessToken = prefs.getString("access_token");
-
-    dynamic departamentosJson = await http.get(
-        Uri.parse('${authEndpoint}api/v1/catalogs/departamentos'),
-        headers: {
-          "Accept": "application/json",
-          'Authorization': 'Bearer $accessToken',
-        });
-
-    final departamentosParsed =
-        json.decode(departamentosJson.body).cast<Map<String, dynamic>>();
-
-    return departamentosParsed
-        .map<Departamentos>((json) => Departamentos.fromJson(json))
-        .toList();
-  }
-
-  Future getMunicipios(String departamentoId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final accessToken = prefs.getString("access_token");
-
-    dynamic departamentosJson = await http.get(
-        Uri.parse('${authEndpoint}api/v1/catalogs/municipios/$departamentoId'),
-        headers: {
-          "Accept": "application/json",
-          'Authorization': 'Bearer $accessToken',
-        });
-
-    final departamentosParsed =
-        json.decode(departamentosJson.body).cast<Map<String, dynamic>>();
-
-    return departamentosParsed
-        .map<Municipios>((json) => Municipios.fromJson(json))
-        .toList();
-  }
-
-  Future getDistritos(String municipioId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final accessToken = prefs.getString("access_token");
-
-    dynamic distritosJson = await http.get(
-        Uri.parse('${authEndpoint}api/v1/catalogs/distritos/$municipioId'),
-        headers: {
-          "Accept": "application/json",
-          'Authorization': 'Bearer $accessToken',
-        });
-
-    final distritosParsed =
-        json.decode(distritosJson.body).cast<Map<String, dynamic>>();
-
-    return distritosParsed
-        .map<Distritos>((json) => Distritos.fromJson(json))
-        .toList();
   }
 
   Future<void> updateUserInformation(context, infoType) async {

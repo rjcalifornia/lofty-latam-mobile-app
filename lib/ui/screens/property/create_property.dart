@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Departamentos.dart';
+import 'package:home_management_app/models/Distritos.dart';
+import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/ui/widgets/create_property_fancy_header.dart';
 
 class CreatePropertyScreen extends StatefulWidget {
@@ -22,6 +25,35 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
   bool _wifi = false;
 
   final PropertiesBloc _propertyBloc = PropertiesBloc();
+
+  List<Departamentos> departamentosList = [];
+  List<Municipios> municipiosList = [];
+  List<Distritos> distritosList = [];
+
+  Future getDepartamentosData() async {
+    final departamentosJson = await _propertyBloc.getDepartamentos();
+
+    setState(() {
+      departamentosList = departamentosJson;
+    });
+  }
+
+  Future getMunicipiosData(departamentoId) async {
+    final municipiosJson = await _propertyBloc.getMunicipios(departamentoId);
+
+    setState(() {
+      municipiosList = municipiosJson;
+    });
+  }
+
+  Future getDistritosData(municipioId) async {
+    final distritosJson = await _propertyBloc.getDistritos(municipioId);
+
+    setState(() {
+      distritosList = distritosJson;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -117,6 +149,179 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                             borderSide: BorderSide.none),
                                         hintText: "Dirección de la propiedad",
                                       ));
+                                }),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            const Row(children: [
+                              Icon(
+                                Icons.location_on_outlined,
+                                color: BrandColors.hof,
+                                size: 14,
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Departamento",
+                                style: TextStyle(color: BrandColors.hof),
+                              ),
+                            ]),
+                            StreamBuilder(
+                                stream: widget.userBloc.departamentoStream,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: const Color(0xfff6f6f6),
+                                    ),
+                                    child: DropdownButtonFormField(
+                                      decoration: const InputDecoration(
+                                          enabledBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none),
+                                      icon: const Icon(Icons.arrow_drop_down),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      isExpanded: true,
+                                      hint: const Center(
+                                          child:
+                                              Text("Seleccione departamento")),
+                                      items: departamentosList.map((item) {
+                                        return DropdownMenuItem(
+                                          value: item.id.toString(),
+                                          child: Center(
+                                            child: Text(item.nombre.toString()),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          departamentoSelected =
+                                              value.toString();
+                                        });
+                                        getMunicipiosData(departamentoSelected);
+                                      },
+                                      value: departamentoSelected,
+                                    ),
+                                  );
+                                }),
+                            const SizedBox(
+                              height: 22,
+                            ),
+                            const Row(children: [
+                              Icon(
+                                Icons.location_on_outlined,
+                                color: BrandColors.hof,
+                                size: 14,
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Municipio",
+                                style: TextStyle(color: BrandColors.hof),
+                              ),
+                            ]),
+                            StreamBuilder(
+                                stream: widget.userBloc.municipioStream,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: const Color(0xfff6f6f6),
+                                    ),
+                                    child: DropdownButtonFormField(
+                                      decoration: const InputDecoration(
+                                          enabledBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none),
+                                      icon: const Icon(Icons.arrow_drop_down),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      isExpanded: true,
+                                      hint: const Center(
+                                          child: Text("Seleccione municipio")),
+                                      items: municipiosList.map((item) {
+                                        return DropdownMenuItem(
+                                          value: item.id.toString(),
+                                          child: Center(
+                                            child: Text(item.nombre.toString()),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          municipioSelected = value.toString();
+                                        });
+                                        getDistritosData(municipioSelected);
+                                      },
+                                      value: municipioSelected,
+                                    ),
+                                  );
+                                }),
+                            const SizedBox(
+                              height: 22,
+                            ),
+                            const Row(children: [
+                              Icon(
+                                Icons.location_on_outlined,
+                                color: BrandColors.hof,
+                                size: 14,
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Distrito",
+                                style: TextStyle(color: BrandColors.hof),
+                              ),
+                            ]),
+                            StreamBuilder(
+                                stream: widget.userBloc.distritoStream,
+                                builder: (context, AsyncSnapshot snapshot) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: const Color(0xfff6f6f6),
+                                    ),
+                                    child: DropdownButtonFormField(
+                                      decoration: const InputDecoration(
+                                          enabledBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none),
+                                      icon: const Icon(Icons.arrow_drop_down),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      isExpanded: true,
+                                      hint: const Center(
+                                          child:
+                                              Text("Seleccione un distrito")),
+                                      items: distritosList.map((item) {
+                                        return DropdownMenuItem(
+                                          value: item.id.toString(),
+                                          child: Center(
+                                            child: Text(item.nombre.toString()),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        widget.userBloc
+                                            .changeDistrito(value.toString());
+                                        print(value.toString());
+                                        setState(() {
+                                          distritoSelected = value.toString();
+                                        });
+                                      },
+                                      value: distritoSelected,
+                                    ),
+                                  );
                                 }),
                             const SizedBox(
                               height: 12,

@@ -4,7 +4,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Departamentos.dart';
+import 'package:home_management_app/models/Distritos.dart';
 import 'package:home_management_app/models/Lease.dart';
+import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/models/Property.dart';
 import 'package:home_management_app/config/env.dart';
@@ -34,6 +37,9 @@ class PropertiesBloc with Validators {
   final _furnitureController = BehaviorSubject<String>();
   final _garageController = BehaviorSubject<String>();
   final _wifiController = BehaviorSubject<String>();
+  final _distritoController = BehaviorSubject<String>();
+  final _municipioController = BehaviorSubject<String>();
+  final _departamentoController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeAddress => _addressController.sink.add;
@@ -50,6 +56,9 @@ class PropertiesBloc with Validators {
   Function(String) get changeFurniture => _furnitureController.sink.add;
   Function(String) get changeGarage => _garageController.sink.add;
   Function(String) get changeWifi => _wifiController.sink.add;
+  Function(String) get changeDistrito => _distritoController.sink.add;
+  Function(String) get changeMunicipio => _municipioController.sink.add;
+  Function(String) get changeDepartamento => _departamentoController.sink.add;
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(validatePropertyFields);
@@ -79,6 +88,12 @@ class PropertiesBloc with Validators {
       _wifiController.stream.transform(validatePropertyFields);
   Stream<String> get furnitureStream =>
       _furnitureController.stream.transform(validatePropertyFields);
+  Stream<String> get distritoStream =>
+      _distritoController.stream.transform(compactValidation);
+  Stream<String> get departamentoStream =>
+      _departamentoController.stream.transform(compactValidation);
+  Stream<String> get municipioStream =>
+      _municipioController.stream.transform(compactValidation);
 
   String? get name => _nameController.value;
   String? get address => _addressController.value;
@@ -94,18 +109,23 @@ class PropertiesBloc with Validators {
   String? get garage => _garageController.value;
   String? get wifi => _wifiController.value;
   String? get furniture => _furnitureController.value;
+  String? get distrito => _distritoController.value;
+  String? get municipio => _municipioController.value;
+  String? get departamento => _departamentoController.value;
 
-  Stream<bool> get verifyPropertyData => CombineLatestStream.combine5(
+  Stream<bool> get verifyPropertyData => CombineLatestStream.combine6(
           nameStream,
           addressStream,
           bedroomsStream,
           bedsStream,
-          bathroomsStream, (a, b, c, d, e) {
+          bathroomsStream,
+          distritoStream, (a, b, c, d, e, f) {
         if ((a == _nameController.value) &&
             (b == _addressController.value) &&
             (c == _bedroomsController.value) &&
             (d == _bedsController.value) &&
-            (e == _bathroomsController.value)) {
+            (e == _bathroomsController.value) &&
+            (f == _distritoController.value)) {
           return true;
         }
         return false;
@@ -209,27 +229,7 @@ class PropertiesBloc with Validators {
 
       request.send().then((response) {
         Navigator.of(context).pop();
-        //  if (response.statusCode == 200) print("Uploaded!");
       });
-      // var propertyJson = await http.post(
-      //     Uri.parse('${authEndpoint}api/v1/property/pictures/store'),
-      //     body: {
-      //       "property_picture": payload,
-      //       "extension": "jpg",
-      //       "property_id": propertyId
-      //     },
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //       "Accept": "application/json",
-      //       'Authorization': 'Bearer $accessToken',
-      //     }).timeout(const Duration(seconds: 5),
-      //     onTimeout: () => throw TimeoutException(
-      //         'No se puede conectar, intente más tarde.'));
-
-      // var auth = await json.decode(propertyJson.body);
-      // var status = propertyJson.statusCode.toString();
-      // print('cargando');
-      // print(status);
     } catch (e) {
       Navigator.of(context).pop();
     }
@@ -260,6 +260,7 @@ class PropertiesBloc with Validators {
                 "has_wifi": wifi.toString(),
                 "active": true,
                 "property_type_id": 1,
+                "distrito_id": distrito.toString(),
               }),
               headers: {
             "Content-Type": "application/json; charset=utf-8",
@@ -428,5 +429,62 @@ class PropertiesBloc with Validators {
       Navigator.of(context).pop();
       CustomDialogs.fatalErrorDialog(context, e);
     }
+  }
+
+  Future getDepartamentos() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    dynamic departamentosJson = await http.get(
+        Uri.parse('${authEndpoint}api/v1/catalogs/departamentos'),
+        headers: {
+          "Accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        });
+
+    final departamentosParsed =
+        json.decode(departamentosJson.body).cast<Map<String, dynamic>>();
+
+    return departamentosParsed
+        .map<Departamentos>((json) => Departamentos.fromJson(json))
+        .toList();
+  }
+
+  Future getMunicipios(String departamentoId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    dynamic departamentosJson = await http.get(
+        Uri.parse('${authEndpoint}api/v1/catalogs/municipios/$departamentoId'),
+        headers: {
+          "Accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        });
+
+    final departamentosParsed =
+        json.decode(departamentosJson.body).cast<Map<String, dynamic>>();
+
+    return departamentosParsed
+        .map<Municipios>((json) => Municipios.fromJson(json))
+        .toList();
+  }
+
+  Future getDistritos(String municipioId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.getString("access_token");
+
+    dynamic distritosJson = await http.get(
+        Uri.parse('${authEndpoint}api/v1/catalogs/distritos/$municipioId'),
+        headers: {
+          "Accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        });
+
+    final distritosParsed =
+        json.decode(distritosJson.body).cast<Map<String, dynamic>>();
+
+    return distritosParsed
+        .map<Distritos>((json) => Distritos.fromJson(json))
+        .toList();
   }
 }
