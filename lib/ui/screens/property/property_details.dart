@@ -437,6 +437,72 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.location_city_outlined,
+                                          color: BrandColors.foggy,
+                                        ),
+                                        const SizedBox(
+                                            width:
+                                                8), // Add some spacing between the icon and text
+
+                                        Expanded(
+                                          child: Text(
+                                            'Distrito de ${propertyDetails!.location!.distritoId!.nombre}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .apply(
+                                                    color: BrandColors.foggy),
+                                            softWrap:
+                                                true, // Allow the text to wrap to the next line
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.location_pin,
+                                          color: BrandColors.foggy,
+                                        ),
+                                        const SizedBox(
+                                            width:
+                                                8), // Add some spacing between the icon and text
+
+                                        Expanded(
+                                          child: Text(
+                                            '${propertyDetails!.location!.distritoId!.municipioId!.nombre}, ${propertyDetails!.location!.distritoId!.municipioId!.departamentoId!.nombre}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .apply(
+                                                    color: BrandColors.foggy),
+                                            softWrap:
+                                                true, // Allow the text to wrap to the next line
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                               HomeServicesContainer(
                                 propertyDetails: propertyDetails,
                               ),

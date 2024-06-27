@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Departamentos.dart';
+import 'package:home_management_app/models/Distritos.dart';
+import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/models/Property.dart';
 
 class EditPropertyScreen extends StatefulWidget {
@@ -83,9 +86,38 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
     }
   }
 
+  List<Departamentos> departamentosList = [];
+  List<Municipios> municipiosList = [];
+  List<Distritos> distritosList = [];
+
+  Future getDepartamentosData() async {
+    final departamentosJson = await _propertyBloc.getDepartamentos();
+
+    setState(() {
+      departamentosList = departamentosJson;
+    });
+  }
+
+  Future getMunicipiosData(departamentoId) async {
+    final municipiosJson = await _propertyBloc.getMunicipios(departamentoId);
+
+    setState(() {
+      municipiosList = municipiosJson;
+    });
+  }
+
+  Future getDistritosData(municipioId) async {
+    final distritosJson = await _propertyBloc.getDistritos(municipioId);
+
+    setState(() {
+      distritosList = distritosJson;
+    });
+  }
+
   @override
   void initState() {
     setValues();
+    getDepartamentosData();
     super.initState();
   }
 

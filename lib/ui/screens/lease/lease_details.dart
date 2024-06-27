@@ -147,7 +147,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                                       width: 3,
                                     ),
                                     Text(
-                                      "Descargar contrato",
+                                      "Descargar plantilla de contrato",
                                       style: TextStyle(color: BrandColors.hof),
                                     )
                                   ],
