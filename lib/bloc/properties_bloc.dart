@@ -323,6 +323,7 @@ class PropertiesBloc with Validators {
             "has_furniture": furniture.toString(),
             "has_garage": garage.toString(),
             "has_wifi": wifi.toString(),
+            "distrito_id": distrito.toString(),
           }),
           headers: {
             "Content-Type": "application/json; charset=utf-8",

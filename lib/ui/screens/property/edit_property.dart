@@ -37,6 +37,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
       _propertyBloc.changeBeds(widget.property!.beds.toString());
 
       _propertyBloc.changeBathrooms(widget.property!.bathrooms.toString());
+      _propertyBloc
+          .changeDistrito(widget.property!.location!.distritoId!.id.toString());
     });
 
     if (widget.property!.hasWifi == true) {
@@ -86,6 +88,13 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
     }
   }
 
+  late String departamentoSelected =
+      widget.property!.location!.distritoId!.departamentoId.toString();
+  late String municipioSelected =
+      widget.property!.location!.distritoId!.municipioId!.id.toString();
+  late String distritoSelected =
+      widget.property!.location!.distritoId!.id.toString();
+
   List<Departamentos> departamentosList = [];
   List<Municipios> municipiosList = [];
   List<Distritos> distritosList = [];
@@ -106,8 +115,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
     });
   }
 
-  Future getDistritosData(municipioId) async {
-    final distritosJson = await _propertyBloc.getDistritos(municipioId);
+  Future getDistritosData(distritoId) async {
+    final distritosJson = await _propertyBloc.getDistritos(distritoId);
 
     setState(() {
       distritosList = distritosJson;
@@ -118,6 +127,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
   void initState() {
     setValues();
     getDepartamentosData();
+    getMunicipiosData(departamentoSelected);
+    getDistritosData(municipioSelected);
     super.initState();
   }
 
@@ -198,6 +209,172 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                                   borderSide: BorderSide.none),
                               hintText: "Escriba la dirección de la propiedad",
                             ));
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Row(children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Departamento",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: _propertyBloc.departamentoStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xfff6f6f6),
+                          ),
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            isExpanded: true,
+                            hint: const Center(
+                                child: Text("Seleccione departamento")),
+                            items: departamentosList.map((item) {
+                              return DropdownMenuItem(
+                                value: item.id.toString(),
+                                child: Center(
+                                  child: Text(item.nombre.toString()),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                departamentoSelected = value.toString();
+                              });
+                              getMunicipiosData(departamentoSelected);
+                            },
+                            value: departamentoSelected,
+                          ),
+                        );
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Row(children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Municipio",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: _propertyBloc.municipioStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xfff6f6f6),
+                          ),
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            isExpanded: true,
+                            hint: const Center(
+                                child: Text("Seleccione municipio")),
+                            items: municipiosList.map((item) {
+                              return DropdownMenuItem(
+                                value: item.id.toString(),
+                                child: Center(
+                                  child: Text(item.nombre.toString()),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                municipioSelected = value.toString();
+                              });
+                              getDistritosData(municipioSelected);
+                            },
+                            value: municipioSelected,
+                          ),
+                        );
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Row(children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Distrito",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: _propertyBloc.distritoStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xfff6f6f6),
+                          ),
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            isExpanded: true,
+                            hint: const Center(
+                                child: Text("Seleccione un distrito")),
+                            items: distritosList.map((item) {
+                              return DropdownMenuItem(
+                                value: item.id.toString(),
+                                child: Center(
+                                  child: Text(item.nombre.toString()),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              _propertyBloc.changeDistrito(value.toString());
+
+                              setState(() {
+                                distritoSelected = value.toString();
+                              });
+                            },
+                            value: distritoSelected,
+                          ),
+                        );
                       }),
                   const SizedBox(
                     height: 12,
@@ -492,7 +669,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Actualizar datos",
-                                  style: TextStyle(fontSize: 22)),
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.white)),
                             ],
                           ),
                         );
