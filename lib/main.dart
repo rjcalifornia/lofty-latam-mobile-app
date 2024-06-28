@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             textTheme: GoogleFonts.manropeTextTheme(),
             scaffoldBackgroundColor: Colors.white,
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
-                .copyWith(background: Colors.white),
+            // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+            //    .copyWith(background: Colors.white),
           ),
           home: FutureBuilder(
             future: loginBloc.checkAccessTokenValidity(),

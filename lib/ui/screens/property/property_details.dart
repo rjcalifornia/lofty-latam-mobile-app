@@ -118,7 +118,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ))).then((value) => _getProperty());
         },
         backgroundColor: BrandColors.fty,
-        child: const Icon(Icons.add_outlined),
+        child: const Icon(
+          Icons.add_outlined,
+          color: Colors.white,
+        ),
       ),
       body: SafeArea(
         child: Stack(

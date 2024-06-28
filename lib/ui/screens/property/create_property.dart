@@ -447,6 +447,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.wifiStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title: const Text('¿Tiene wifi?'),
                                     value: _wifi,
                                     onChanged: (bool value) {
@@ -465,6 +466,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.airConditionerStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title: const Text(
                                         '¿Tiene aire acondicionado?'),
                                     value: _ac,
@@ -485,6 +487,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.kitchenStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title: const Text('¿Tiene cocina?'),
                                     value: _kitchen,
                                     onChanged: (bool value) {
@@ -504,6 +507,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.dinningStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title:
                                         const Text('¿Tiene mesa de comedor?'),
                                     value: _dinningTable,
@@ -524,6 +528,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.dishSinkStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title: const Text('¿Tiene lavatrastos?'),
                                     value: _sink,
                                     onChanged: (bool value) {
@@ -543,6 +548,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.fridgeStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title: const Text('¿Tiene refrigeradora?'),
                                     value: _fridge,
                                     onChanged: (bool value) {
@@ -562,6 +568,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.tvStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title: const Text('¿Tiene televisión?'),
                                     value: _tv,
                                     onChanged: (bool value) {
@@ -580,6 +587,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.furnitureStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title:
                                         const Text('¿Tiene muebles de sala?'),
                                     value: _furniture,
@@ -600,6 +608,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                 stream: _propertyBloc.garageStream,
                                 builder: (context, AsyncSnapshot snapshot) {
                                   return SwitchListTile(
+                                    activeColor: BrandColors.fty,
                                     title: const Text('¿Tiene cochera?'),
                                     value: _garage,
                                     onChanged: (bool value) {
