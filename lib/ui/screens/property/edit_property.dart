@@ -258,6 +258,9 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                             onChanged: (value) {
                               setState(() {
                                 departamentoSelected = value.toString();
+                                distritoSelected = "";
+                                _propertyBloc.changeDistrito("");
+                                distritosList = [];
                               });
                               getMunicipiosData(departamentoSelected);
                             },
@@ -313,6 +316,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                             onChanged: (value) {
                               setState(() {
                                 municipioSelected = value.toString();
+                                distritoSelected = "";
+                                _propertyBloc.changeDistrito("");
                               });
                               getDistritosData(municipioSelected);
                             },
@@ -372,7 +377,9 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                                 distritoSelected = value.toString();
                               });
                             },
-                            value: distritoSelected,
+                            value: distritoSelected.isNotEmpty
+                                ? distritoSelected
+                                : null,
                           ),
                         );
                       }),
@@ -658,7 +665,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                                 widget.property!.id, context);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: BrandColors.arches,
+                            backgroundColor: BrandColors.fty,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0),
                             ),

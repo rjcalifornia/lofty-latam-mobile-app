@@ -117,7 +117,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                         property: propertyDetails,
                       ))).then((value) => _getProperty());
         },
-        backgroundColor: BrandColors.rausch,
+        backgroundColor: BrandColors.fty,
         child: const Icon(Icons.add_outlined),
       ),
       body: SafeArea(
@@ -189,7 +189,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: BrandColors.rausch,
+                                      color: BrandColors.fty,
                                       boxShadow: [
                                         BoxShadow(
                                             color: BrandColors.foggy,
@@ -231,7 +231,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                     ),
                                     const Spacer(),
                                     PopupMenuButton(
-                                      color: Colors.white,
+                                      icon: const Icon(
+                                        Icons.more_vert_outlined,
+                                        color: Colors.white,
+                                      ),
                                       onSelected: (value) {},
                                       itemBuilder: (BuildContext ctx) {
                                         return [

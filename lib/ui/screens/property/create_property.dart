@@ -29,7 +29,9 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
   List<Departamentos> departamentosList = [];
   List<Municipios> municipiosList = [];
   List<Distritos> distritosList = [];
-
+  String? departamentoSelected;
+  String? municipioSelected;
+  late String? distritoSelected = "";
   Future getDepartamentosData() async {
     final departamentosJson = await _propertyBloc.getDepartamentos();
 
@@ -50,6 +52,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
     final distritosJson = await _propertyBloc.getDistritos(municipioId);
 
     setState(() {
+      distritoSelected = "";
       distritosList = distritosJson;
     });
   }
@@ -60,10 +63,8 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
-    String? departamentoSelected;
-    String? municipioSelected;
-    String? distritoSelected;
     return GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -206,9 +207,13 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                         );
                                       }).toList(),
                                       onChanged: (value) {
+                                        _propertyBloc.changeDistrito("");
                                         setState(() {
                                           departamentoSelected =
                                               value.toString();
+                                          distritoSelected = "";
+
+                                          distritosList = [];
                                         });
                                         getMunicipiosData(departamentoSelected);
                                       },
@@ -265,7 +270,11 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                       onChanged: (value) {
                                         setState(() {
                                           municipioSelected = value.toString();
+                                          distritoSelected = "";
+
+                                          _propertyBloc.changeDistrito("");
                                         });
+                                        print(distritoSelected.toString());
                                         getDistritosData(municipioSelected);
                                       },
                                       value: municipioSelected,
@@ -322,12 +331,15 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                       onChanged: (value) {
                                         _propertyBloc
                                             .changeDistrito(value.toString());
-                                        print(value.toString());
+
                                         setState(() {
                                           distritoSelected = value.toString();
                                         });
+                                        print(distritoSelected.toString());
                                       },
-                                      value: distritoSelected,
+                                      value: distritoSelected!.isNotEmpty
+                                          ? distritoSelected
+                                          : null,
                                     ),
                                   );
                                 }),
