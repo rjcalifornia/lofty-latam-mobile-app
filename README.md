@@ -32,3 +32,6 @@
 ![alt text](https://raw.githubusercontent.com/flutter/website/archived-master/src/_assets/image/flutter-lockup-bg.jpg "Flutter")
 
 <b>Version 3.7.11</b> 
+
+#### Attribution-NonCommmercial-ShareAlike 4.0 International License
+[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
