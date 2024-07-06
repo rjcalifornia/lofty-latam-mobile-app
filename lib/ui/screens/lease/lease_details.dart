@@ -78,7 +78,10 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                                 ))).then((value) => _getLeaseDetails());
                   },
                   backgroundColor: BrandColors.rausch,
-                  child: const Icon(Icons.add_outlined),
+                  child: const Icon(
+                    Icons.add_outlined,
+                    color: Colors.white,
+                  ),
                 )
             ]),
             appBar: AppBar(

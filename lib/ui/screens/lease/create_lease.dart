@@ -441,7 +441,8 @@ class _CreateLeaseScreenState extends State<CreateLeaseScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text("Guardar contrato",
-                                        style: TextStyle(fontSize: 22)),
+                                        style: TextStyle(
+                                            fontSize: 22, color: Colors.white)),
                                   ],
                                 ),
                               );

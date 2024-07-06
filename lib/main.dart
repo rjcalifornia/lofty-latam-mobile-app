@@ -53,6 +53,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             textTheme: GoogleFonts.manropeTextTheme(),
             scaffoldBackgroundColor: Colors.white,
+            dialogBackgroundColor: Colors.white,
+
             // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
             //    .copyWith(background: Colors.white),
           ),
