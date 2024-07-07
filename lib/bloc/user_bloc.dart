@@ -179,6 +179,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content:
                     const Text("Datos han sido actualizados correctamente."),
                 actions: [
@@ -187,7 +188,10 @@ class UserBloc with Validators {
                         Navigator.of(context).pop();
                         //Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text(
+                        "Aceptar",
+                        style: TextStyle(color: Colors.blue),
+                      ))
                 ],
               );
             });
@@ -237,6 +241,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content:
                     const Text("Datos han sido actualizados correctamente."),
                 actions: [
@@ -245,7 +250,8 @@ class UserBloc with Validators {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -257,13 +263,15 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Error"),
+                surfaceTintColor: Colors.white,
                 content: Text(response['message'].toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -323,6 +331,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: const Text("Cuenta ha sido creada exitosamente."),
                 actions: [
                   TextButton(
@@ -333,7 +342,8 @@ class UserBloc with Validators {
                         Navigator.of(context)
                             .pushNamedAndRemoveUntil('home', (route) => false);
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -344,13 +354,15 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: Text(jsonBody['message'].toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -389,6 +401,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: const Text(
                     "Correo de validación de cuenta ha sido enviado correctamente"),
                 actions: [
@@ -397,7 +410,8 @@ class UserBloc with Validators {
                         Navigator.of(context).pop();
                         //Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -437,6 +451,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: const Text("Su cuenta ha sido eliminada"),
                 actions: [
                   TextButton(
@@ -444,7 +459,8 @@ class UserBloc with Validators {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             'welcome', (route) => false);
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });

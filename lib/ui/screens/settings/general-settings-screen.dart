@@ -194,6 +194,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Eliminar cuenta'),
+          surfaceTintColor: Colors.white,
           content: const SingleChildScrollView(
             child: SizedBox(
               //height: MediaQuery.of(context).size.height,
@@ -211,7 +212,8 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child:
+                  const Text('Cancelar', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -220,7 +222,8 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Sí, eliminar mi cuenta'),
+              child: const Text('Sí, eliminar mi cuenta',
+                  style: TextStyle(color: Colors.red)),
               onPressed: () {
                 //  Navigator.of(context).pop();
                 userBloc.deleteAccount(context);

@@ -244,6 +244,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          surfaceTintColor: Colors.white,
           title: const Text('Actualiza tu nombre'),
           content: SingleChildScrollView(
             child: SizedBox(
@@ -319,7 +320,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child:
+                  const Text('Cancelar', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 getPersonalInfo();
                 Navigator.of(context).pop();
@@ -335,13 +337,15 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         textStyle: Theme.of(context).textTheme.labelLarge,
                       ),
                       onPressed: null,
-                      child: const Text('Actualizar'));
+                      child: const Text('Actualizar',
+                          style: TextStyle(color: Colors.blue)));
                 } else {
                   return TextButton(
                     style: TextButton.styleFrom(
                       textStyle: Theme.of(context).textTheme.labelLarge,
                     ),
-                    child: const Text('Actualizar'),
+                    child: const Text('Actualizar',
+                        style: TextStyle(color: Colors.blue)),
                     onPressed: () {
                       //Navigator.of(context).pop();
                       userBloc
@@ -367,6 +371,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Actualiza tu número telefónico'),
+          surfaceTintColor: Colors.white,
           content: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 7,
@@ -416,7 +421,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child:
+                  const Text('Cancelar', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 getPersonalInfo();
                 Navigator.of(context).pop();
@@ -432,13 +438,15 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         textStyle: Theme.of(context).textTheme.labelLarge,
                       ),
                       onPressed: null,
-                      child: const Text('Actualizar'));
+                      child: const Text('Actualizar',
+                          style: TextStyle(color: Colors.blue)));
                 } else {
                   return TextButton(
                     style: TextButton.styleFrom(
                       textStyle: Theme.of(context).textTheme.labelLarge,
                     ),
-                    child: const Text('Actualizar'),
+                    child: const Text('Actualizar',
+                        style: TextStyle(color: Colors.blue)),
                     onPressed: () {
                       //Navigator.of(context).pop();
                       userBloc
@@ -464,6 +472,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Actualiza tu correo'),
+          surfaceTintColor: Colors.white,
           content: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 5.5,
@@ -510,7 +519,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child:
+                  const Text('Cancelar', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 getPersonalInfo();
                 Navigator.of(context).pop();
@@ -525,13 +535,15 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         textStyle: Theme.of(context).textTheme.labelLarge,
                       ),
                       onPressed: null,
-                      child: const Text('Actualizar'));
+                      child: const Text('Actualizar',
+                          style: TextStyle(color: Colors.blue)));
                 } else {
                   return TextButton(
                     style: TextButton.styleFrom(
                       textStyle: Theme.of(context).textTheme.labelLarge,
                     ),
-                    child: const Text('Actualizar'),
+                    child: const Text('Actualizar',
+                        style: TextStyle(color: Colors.blue)),
                     onPressed: () {
                       userBloc
                           .updateUserInformation(context, 'email')
