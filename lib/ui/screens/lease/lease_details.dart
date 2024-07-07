@@ -97,6 +97,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                   if (lease?.active == true)
                     PopupMenuButton(
                       onSelected: (value) {},
+                      surfaceTintColor: Colors.white,
                       itemBuilder: (BuildContext ctx) {
                         return [
                           PopupMenuItem(

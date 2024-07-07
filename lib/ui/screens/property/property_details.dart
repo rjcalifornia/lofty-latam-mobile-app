@@ -234,6 +234,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                     ),
                                     const Spacer(),
                                     PopupMenuButton(
+                                      surfaceTintColor: Colors.white,
                                       icon: const Icon(
                                         Icons.more_vert_outlined,
                                         color: Colors.white,
@@ -602,6 +603,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Eliminar propiedad'),
+          surfaceTintColor: Colors.white,
           content: const SingleChildScrollView(
             child: SizedBox(
               //height: MediaQuery.of(context).size.height / 6.5,
@@ -623,7 +625,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                     children: [
                       Icon(
                         Icons.warning_amber_outlined,
-                        color: BrandColors.arches,
+                        color: Colors.red,
                         size: 14,
                       ),
                       SizedBox(
@@ -631,7 +633,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ),
                       Text(
                         "Acción es irreversible",
-                        style: TextStyle(color: BrandColors.arches),
+                        style: TextStyle(color: Colors.red),
                       ),
                     ],
                   )
@@ -644,7 +646,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.blue),
+              ),
               onPressed: () {
                 //  getPersonalInfo();
                 Navigator.of(context).pop();
@@ -654,7 +659,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Continuar'),
+              child:
+                  const Text('Continuar', style: TextStyle(color: Colors.red)),
               onPressed: () {
                 _propertiesBloc.removeProperty(propertyDetails!.id, context);
               },
