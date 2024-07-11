@@ -225,6 +225,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Finalizar contrato'),
+          surfaceTintColor: Colors.white,
           content: SingleChildScrollView(
             child: SizedBox(
               //height: MediaQuery.of(context).size.height / 6.5,
@@ -273,7 +274,10 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.blue),
+              ),
               onPressed: () {
                 //  getPersonalInfo();
                 Navigator.of(context).pop();
@@ -288,13 +292,19 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                           textStyle: Theme.of(context).textTheme.labelLarge,
                         ),
                         onPressed: null,
-                        child: const Text('Continuar'));
+                        child: const Text(
+                          'Continuar',
+                          style: TextStyle(color: Colors.blue),
+                        ));
                   } else {
                     return TextButton(
                       style: TextButton.styleFrom(
                         textStyle: Theme.of(context).textTheme.labelLarge,
                       ),
-                      child: const Text('Continuar'),
+                      child: const Text(
+                        'Continuar',
+                        style: TextStyle(color: Colors.blue),
+                      ),
                       onPressed: () {
                         leaseBloc
                             .endLease(lease!.id, context)

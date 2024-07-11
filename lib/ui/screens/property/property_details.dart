@@ -84,13 +84,17 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text("Atención"),
+              surfaceTintColor: Colors.white,
               content: Text(e.toString()),
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
