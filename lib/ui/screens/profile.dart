@@ -152,6 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: const Text('Atención'),
+              surfaceTintColor: Colors.white,
               content: SizedBox(
                 height: 70,
                 child: Center(
@@ -163,7 +164,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextButton.styleFrom(
                     textStyle: Theme.of(context).textTheme.labelLarge,
                   ),
-                  child: const Text('Cancelar'),
+                  child: const Text(
+                    'Cancelar',
+                    style: TextStyle(color: Colors.blue),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -172,7 +176,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextButton.styleFrom(
                     textStyle: Theme.of(context).textTheme.labelLarge,
                   ),
-                  child: const Text('Cerrar sesión'),
+                  child: const Text(
+                    'Cerrar sesión',
+                    style: TextStyle(color: Colors.blue),
+                  ),
                   onPressed: () {
                     _loginBloc.logout(context);
                     // Navigator.of(context).pop();
