@@ -51,13 +51,17 @@ class CustomDialogs {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text("Atención"),
+            surfaceTintColor: Colors.white,
             content: Text(message.toString()),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text("Aceptar"))
+                  child: const Text(
+                    "Aceptar",
+                    style: TextStyle(color: Colors.blue),
+                  ))
             ],
           );
         });
@@ -91,13 +95,17 @@ class CustomDialogs {
           return AlertDialog(
             title: Text(dialogTitle.toString()),
             content: Text(dialogMessage.toString()),
+            surfaceTintColor: Colors.white,
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                     //Navigator.of(context).pop();
                   },
-                  child: const Text("Aceptar"))
+                  child: const Text(
+                    "Aceptar",
+                    style: TextStyle(color: Colors.blue),
+                  ))
             ],
           );
         });

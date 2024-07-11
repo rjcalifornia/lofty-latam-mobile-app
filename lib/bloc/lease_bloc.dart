@@ -215,6 +215,7 @@ class LeaseBloc with Validators {
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text("Atención"),
+              surfaceTintColor: Colors.white,
               content: Text("Contrato ha sido guardado correctamente."),
               actions: [
                 TextButton(
@@ -222,7 +223,10 @@ class LeaseBloc with Validators {
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
@@ -268,12 +272,16 @@ class LeaseBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text("Contrato ha sido descargado correctamente."),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });

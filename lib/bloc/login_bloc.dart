@@ -123,6 +123,7 @@ class LoginBloc with Validators {
               return AlertDialog(
                 title: const Text("Atención"),
                 content: Text(auth['message'].toString()),
+                surfaceTintColor: Colors.white,
                 actions: [
                   TextButton(
                       onPressed: () {
@@ -141,6 +142,7 @@ class LoginBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text(e.toString()),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
@@ -203,6 +205,7 @@ class LoginBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text(e.toString()),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
