@@ -129,7 +129,10 @@ class LoginBloc with Validators {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text(
+                        "Aceptar",
+                        style: TextStyle(color: Colors.blue),
+                      ))
                 ],
               );
             });
@@ -148,7 +151,10 @@ class LoginBloc with Validators {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
@@ -211,7 +217,10 @@ class LoginBloc with Validators {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });

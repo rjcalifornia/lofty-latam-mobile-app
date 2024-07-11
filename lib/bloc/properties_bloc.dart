@@ -283,6 +283,7 @@ class PropertiesBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text("Datos almacenados correctamente."),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
@@ -290,7 +291,10 @@ class PropertiesBloc with Validators {
                       Navigator.of(context)
                           .pushNamedAndRemoveUntil('home', (route) => false);
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
@@ -347,22 +351,17 @@ class PropertiesBloc with Validators {
               return AlertDialog(
                 title: const Text("Atención"),
                 content: Text("Datos actualizados correctamente"),
+                surfaceTintColor: Colors.white,
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop(context);
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => PropertyDetailsScreen(
-                        //       id: propertyId,
-                        //       accessToken: accessToken,
-                        //     ),
-                        //   ),
-                        // );
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text(
+                        "Aceptar",
+                        style: TextStyle(color: Colors.blue),
+                      ))
                 ],
               );
             });
@@ -374,12 +373,16 @@ class PropertiesBloc with Validators {
               return AlertDialog(
                 title: const Text("Atención"),
                 content: Text(jsonBody['message'].toString()),
+                surfaceTintColor: Colors.white,
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text(
+                        "Aceptar",
+                        style: TextStyle(color: Colors.blue),
+                      ))
                 ],
               );
             });
