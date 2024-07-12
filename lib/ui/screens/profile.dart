@@ -178,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   child: const Text(
                     'Cerrar sesión',
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(color: Colors.red),
                   ),
                   onPressed: () {
                     _loginBloc.logout(context);

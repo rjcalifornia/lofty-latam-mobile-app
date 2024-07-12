@@ -68,8 +68,8 @@ class LoginBloc with Validators {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: BrandColors.arches, size: 38),
+                      child: LoadingAnimationWidget.waveDots(
+                          color: BrandColors.fty, size: 38),
                     ),
                     SizedBox(
                       height: 12,

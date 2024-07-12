@@ -587,7 +587,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ],
                     ));
                   } else {
-                    return CustomDialogs.navigationLoader("Cargando...");
+                    return CustomDialogs.dotsLoader("Espere por favor...");
                   }
                 }),
               ),
