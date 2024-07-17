@@ -333,7 +333,9 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text("Actualizar contrato",
-                                              style: TextStyle(fontSize: 22)),
+                                              style: TextStyle(
+                                                  fontSize: 22,
+                                                  color: Colors.white)),
                                         ],
                                       ),
                                     );

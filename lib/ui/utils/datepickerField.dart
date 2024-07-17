@@ -28,9 +28,9 @@ class DatePickerField extends StatelessWidget {
             return Theme(
                 data: ThemeData.light().copyWith(
                   colorScheme: ColorScheme.fromSwatch().copyWith(
-                    primary: BrandColors.rausch,
-                    secondary: BrandColors.arches,
-                  ),
+                      primary: BrandColors.rausch,
+                      secondary: BrandColors.arches,
+                      surfaceTint: Colors.white),
                   dialogBackgroundColor: Colors.white,
                 ),
                 child: child!);

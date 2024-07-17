@@ -22,7 +22,6 @@ class UserBloc with Validators {
   final _passwordController = BehaviorSubject<String>();
   final _repeatPasswordController = BehaviorSubject<String>();
   final _documentController = BehaviorSubject<String>();
-  final _distritoController = BehaviorSubject<String>();
   final _usernameController = BehaviorSubject<String>();
 
   Function(String) get changeName => _nameController.sink.add;
@@ -34,7 +33,6 @@ class UserBloc with Validators {
   Function(String) get changeRepeatPassword =>
       _repeatPasswordController.sink.add;
   Function(String) get changeDocument => _documentController.sink.add;
-  Function(String) get changeDistrito => _distritoController.sink.add;
   Function(String) get changeUsername => _usernameController.sink.add;
 
   Stream<String> get nameStream =>
@@ -59,8 +57,6 @@ class UserBloc with Validators {
 
   Stream<String> get documentStream =>
       _documentController.stream.transform(simpleDocumentValidation);
-  Stream<String> get distritoStream =>
-      _distritoController.stream.transform(simpleValidation);
   Stream<String> get usernameStream =>
       _usernameController.stream.transform(simpleValidation);
 
@@ -72,7 +68,6 @@ class UserBloc with Validators {
   String? get password => _passwordController.value;
   String? get repeatPassword => _repeatPasswordController.value;
   String? get document => _documentController.value;
-  String? get distrito => _distritoController.value;
   String? get username => _usernameController.value;
 
   Stream<bool> get verifyFullName =>
@@ -93,18 +88,32 @@ class UserBloc with Validators {
         return false;
       });
 
-  Stream<bool> get verifyRegistrationData => CombineLatestStream([
+  Stream<bool> get verifyRe => CombineLatestStream([
         nameStream,
         lastnameStream,
         documentStream,
         usernameStream,
-        passwordStream,
-        distritoStream
+        passwordStream
       ], (_) => true);
+
+  Stream<bool> get verifyRegistrationData => CombineLatestStream.combine5(
+          nameStream,
+          lastnameStream,
+          documentStream,
+          usernameStream,
+          passwordStream, (a, b, c, d, e) {
+        if ((a == _nameController.value) &&
+            (b == _lastnameController.value) &&
+            (c == _documentController.value) &&
+            (d == _usernameController.value) &&
+            (e == _passwordController.value)) {
+          return true;
+        }
+        return false;
+      });
   Stream<bool> get verifyPhone => phoneStream.map((phone) => true);
   Stream<bool> get verifyEmail => emailStream.map((email) => true);
   Stream<bool> get verifyDocument => documentStream.map((document) => true);
-  Stream<bool> get verifyDistrict => distritoStream.map((distrito) => true);
 
   Future getUserInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -170,6 +179,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content:
                     const Text("Datos han sido actualizados correctamente."),
                 actions: [
@@ -178,7 +188,10 @@ class UserBloc with Validators {
                         Navigator.of(context).pop();
                         //Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text(
+                        "Aceptar",
+                        style: TextStyle(color: Colors.blue),
+                      ))
                 ],
               );
             });
@@ -228,6 +241,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content:
                     const Text("Datos han sido actualizados correctamente."),
                 actions: [
@@ -236,7 +250,8 @@ class UserBloc with Validators {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -248,13 +263,15 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Error"),
+                surfaceTintColor: Colors.white,
                 content: Text(response['message'].toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -269,13 +286,15 @@ class UserBloc with Validators {
     String userEmail = '';
     _emailController.stream.listen((email) {
       // You can access the email value here
+      userEmail = email;
     });
+
     if (_emailController.hasValue) {
-      userEmail = email.toString();
+      userEmail = _emailController.stream.value;
     }
 
     CustomDialogs.loadingDialog(
-        context, "Registrando datos, espere un momento por favor");
+        context, "Creando su cuenta, espere un momento por favor");
 
     try {
       var newUserJson =
@@ -314,6 +333,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: const Text("Cuenta ha sido creada exitosamente."),
                 actions: [
                   TextButton(
@@ -324,7 +344,8 @@ class UserBloc with Validators {
                         Navigator.of(context)
                             .pushNamedAndRemoveUntil('home', (route) => false);
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -335,13 +356,15 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: Text(jsonBody['message'].toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -380,6 +403,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: const Text(
                     "Correo de validación de cuenta ha sido enviado correctamente"),
                 actions: [
@@ -388,7 +412,8 @@ class UserBloc with Validators {
                         Navigator.of(context).pop();
                         //Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });
@@ -428,6 +453,7 @@ class UserBloc with Validators {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Atención"),
+                surfaceTintColor: Colors.white,
                 content: const Text("Su cuenta ha sido eliminada"),
                 actions: [
                   TextButton(
@@ -435,7 +461,8 @@ class UserBloc with Validators {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             'welcome', (route) => false);
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text("Aceptar",
+                          style: TextStyle(color: Colors.blue)))
                 ],
               );
             });

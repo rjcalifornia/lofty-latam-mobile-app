@@ -84,13 +84,17 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text("Atención"),
+              surfaceTintColor: Colors.white,
               content: Text(e.toString()),
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
@@ -117,8 +121,11 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                         property: propertyDetails,
                       ))).then((value) => _getProperty());
         },
-        backgroundColor: BrandColors.rausch,
-        child: const Icon(Icons.add_outlined),
+        backgroundColor: BrandColors.fty,
+        child: const Icon(
+          Icons.add_outlined,
+          color: Colors.white,
+        ),
       ),
       body: SafeArea(
         child: Stack(
@@ -189,7 +196,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: BrandColors.rausch,
+                                      color: BrandColors.fty,
                                       boxShadow: [
                                         BoxShadow(
                                             color: BrandColors.foggy,
@@ -231,7 +238,11 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                     ),
                                     const Spacer(),
                                     PopupMenuButton(
-                                      color: Colors.white,
+                                      surfaceTintColor: Colors.white,
+                                      icon: const Icon(
+                                        Icons.more_vert_outlined,
+                                        color: Colors.white,
+                                      ),
                                       onSelected: (value) {},
                                       itemBuilder: (BuildContext ctx) {
                                         return [
@@ -437,6 +448,72 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.location_city_outlined,
+                                          color: BrandColors.foggy,
+                                        ),
+                                        const SizedBox(
+                                            width:
+                                                8), // Add some spacing between the icon and text
+
+                                        Expanded(
+                                          child: Text(
+                                            'Distrito de ${propertyDetails!.location!.distritoId!.nombre}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .apply(
+                                                    color: BrandColors.foggy),
+                                            softWrap:
+                                                true, // Allow the text to wrap to the next line
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.location_pin,
+                                          color: BrandColors.foggy,
+                                        ),
+                                        const SizedBox(
+                                            width:
+                                                8), // Add some spacing between the icon and text
+
+                                        Expanded(
+                                          child: Text(
+                                            '${propertyDetails!.location!.distritoId!.municipioId!.nombre}, ${propertyDetails!.location!.distritoId!.municipioId!.departamentoId!.nombre}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .apply(
+                                                    color: BrandColors.foggy),
+                                            softWrap:
+                                                true, // Allow the text to wrap to the next line
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                               HomeServicesContainer(
                                 propertyDetails: propertyDetails,
                               ),
@@ -510,7 +587,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ],
                     ));
                   } else {
-                    return CustomDialogs.navigationLoader("Cargando...");
+                    return CustomDialogs.dotsLoader("Espere por favor...");
                   }
                 }),
               ),
@@ -530,6 +607,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Eliminar propiedad'),
+          surfaceTintColor: Colors.white,
           content: const SingleChildScrollView(
             child: SizedBox(
               //height: MediaQuery.of(context).size.height / 6.5,
@@ -551,7 +629,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                     children: [
                       Icon(
                         Icons.warning_amber_outlined,
-                        color: BrandColors.arches,
+                        color: Colors.red,
                         size: 14,
                       ),
                       SizedBox(
@@ -559,7 +637,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ),
                       Text(
                         "Acción es irreversible",
-                        style: TextStyle(color: BrandColors.arches),
+                        style: TextStyle(color: Colors.red),
                       ),
                     ],
                   )
@@ -572,7 +650,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.blue),
+              ),
               onPressed: () {
                 //  getPersonalInfo();
                 Navigator.of(context).pop();
@@ -582,7 +663,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Continuar'),
+              child:
+                  const Text('Continuar', style: TextStyle(color: Colors.red)),
               onPressed: () {
                 _propertiesBloc.removeProperty(propertyDetails!.id, context);
               },

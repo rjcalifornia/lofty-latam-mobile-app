@@ -24,6 +24,7 @@ class Property {
   String? updatedAt;
   List<Leases>? leases;
   PropertyPictures? propertyPictures;
+  Location? location;
 
   Property(
       {this.id,
@@ -49,7 +50,8 @@ class Property {
       this.createdAt,
       this.updatedAt,
       this.leases,
-      this.propertyPictures});
+      this.propertyPictures,
+      this.location});
 
   Property.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -85,6 +87,9 @@ class Property {
     propertyPictures = json['property_pictures'] != null
         ? new PropertyPictures.fromJson(json['property_pictures'])
         : null;
+    location = json['location'] != null
+        ? new Location.fromJson(json['location'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -118,6 +123,9 @@ class Property {
     }
     if (this.propertyPictures != null) {
       data['property_pictures'] = this.propertyPictures!.toJson();
+    }
+    if (this.location != null) {
+      data['location'] = this.location!.toJson();
     }
     return data;
   }
@@ -379,6 +387,178 @@ class PropertyPictures {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['image_link_name'] = this.imageLinkName;
+    return data;
+  }
+}
+
+class Location {
+  int? id;
+  int? propertyId;
+  DistritoId? distritoId;
+  int? userCreates;
+  int? userModifies;
+  bool? active;
+  String? createdAt;
+  String? updatedAt;
+
+  Location(
+      {this.id,
+      this.propertyId,
+      this.distritoId,
+      this.userCreates,
+      this.userModifies,
+      this.active,
+      this.createdAt,
+      this.updatedAt});
+
+  Location.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    propertyId = json['property_id'];
+    distritoId = json['distrito_id'] != null
+        ? new DistritoId.fromJson(json['distrito_id'])
+        : null;
+    userCreates = json['user_creates'];
+    userModifies = json['user_modifies'];
+    active = json['active'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['property_id'] = this.propertyId;
+    if (this.distritoId != null) {
+      data['distrito_id'] = this.distritoId!.toJson();
+    }
+    data['user_creates'] = this.userCreates;
+    data['user_modifies'] = this.userModifies;
+    data['active'] = this.active;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+class DistritoId {
+  int? id;
+  String? nombre;
+  int? departamentoId;
+  MunicipioId? municipioId;
+  bool? active;
+  String? createdAt;
+  String? updatedAt;
+
+  DistritoId(
+      {this.id,
+      this.nombre,
+      this.departamentoId,
+      this.municipioId,
+      this.active,
+      this.createdAt,
+      this.updatedAt});
+
+  DistritoId.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nombre = json['nombre'];
+    departamentoId = json['departamento_id'];
+    municipioId = json['municipio_id'] != null
+        ? new MunicipioId.fromJson(json['municipio_id'])
+        : null;
+    active = json['active'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nombre'] = this.nombre;
+    data['departamento_id'] = this.departamentoId;
+    if (this.municipioId != null) {
+      data['municipio_id'] = this.municipioId!.toJson();
+    }
+    data['active'] = this.active;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+class MunicipioId {
+  int? id;
+  String? nombre;
+  DepartamentoId? departamentoId;
+  bool? active;
+  String? createdAt;
+  String? updatedAt;
+
+  MunicipioId(
+      {this.id,
+      this.nombre,
+      this.departamentoId,
+      this.active,
+      this.createdAt,
+      this.updatedAt});
+
+  MunicipioId.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nombre = json['nombre'];
+    departamentoId = json['departamento_id'] != null
+        ? new DepartamentoId.fromJson(json['departamento_id'])
+        : null;
+    active = json['active'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nombre'] = this.nombre;
+    if (this.departamentoId != null) {
+      data['departamento_id'] = this.departamentoId!.toJson();
+    }
+    data['active'] = this.active;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+class DepartamentoId {
+  int? id;
+  String? nombre;
+  int? paisId;
+  bool? active;
+  String? createdAt;
+  String? updatedAt;
+
+  DepartamentoId(
+      {this.id,
+      this.nombre,
+      this.paisId,
+      this.active,
+      this.createdAt,
+      this.updatedAt});
+
+  DepartamentoId.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nombre = json['nombre'];
+    paisId = json['pais_id'];
+    active = json['active'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nombre'] = this.nombre;
+    data['pais_id'] = this.paisId;
+    data['active'] = this.active;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

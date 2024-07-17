@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/models/Departamentos.dart';
+import 'package:home_management_app/models/Distritos.dart';
+import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/models/Property.dart';
 
 class EditPropertyScreen extends StatefulWidget {
@@ -34,6 +37,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
       _propertyBloc.changeBeds(widget.property!.beds.toString());
 
       _propertyBloc.changeBathrooms(widget.property!.bathrooms.toString());
+      _propertyBloc
+          .changeDistrito(widget.property!.location!.distritoId!.id.toString());
     });
 
     if (widget.property!.hasWifi == true) {
@@ -83,9 +88,47 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
     }
   }
 
+  late String departamentoSelected =
+      widget.property!.location!.distritoId!.departamentoId.toString();
+  late String municipioSelected =
+      widget.property!.location!.distritoId!.municipioId!.id.toString();
+  late String distritoSelected =
+      widget.property!.location!.distritoId!.id.toString();
+
+  List<Departamentos> departamentosList = [];
+  List<Municipios> municipiosList = [];
+  List<Distritos> distritosList = [];
+
+  Future getDepartamentosData() async {
+    final departamentosJson = await _propertyBloc.getDepartamentos();
+
+    setState(() {
+      departamentosList = departamentosJson;
+    });
+  }
+
+  Future getMunicipiosData(departamentoId) async {
+    final municipiosJson = await _propertyBloc.getMunicipios(departamentoId);
+
+    setState(() {
+      municipiosList = municipiosJson;
+    });
+  }
+
+  Future getDistritosData(distritoId) async {
+    final distritosJson = await _propertyBloc.getDistritos(distritoId);
+
+    setState(() {
+      distritosList = distritosJson;
+    });
+  }
+
   @override
   void initState() {
     setValues();
+    getDepartamentosData();
+    getMunicipiosData(departamentoSelected);
+    getDistritosData(municipioSelected);
     super.initState();
   }
 
@@ -166,6 +209,179 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                                   borderSide: BorderSide.none),
                               hintText: "Escriba la dirección de la propiedad",
                             ));
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Row(children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Departamento",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: _propertyBloc.departamentoStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xfff6f6f6),
+                          ),
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            isExpanded: true,
+                            hint: const Center(
+                                child: Text("Seleccione departamento")),
+                            items: departamentosList.map((item) {
+                              return DropdownMenuItem(
+                                value: item.id.toString(),
+                                child: Center(
+                                  child: Text(item.nombre.toString()),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                departamentoSelected = value.toString();
+                                distritoSelected = "";
+                                _propertyBloc.changeDistrito("");
+                                distritosList = [];
+                              });
+                              getMunicipiosData(departamentoSelected);
+                            },
+                            value: departamentoSelected,
+                          ),
+                        );
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Row(children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Municipio",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: _propertyBloc.municipioStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xfff6f6f6),
+                          ),
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            isExpanded: true,
+                            hint: const Center(
+                                child: Text("Seleccione municipio")),
+                            items: municipiosList.map((item) {
+                              return DropdownMenuItem(
+                                value: item.id.toString(),
+                                child: Center(
+                                  child: Text(item.nombre.toString()),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                municipioSelected = value.toString();
+                                distritoSelected = "";
+                                _propertyBloc.changeDistrito("");
+                              });
+                              getDistritosData(municipioSelected);
+                            },
+                            value: municipioSelected,
+                          ),
+                        );
+                      }),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Row(children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: BrandColors.hof,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      "Distrito",
+                      style: TextStyle(color: BrandColors.hof),
+                    ),
+                  ]),
+                  StreamBuilder(
+                      stream: _propertyBloc.distritoStream,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xfff6f6f6),
+                          ),
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.black),
+                            isExpanded: true,
+                            hint: const Center(
+                                child: Text("Seleccione un distrito")),
+                            items: distritosList.map((item) {
+                              return DropdownMenuItem(
+                                value: item.id.toString(),
+                                child: Center(
+                                  child: Text(item.nombre.toString()),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              _propertyBloc.changeDistrito(value.toString());
+
+                              setState(() {
+                                distritoSelected = value.toString();
+                              });
+                            },
+                            value: distritoSelected.isNotEmpty
+                                ? distritoSelected
+                                : null,
+                          ),
+                        );
                       }),
                   const SizedBox(
                     height: 12,
@@ -257,6 +473,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.wifiStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene wifi?'),
                           value: wifi,
                           onChanged: (bool value) {
@@ -274,6 +491,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.airConditionerStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene aire acondicionado?'),
                           value: ac,
                           onChanged: (bool value) {
@@ -291,6 +509,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.kitchenStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene cocina?'),
                           value: kitchen,
                           onChanged: (bool value) {
@@ -308,6 +527,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.dinningStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene mesa de comedor?'),
                           value: dinningTable,
                           onChanged: (bool value) {
@@ -325,6 +545,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.dishSinkStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene lavatrastos?'),
                           value: sink,
                           onChanged: (bool value) {
@@ -342,6 +563,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.fridgeStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene refrigeradora?'),
                           value: fridge,
                           onChanged: (bool value) {
@@ -359,6 +581,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.tvStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene televisión?'),
                           value: tv,
                           onChanged: (bool value) {
@@ -376,6 +599,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.furnitureStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene muebles de sala?'),
                           value: furniture,
                           onChanged: (bool value) {
@@ -393,6 +617,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                       stream: _propertyBloc.garageStream,
                       builder: (context, AsyncSnapshot snapshot) {
                         return SwitchListTile(
+                          activeColor: BrandColors.fty,
                           title: const Text('¿Tiene cochera?'),
                           value: garage,
                           onChanged: (bool value) {
@@ -449,7 +674,7 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                                 widget.property!.id, context);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: BrandColors.arches,
+                            backgroundColor: BrandColors.fty,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0),
                             ),
@@ -460,7 +685,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Actualizar datos",
-                                  style: TextStyle(fontSize: 22)),
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.white)),
                             ],
                           ),
                         );

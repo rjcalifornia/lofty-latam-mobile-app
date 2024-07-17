@@ -275,7 +275,8 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Guardar pago",
-                                style: TextStyle(fontSize: 22)),
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white)),
                           ],
                         ),
                       );

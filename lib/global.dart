@@ -26,8 +26,8 @@ class CustomDialogs {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: BrandColors.arches, size: 38),
+                      child: LoadingAnimationWidget.waveDots(
+                          color: BrandColors.fty, size: 38),
                     ),
                     const SizedBox(
                       height: 12,
@@ -51,13 +51,17 @@ class CustomDialogs {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text("Atención"),
+            surfaceTintColor: Colors.white,
             content: Text(message.toString()),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text("Aceptar"))
+                  child: const Text(
+                    "Aceptar",
+                    style: TextStyle(color: Colors.blue),
+                  ))
             ],
           );
         });
@@ -83,6 +87,25 @@ class CustomDialogs {
     );
   }
 
+  static dotsLoader(message) {
+    return Center(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            LoadingAnimationWidget.waveDots(color: BrandColors.fty, size: 26),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              message.toString(),
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: BrandColors.foggy),
+            )
+          ]),
+    );
+  }
+
   static infoDialog(context, dialogTitle, dialogMessage) {
     showDialog(
         barrierDismissible: false,
@@ -91,13 +114,17 @@ class CustomDialogs {
           return AlertDialog(
             title: Text(dialogTitle.toString()),
             content: Text(dialogMessage.toString()),
+            surfaceTintColor: Colors.white,
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                     //Navigator.of(context).pop();
                   },
-                  child: const Text("Aceptar"))
+                  child: const Text(
+                    "Aceptar",
+                    style: TextStyle(color: Colors.blue),
+                  ))
             ],
           );
         });
