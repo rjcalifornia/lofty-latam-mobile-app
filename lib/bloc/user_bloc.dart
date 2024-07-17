@@ -286,13 +286,15 @@ class UserBloc with Validators {
     String userEmail = '';
     _emailController.stream.listen((email) {
       // You can access the email value here
+      userEmail = email;
     });
+
     if (_emailController.hasValue) {
-      userEmail = email.toString();
+      userEmail = _emailController.stream.value;
     }
 
     CustomDialogs.loadingDialog(
-        context, "Registrando datos, espere un momento por favor");
+        context, "Creando su cuenta, espere un momento por favor");
 
     try {
       var newUserJson =
