@@ -88,8 +88,9 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
     }
   }
 
-  late String departamentoSelected =
-      widget.property!.location!.distritoId!.departamentoId.toString();
+  late String departamentoSelected = widget
+      .property!.location!.distritoId!.municipioId!.departamentoId!.id
+      .toString();
   late String municipioSelected =
       widget.property!.location!.distritoId!.municipioId!.id.toString();
   late String distritoSelected =
@@ -259,8 +260,11 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                               setState(() {
                                 departamentoSelected = value.toString();
                                 distritoSelected = "";
+                                municipioSelected = "";
                                 _propertyBloc.changeDistrito("");
+                                _propertyBloc.changeMunicipio("");
                                 distritosList = [];
+                                municipiosList = [];
                               });
                               getMunicipiosData(departamentoSelected);
                             },
@@ -314,6 +318,8 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                               );
                             }).toList(),
                             onChanged: (value) {
+                              _propertyBloc.changeMunicipio(value.toString());
+
                               setState(() {
                                 municipioSelected = value.toString();
                                 distritoSelected = "";
@@ -321,7 +327,9 @@ class _EditPropertyScreenState extends State<EditPropertyScreen> {
                               });
                               getDistritosData(municipioSelected);
                             },
-                            value: municipioSelected,
+                            value: municipioSelected.isNotEmpty
+                                ? municipioSelected
+                                : null,
                           ),
                         );
                       }),
