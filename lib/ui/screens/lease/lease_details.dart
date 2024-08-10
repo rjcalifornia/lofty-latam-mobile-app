@@ -78,7 +78,10 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                                 ))).then((value) => _getLeaseDetails());
                   },
                   backgroundColor: BrandColors.rausch,
-                  child: const Icon(Icons.add_outlined),
+                  child: const Icon(
+                    Icons.add_outlined,
+                    color: Colors.white,
+                  ),
                 )
             ]),
             appBar: AppBar(
@@ -94,6 +97,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                   if (lease?.active == true)
                     PopupMenuButton(
                       onSelected: (value) {},
+                      surfaceTintColor: Colors.white,
                       itemBuilder: (BuildContext ctx) {
                         return [
                           PopupMenuItem(
@@ -147,7 +151,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                                       width: 3,
                                     ),
                                     Text(
-                                      "Descargar contrato",
+                                      "Descargar plantilla de contrato",
                                       style: TextStyle(color: BrandColors.hof),
                                     )
                                   ],
@@ -221,6 +225,7 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Finalizar contrato'),
+          surfaceTintColor: Colors.white,
           content: SingleChildScrollView(
             child: SizedBox(
               //height: MediaQuery.of(context).size.height / 6.5,
@@ -269,7 +274,10 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Cancelar'),
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.blue),
+              ),
               onPressed: () {
                 //  getPersonalInfo();
                 Navigator.of(context).pop();
@@ -284,13 +292,19 @@ class _LeaseDetailsScreenState extends State<LeaseDetailsScreen> {
                           textStyle: Theme.of(context).textTheme.labelLarge,
                         ),
                         onPressed: null,
-                        child: const Text('Continuar'));
+                        child: const Text(
+                          'Continuar',
+                          style: TextStyle(color: Colors.blue),
+                        ));
                   } else {
                     return TextButton(
                       style: TextButton.styleFrom(
                         textStyle: Theme.of(context).textTheme.labelLarge,
                       ),
-                      child: const Text('Continuar'),
+                      child: const Text(
+                        'Continuar',
+                        style: TextStyle(color: Colors.blue),
+                      ),
                       onPressed: () {
                         leaseBloc
                             .endLease(lease!.id, context)

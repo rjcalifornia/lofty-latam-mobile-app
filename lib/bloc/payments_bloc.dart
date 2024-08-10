@@ -128,13 +128,17 @@ class PaymentsBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text("Recibo ha sido generado correctamente."),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
@@ -179,12 +183,16 @@ class PaymentsBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text("Recibo ha sido descargado correctamente."),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
@@ -224,13 +232,17 @@ class PaymentsBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text("Recibo ha sido enviado correctamente."),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });

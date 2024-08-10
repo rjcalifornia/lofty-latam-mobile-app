@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
               } else {
                 return Center(
                   child: LoadingAnimationWidget.waveDots(
-                      color: BrandColors.arches, size: 28),
+                      color: BrandColors.fty, size: 28),
                 );
               }
             })),

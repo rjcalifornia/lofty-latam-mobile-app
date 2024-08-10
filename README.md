@@ -22,10 +22,9 @@
 
 ## Graficos
 
-- Iconos royalty free descargados con cuenta premium de [Flaticon](https://www.flaticon.com/)
+
 - Imagenes royalty free descargadas con cuenta premium de [Pixabay](https://pixabay.com/)
 * * Imagen de portada inicial por [Pexels](https://pixabay.com/users/pexels-2286921/)
-* * Icono de app por [Unicon Labs](https://www.flaticon.com/authors/uniconlabs)
 
 ## Informacion Adicional:
 

@@ -27,9 +27,15 @@ class PaymentDetailsScreen extends StatelessWidget {
         automaticallyImplyLeading: true,
         centerTitle: true,
         elevation: 0.0,
-        title: const Text("Detalles de pago"),
+        title: const Text(
+          "Detalles de pago",
+          style: TextStyle(color: Colors.white),
+        ),
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.pop(context);
             }),

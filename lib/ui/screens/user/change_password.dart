@@ -132,7 +132,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Actualizar clave",
-                                style: TextStyle(fontSize: 22)),
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.white)),
                           ],
                         ),
                       );

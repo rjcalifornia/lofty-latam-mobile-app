@@ -68,8 +68,8 @@ class LoginBloc with Validators {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                          color: BrandColors.arches, size: 38),
+                      child: LoadingAnimationWidget.waveDots(
+                          color: BrandColors.fty, size: 38),
                     ),
                     SizedBox(
                       height: 12,
@@ -123,12 +123,16 @@ class LoginBloc with Validators {
               return AlertDialog(
                 title: const Text("Atención"),
                 content: Text(auth['message'].toString()),
+                surfaceTintColor: Colors.white,
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text("Aceptar"))
+                      child: const Text(
+                        "Aceptar",
+                        style: TextStyle(color: Colors.blue),
+                      ))
                 ],
               );
             });
@@ -141,12 +145,16 @@ class LoginBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text(e.toString()),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
@@ -203,12 +211,16 @@ class LoginBloc with Validators {
             return AlertDialog(
               title: const Text("Atención"),
               content: Text(e.toString()),
+              surfaceTintColor: Colors.white,
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text("Aceptar"))
+                    child: const Text(
+                      "Aceptar",
+                      style: TextStyle(color: Colors.blue),
+                    ))
               ],
             );
           });
