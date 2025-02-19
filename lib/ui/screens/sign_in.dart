@@ -19,10 +19,14 @@ class _LoginScreenState extends State<LoginScreen> {
     //final bloc = Provider.of<LoginBloc>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        elevation: 0,
+        elevation: 0.0,
         backgroundColor: Colors.transparent,
+        forceMaterialTransparency: true,
+        shadowColor: Colors.transparent,
+        foregroundColor: Colors.transparent,
         leading: IconButton(
             icon: Icon(Icons.chevron_left),
             color: Colors.black,
@@ -102,7 +106,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           stream: bloc.usernameError,
                           builder: (ctx, AsyncSnapshot<String> usernameError) {
                             return TextField(
+                              cursorColor: BrandColors.fty,
                               decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: BrandColors.loft),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: BrandColors.fty)),
+                                floatingLabelStyle:
+                                    TextStyle(color: BrandColors.fty),
                                 labelText: 'Escriba su nombre de usuario',
                                 errorText: usernameError.hasError
                                     ? usernameError.toString()
@@ -120,7 +134,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             builder:
                                 (ctx, AsyncSnapshot<String> passwordError) {
                               return TextField(
+                                cursorColor: BrandColors.fty,
                                 decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: BrandColors.loft),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: BrandColors.fty)),
+                                  floatingLabelStyle:
+                                      TextStyle(color: BrandColors.fty),
                                   labelText: 'Escriba su contraseña',
                                   errorText: passwordError.hasError
                                       ? passwordError.toString()
