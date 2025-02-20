@@ -22,6 +22,7 @@ void main() async {
 
 //Holy shit, updated this flutter appp however I'm being affected by this issue:
 //https://github.com/flutter/flutter/issues/161119
+//Issue persists
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
