@@ -73,8 +73,7 @@ class CustomDialogs {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            LoadingAnimationWidget.inkDrop(
-                color: const Color(0xffff385c), size: 28),
+            LoadingAnimationWidget.waveDots(color: BrandColors.fty, size: 28),
             const SizedBox(
               height: 12,
             ),

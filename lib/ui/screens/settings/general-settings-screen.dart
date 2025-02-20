@@ -135,7 +135,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
               );
             } else {
               return Center(
-                child: LoadingAnimationWidget.inkDrop(
+                child: LoadingAnimationWidget.waveDots(
                     color: BrandColors.fty, size: 28),
               );
             }

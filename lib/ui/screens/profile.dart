@@ -153,6 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return AlertDialog(
               title: const Text('Atención'),
               surfaceTintColor: Colors.white,
+              backgroundColor: Colors.white,
               content: SizedBox(
                 height: 70,
                 child: Center(

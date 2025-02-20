@@ -121,7 +121,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           userBloc.updatePassword(context);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: BrandColors.arches,
+                          backgroundColor: BrandColors.fty,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),

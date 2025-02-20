@@ -245,6 +245,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           title: const Text('Actualiza tu nombre'),
           content: SingleChildScrollView(
             child: SizedBox(
@@ -321,7 +322,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child:
-                  const Text('Cancelar', style: TextStyle(color: Colors.blue)),
+                  const Text('Cancelar', style: TextStyle(color: Colors.red)),
               onPressed: () {
                 getPersonalInfo();
                 Navigator.of(context).pop();
@@ -372,6 +373,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         return AlertDialog(
           title: const Text('Actualiza tu número telefónico'),
           surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           content: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 7,
@@ -422,7 +424,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child:
-                  const Text('Cancelar', style: TextStyle(color: Colors.blue)),
+                  const Text('Cancelar', style: TextStyle(color: Colors.red)),
               onPressed: () {
                 getPersonalInfo();
                 Navigator.of(context).pop();
@@ -473,6 +475,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         return AlertDialog(
           title: const Text('Actualiza tu correo'),
           surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           content: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 5.5,
@@ -520,7 +523,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child:
-                  const Text('Cancelar', style: TextStyle(color: Colors.blue)),
+                  const Text('Cancelar', style: TextStyle(color: Colors.red)),
               onPressed: () {
                 getPersonalInfo();
                 Navigator.of(context).pop();
