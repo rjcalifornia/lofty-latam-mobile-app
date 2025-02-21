@@ -269,8 +269,7 @@ class TenantInfoContainer extends StatelessWidget {
                           leading: Container(
                             padding: const EdgeInsets.all(9.0),
                             decoration: const BoxDecoration(
-                                color: BrandColors.rausch,
-                                shape: BoxShape.circle),
+                                color: BrandColors.fty, shape: BoxShape.circle),
                             child: const Icon(Icons.receipt_long_outlined,
                                 color: Colors.white),
                           ),

@@ -180,6 +180,7 @@ class UserBloc with Validators {
               return AlertDialog(
                 title: const Text("Atención"),
                 surfaceTintColor: Colors.white,
+                backgroundColor: Colors.white,
                 content:
                     const Text("Datos han sido actualizados correctamente."),
                 actions: [
