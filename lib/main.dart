@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:home_management_app/bloc/login_bloc.dart';
-import 'package:home_management_app/ui/auth/welcome.dart';
+import 'package:home_management_app/modules/authentication/screens/welcome.dart';
 import 'package:home_management_app/ui/screens/sign_in.dart';
 
 void main() async {
