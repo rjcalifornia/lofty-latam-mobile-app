@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class HomeServicesContainer extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -104,7 +105,7 @@ class HomeServicesContainer extends StatelessWidget {
           Row(
             children: [
               const Icon(
-                Icons.soup_kitchen_outlined,
+                Symbols.stockpot,
                 color: BrandColors.foggy,
                 size: 22,
               ),
@@ -125,7 +126,7 @@ class HomeServicesContainer extends StatelessWidget {
           Row(
             children: [
               const Icon(
-                Icons.table_bar_outlined,
+                Symbols.flatware,
                 color: BrandColors.foggy,
                 size: 22,
               ),

@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/User.dart';
+import 'package:home_management_app/modules/authentication/models/User.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
@@ -180,6 +180,7 @@ class UserBloc with Validators {
               return AlertDialog(
                 title: const Text("Atención"),
                 surfaceTintColor: Colors.white,
+                backgroundColor: Colors.white,
                 content:
                     const Text("Datos han sido actualizados correctamente."),
                 actions: [
@@ -208,9 +209,12 @@ class UserBloc with Validators {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-                color: BrandColors.arches, size: 38),
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: LoadingAnimationWidget.waveDots(
+                  color: BrandColors.fty, size: 38),
+            ),
           );
         });
     try {
@@ -242,6 +246,7 @@ class UserBloc with Validators {
               return AlertDialog(
                 title: const Text("Atención"),
                 surfaceTintColor: Colors.white,
+                backgroundColor: Colors.white,
                 content:
                     const Text("Datos han sido actualizados correctamente."),
                 actions: [
@@ -264,6 +269,7 @@ class UserBloc with Validators {
               return AlertDialog(
                 title: const Text("Error"),
                 surfaceTintColor: Colors.white,
+                backgroundColor: Colors.white,
                 content: Text(response['message'].toString()),
                 actions: [
                   TextButton(

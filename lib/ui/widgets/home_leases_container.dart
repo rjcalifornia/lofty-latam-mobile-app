@@ -19,7 +19,7 @@ class HomeLeasesContainer extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(9),
                   decoration: BoxDecoration(
-                    color: BrandColors.rausch,
+                    color: BrandColors.fty,
                     borderRadius: BorderRadius.circular(9),
                   ),
                   child: Column(

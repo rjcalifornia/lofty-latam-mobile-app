@@ -52,6 +52,7 @@ class CustomDialogs {
           return AlertDialog(
             title: const Text("Atención"),
             surfaceTintColor: Colors.white,
+            backgroundColor: Colors.white,
             content: Text(message.toString()),
             actions: [
               TextButton(
@@ -68,22 +69,24 @@ class CustomDialogs {
   }
 
   static navigationLoader(message) {
-    return Center(
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            LoadingAnimationWidget.inkDrop(
-                color: const Color(0xffff385c), size: 28),
-            const SizedBox(
-              height: 12,
-            ),
-            Text(
-              message.toString(),
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: BrandColors.foggy),
-            )
-          ]),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              LoadingAnimationWidget.waveDots(color: BrandColors.fty, size: 28),
+              const SizedBox(
+                height: 12,
+              ),
+              Text(
+                message.toString(),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: BrandColors.foggy),
+              )
+            ]),
+      ),
     );
   }
 
@@ -115,6 +118,7 @@ class CustomDialogs {
             title: Text(dialogTitle.toString()),
             content: Text(dialogMessage.toString()),
             surfaceTintColor: Colors.white,
+            backgroundColor: Colors.white,
             actions: [
               TextButton(
                   onPressed: () {

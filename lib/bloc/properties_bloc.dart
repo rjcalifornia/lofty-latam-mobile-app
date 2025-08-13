@@ -208,10 +208,8 @@ class PropertiesBloc with Validators {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-                color: BrandColors.arches, size: 38),
-          );
+          return CustomDialogs.navigationLoader(
+              "Cargando imagen, espere por favor.");
         });
     try {
       var request = http.MultipartRequest('POST', url);
@@ -352,6 +350,7 @@ class PropertiesBloc with Validators {
                 title: const Text("Atención"),
                 content: Text("Datos actualizados correctamente"),
                 surfaceTintColor: Colors.white,
+                backgroundColor: Colors.white,
                 actions: [
                   TextButton(
                       onPressed: () {

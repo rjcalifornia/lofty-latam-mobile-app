@@ -5,6 +5,7 @@ import 'package:home_management_app/models/Departamentos.dart';
 import 'package:home_management_app/models/Distritos.dart';
 import 'package:home_management_app/models/Municipios.dart';
 import 'package:home_management_app/ui/widgets/create_property_fancy_header.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class CreatePropertyScreen extends StatefulWidget {
   const CreatePropertyScreen({super.key});
@@ -495,8 +496,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                         _kitchen = value;
                                       });
                                     },
-                                    secondary:
-                                        const Icon(Icons.soup_kitchen_outlined),
+                                    secondary: const Icon(Symbols.stockpot),
                                   );
                                 }),
                             const Divider(height: 0),
@@ -516,8 +516,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                         _dinningTable = value;
                                       });
                                     },
-                                    secondary:
-                                        const Icon(Icons.table_bar_outlined),
+                                    secondary: const Icon(Symbols.flatware),
                                   );
                                 }),
                             const Divider(height: 0),

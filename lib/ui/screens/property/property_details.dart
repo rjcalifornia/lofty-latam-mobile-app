@@ -105,6 +105,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   void initState() {
     super.initState();
     getDetails = _getProperty();
+    print(getDetails);
     setToken();
   }
 

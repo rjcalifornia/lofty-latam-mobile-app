@@ -320,7 +320,7 @@ class _EditLeaseScreenState extends State<EditLeaseScreen> {
                                             widget.lease!.id, context);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: BrandColors.arches,
+                                        backgroundColor: BrandColors.fty,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12.0),
