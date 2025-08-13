@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
+import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:home_management_app/modules/authentication/screens/register.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -67,10 +68,8 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Scaffold(
                 body: Center(
-                  child: LoadingAnimationWidget.threeArchedCircle(
-                    color: const Color(0xffff385c),
-                    size: 26,
-                  ),
+                  child: LoadingAnimationWidget.waveDots(
+                      color: BrandColors.arches, size: 26),
                 ),
               );
             } else if (snapshot.hasData && snapshot.data == true) {

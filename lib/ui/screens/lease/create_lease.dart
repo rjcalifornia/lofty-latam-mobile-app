@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/models/PaymentClass.dart';
-import 'package:home_management_app/models/RentClass.dart';
+import 'package:home_management_app/modules/property/models/RentClass.dart';
 import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Property.dart';
+import 'package:home_management_app/modules/property/models/Property.dart';
 import 'package:home_management_app/ui/utils/datepickerField.dart';
 import 'package:home_management_app/ui/utils/formTextField.dart';
 import 'package:home_management_app/ui/utils/moneyField.dart';

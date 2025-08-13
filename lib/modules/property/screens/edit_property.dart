@@ -4,7 +4,7 @@ import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Departamentos.dart';
 import 'package:home_management_app/models/Distritos.dart';
 import 'package:home_management_app/models/Municipios.dart';
-import 'package:home_management_app/models/Property.dart';
+import 'package:home_management_app/modules/property/models/Property.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class EditPropertyScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/screens/property/create_property.dart';
+import 'package:home_management_app/modules/property/screens/create_property.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeOptionsContainer extends StatelessWidget {

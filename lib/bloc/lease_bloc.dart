@@ -3,13 +3,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/models/PaymentClass.dart';
-import 'package:home_management_app/models/RentClass.dart';
+import 'package:home_management_app/modules/property/models/RentClass.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/ui/screens/app.dart';
-import 'package:home_management_app/ui/screens/property/property_details.dart';
+import 'package:home_management_app/modules/property/screens/property_details.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';

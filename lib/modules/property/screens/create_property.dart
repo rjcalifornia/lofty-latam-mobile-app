@@ -4,7 +4,7 @@ import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Departamentos.dart';
 import 'package:home_management_app/models/Distritos.dart';
 import 'package:home_management_app/models/Municipios.dart';
-import 'package:home_management_app/ui/widgets/create_property_fancy_header.dart';
+import 'package:home_management_app/modules/property/widgets/create_property_fancy_header.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class CreatePropertyScreen extends StatefulWidget {
