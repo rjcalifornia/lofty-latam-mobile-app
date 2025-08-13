@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/screens/home.dart';
 import 'package:home_management_app/ui/screens/notifications.dart';
-import 'package:home_management_app/ui/screens/profile.dart';
+import 'package:home_management_app/modules/profile/screens/profile.dart';
 
 class AppPage extends StatefulWidget {
   const AppPage({super.key});

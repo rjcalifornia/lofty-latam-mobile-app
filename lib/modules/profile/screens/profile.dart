@@ -5,8 +5,8 @@ import 'package:home_management_app/bloc/login_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/ui/screens/settings/general-settings-screen.dart';
-import 'package:home_management_app/ui/screens/user/change_password.dart';
-import 'package:home_management_app/ui/screens/user/personal_information.dart';
+import 'package:home_management_app/modules/profile/screens/change_password.dart';
+import 'package:home_management_app/modules/profile/screens/personal_information.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

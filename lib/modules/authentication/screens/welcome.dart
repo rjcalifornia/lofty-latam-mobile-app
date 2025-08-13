@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/utils/buttons.dart';
+import 'package:home_management_app/modules/authentication/widgets/buttons.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
-import 'package:home_management_app/ui/widgets/phone_registration_page.dart';
-import 'package:home_management_app/ui/widgets/user_registration_page.dart';
+import 'package:home_management_app/modules/authentication/widgets/phone_registration_page.dart';
+import 'package:home_management_app/modules/authentication/widgets/user_registration_page.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});

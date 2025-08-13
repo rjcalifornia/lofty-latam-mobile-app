@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/User.dart';
+import 'package:home_management_app/modules/authentication/models/User.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class GeneralSettingsScreen extends StatefulWidget {

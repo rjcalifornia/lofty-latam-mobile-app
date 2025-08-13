@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/User.dart';
+import 'package:home_management_app/modules/authentication/models/User.dart';
 import 'package:home_management_app/ui/screens/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
