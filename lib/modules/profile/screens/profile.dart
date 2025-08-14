@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/login_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/modules/profile/screens/general-settings-screen.dart';
+import 'package:home_management_app/modules/profile/screens/general_settings_screen.dart';
 import 'package:home_management_app/modules/profile/screens/change_password.dart';
 import 'package:home_management_app/modules/profile/screens/personal_information.dart';
 
@@ -104,7 +104,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   ListTile(
                     leading: Icon(Icons.person),
-                    title: Text('Información personal'),
+                    title: Text(
+                      'Información personal',
+                      style: TextStyle(
+                        color: BrandColors.loft,
+                        fontSize: 16,
+                      ),
+                    ),
                     trailing: Icon(Icons.chevron_right_outlined),
                     onTap: () => Navigator.push(
                         context,
@@ -113,7 +119,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   ListTile(
                     leading: Icon(Icons.password),
-                    title: Text('Cambiar contraseña'),
+                    title: Text(
+                      'Cambiar contraseña',
+                      style: TextStyle(
+                        color: BrandColors.loft,
+                        fontSize: 16,
+                      ),
+                    ),
                     trailing: Icon(Icons.chevron_right_outlined),
                     onTap: () => Navigator.push(
                         context,
@@ -122,7 +134,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   ListTile(
                     leading: Icon(Icons.settings),
-                    title: Text('Preferencias'),
+                    title: Text(
+                      'Preferencias',
+                      style: TextStyle(
+                        color: BrandColors.loft,
+                        fontSize: 16,
+                      ),
+                    ),
                     trailing: Icon(Icons.chevron_right_outlined),
                     onTap: () => Navigator.push(
                         context,
@@ -131,9 +149,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         )),
                   ),
                   ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Cerrar Sesion'),
-                    trailing: Icon(Icons.chevron_right_outlined),
+                    leading: Icon(
+                      Icons.logout,
+                      color: BrandColors.fty,
+                    ),
+                    title: Text(
+                      'Cerrar Sesion',
+                      style: TextStyle(
+                        color: BrandColors.fty,
+                        fontSize: 16,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right_outlined,
+                      color: BrandColors.fty,
+                    ),
                     onTap: () {
                       logoutDialogBuilder(context);
                     },

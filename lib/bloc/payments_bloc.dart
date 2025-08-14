@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
-import 'package:home_management_app/ui/screens/app.dart';
+import 'package:home_management_app/modules/home/screens/app.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';

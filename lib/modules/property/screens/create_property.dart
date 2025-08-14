@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Departamentos.dart';
-import 'package:home_management_app/models/Distritos.dart';
-import 'package:home_management_app/models/Municipios.dart';
+import 'package:home_management_app/modules/property/models/Departamentos.dart';
+import 'package:home_management_app/modules/property/models/Distritos.dart';
+import 'package:home_management_app/modules/property/models/Municipios.dart';
 import 'package:home_management_app/modules/property/widgets/create_property_fancy_header.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
@@ -275,7 +275,7 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
 
                                           _propertyBloc.changeDistrito("");
                                         });
-                                        print(distritoSelected.toString());
+
                                         getDistritosData(municipioSelected);
                                       },
                                       value: municipioSelected,
@@ -336,7 +336,6 @@ class _CreatePropertyScreenState extends State<CreatePropertyScreen> {
                                         setState(() {
                                           distritoSelected = value.toString();
                                         });
-                                        print(distritoSelected.toString());
                                       },
                                       value: distritoSelected!.isNotEmpty
                                           ? distritoSelected

@@ -230,8 +230,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               );
             } else {
               return Center(
-                child: LoadingAnimationWidget.inkDrop(
-                    color: const Color(0xffff385c), size: 28),
+                child: LoadingAnimationWidget.waveDots(
+                    color: BrandColors.fty, size: 28),
               );
             }
           })),

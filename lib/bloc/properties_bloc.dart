@@ -4,10 +4,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Departamentos.dart';
-import 'package:home_management_app/models/Distritos.dart';
+import 'package:home_management_app/modules/property/models/Departamentos.dart';
+import 'package:home_management_app/modules/property/models/Distritos.dart';
 import 'package:home_management_app/models/Lease.dart';
-import 'package:home_management_app/models/Municipios.dart';
+import 'package:home_management_app/modules/property/models/Municipios.dart';
 import 'package:home_management_app/models/PaymentsDetails.dart';
 import 'package:home_management_app/modules/property/models/Property.dart';
 import 'package:home_management_app/config/env.dart';

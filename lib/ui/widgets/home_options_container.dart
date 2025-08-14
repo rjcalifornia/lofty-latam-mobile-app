@@ -28,7 +28,7 @@ class HomeOptionsContainer extends StatelessWidget {
             padding: const EdgeInsets.all(11.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
-              color: BrandColors.rausch.withOpacity(.3),
+              color: BrandColors.fty.withValues(alpha: .3),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,7 @@ class HomeOptionsContainer extends StatelessWidget {
                       );
                     } else {
                       return LoadingAnimationWidget.waveDots(
-                          color: BrandColors.arches, size: 26);
+                          color: BrandColors.fty, size: 26);
                     }
                   }),
                 ),
