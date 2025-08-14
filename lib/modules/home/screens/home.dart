@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/screens/property/property_details.dart';
+import 'package:home_management_app/modules/property/screens/property_details.dart';
 import 'package:home_management_app/ui/widgets/home_options_container.dart';
 import 'package:home_management_app/ui/widgets/properties_container.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -129,9 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               } else {
                 return Center(
-                  child: LoadingAnimationWidget.waveDots(
-                      color: BrandColors.fty, size: 28),
-                );
+                    child: LoadingAnimationWidget.waveDots(
+                        color: BrandColors.fty, size: 26));
               }
             })),
         //another

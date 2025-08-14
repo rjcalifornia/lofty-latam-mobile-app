@@ -9,10 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Property.dart';
-import 'package:home_management_app/ui/screens/lease/create_lease.dart';
-import 'package:home_management_app/ui/screens/lease/lease_details.dart';
-import 'package:home_management_app/ui/screens/property/edit_property.dart';
+import 'package:home_management_app/modules/property/models/Property.dart';
+import 'package:home_management_app/modules/lease/screens/create_lease.dart';
+import 'package:home_management_app/modules/lease/screens/lease_details.dart';
+import 'package:home_management_app/modules/property/screens/edit_property.dart';
 import 'package:home_management_app/ui/widgets/home_leases_container.dart';
 import 'package:home_management_app/ui/widgets/home_services_container.dart';
 import 'package:image_picker/image_picker.dart';
@@ -105,7 +105,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   void initState() {
     super.initState();
     getDetails = _getProperty();
-    print(getDetails);
+    //print(getDetails);
     setToken();
   }
 

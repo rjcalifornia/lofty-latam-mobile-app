@@ -22,6 +22,7 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     final Uri url = Uri.parse('https://loftylatam.com/terminos-de-servicio/');
     dynamic duiFormatter = MaskTextInputFormatter(
@@ -212,7 +213,6 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(url);
-                        print('test');
                       }),
                 const TextSpan(
                     text: ' de Lofty Latam.',

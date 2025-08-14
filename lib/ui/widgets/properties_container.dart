@@ -44,7 +44,8 @@ class PropertiesContainer extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             colorFilter: ColorFilter.mode(
-                                Colors.grey.withOpacity(.3), BlendMode.srcOver),
+                                Colors.grey.withValues(alpha: 0.3),
+                                BlendMode.srcOver),
                             image: CachedNetworkImageProvider(
                                 property[id]['property_pictures']
                                         ['image_link_name']
@@ -82,7 +83,7 @@ class PropertiesContainer extends StatelessWidget {
                   ));
             } else {
               return LoadingAnimationWidget.waveDots(
-                  color: BrandColors.arches, size: 26);
+                  color: BrandColors.fty, size: 26);
             }
           },
         ),

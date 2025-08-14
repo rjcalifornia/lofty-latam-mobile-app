@@ -213,10 +213,7 @@ class UserDetailsRegistrationPage extends StatelessWidget {
                         color: BrandColors.hof,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        print('test');
-                      }),
+                    recognizer: TapGestureRecognizer()..onTap = () {}),
                 const TextSpan(
                     text: ' de Lofty Latam.',
                     style: TextStyle(fontSize: 10, color: BrandColors.hof))

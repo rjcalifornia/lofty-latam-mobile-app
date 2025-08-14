@@ -45,7 +45,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: BrandColors.rausch,
+            backgroundColor: BrandColors.fty,
             elevation: 0,
             bottom: const TabBar(
                 labelColor: Colors.redAccent,

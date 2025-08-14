@@ -31,7 +31,8 @@ class DatePickerField extends StatelessWidget {
                       primary: BrandColors.rausch,
                       secondary: BrandColors.arches,
                       surfaceTint: Colors.white),
-                  dialogBackgroundColor: Colors.white,
+                  dialogTheme:
+                      const DialogThemeData(backgroundColor: Colors.white),
                 ),
                 child: child!);
           });

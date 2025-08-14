@@ -36,6 +36,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
     personalInfo = getPersonalInfo();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -122,7 +123,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                         ),
                         trailing: const Icon(
                           Icons.warning_outlined,
-                          color: BrandColors.arches,
+                          color: BrandColors.fty,
                         ),
                         onTap: () {
                           deactivateAccountDialogBuilder(context);

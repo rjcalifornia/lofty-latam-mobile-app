@@ -3,7 +3,7 @@ import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/models/Lease.dart';
 import 'package:home_management_app/models/PaymentClass.dart';
-import 'package:home_management_app/models/RentClass.dart';
+import 'package:home_management_app/modules/property/models/RentClass.dart';
 import 'package:home_management_app/ui/utils/datepickerField.dart';
 
 class EditLeaseScreen extends StatefulWidget {

@@ -25,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
               left: 0,
               child: ColorFiltered(
                   colorFilter: ColorFilter.mode(
-                      Colors.grey.withOpacity(.35), BlendMode.srcOver),
+                      Colors.grey.withValues(alpha: .35), BlendMode.srcOver),
                   child: Image.asset(
                     "assets/img/main.jpg",
                     fit: BoxFit.cover,
