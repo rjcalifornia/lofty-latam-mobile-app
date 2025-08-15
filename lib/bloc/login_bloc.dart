@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/modules/home/screens/app.dart';
+import 'package:home_management_app/modules/lease/widgets/test.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,34 +57,15 @@ class LoginBloc with Validators {
   // Submit function
   Future<void> submit(var context) async {
     showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Dialog(
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: LoadingAnimationWidget.waveDots(
-                          color: BrandColors.fty, size: 38),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "Validando, espere un momento por favor",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: BrandColors.foggy),
-                    )
-                  ],
-                ),
-              ));
-        });
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return const FullscreenLottieDialog(
+          asset: 'assets/animations/loader.json',
+          content: "Validando, espere un momento por favor",
+        );
+      },
+    );
 
     try {
       // Perform login logic here using username and password

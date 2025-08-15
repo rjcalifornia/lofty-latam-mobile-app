@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/models/PaymentClass.dart';
+import 'package:home_management_app/modules/lease/widgets/test.dart';
 import 'package:home_management_app/modules/property/models/RentClass.dart';
 import 'package:home_management_app/config/env.dart';
 import 'package:home_management_app/global.dart';
@@ -12,6 +13,7 @@ import 'package:home_management_app/modules/home/screens/app.dart';
 import 'package:home_management_app/modules/property/screens/property_details.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -175,6 +177,7 @@ class LeaseBloc with Validators {
     final accessToken = prefs.getString("access_token");
     CustomDialogs.loadingDialog(
         context, "Almacenando contrato, espere un momento por favor");
+    Navigator.of(context).pop();
     try {
       var leaseJson = await http.post(
           Uri.parse(
@@ -210,26 +213,15 @@ class LeaseBloc with Validators {
         CustomDialogs.fatalErrorDialog(context, response['message']);
       }
       showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              surfaceTintColor: Colors.white,
-              content: Text("Contrato ha sido guardado correctamente."),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      "Aceptar",
-                      style: TextStyle(color: Colors.blue),
-                    ))
-              ],
-            );
-          });
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return const FullscreenLottieDialog(
+            asset: 'assets/animations/success.json',
+            content: '"Contrato ha sido guardado correctamente.',
+          );
+        },
+      );
     } catch (e) {
       Navigator.of(context).pop();
       CustomDialogs.fatalErrorDialog(context, e);
@@ -297,7 +289,8 @@ class LeaseBloc with Validators {
   Future<void> endLease(leaseId, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final accessToken = prefs.getString("access_token");
-
+    CustomDialogs.loadingDialog(
+        context, "Almacenando contrato, espere un momento por favor");
     try {
       var leaseJson = await http.delete(
           Uri.parse(
@@ -317,9 +310,17 @@ class LeaseBloc with Validators {
         dynamic response = json.decode(leaseJson.body);
         Exception(Text(response['message'].toString()));
       }
-
-      CustomDialogs.infoDialog(
-          context, "Atención", "Contrato ha sido marcado como finalizado");
+      Navigator.of(context).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return const FullscreenLottieDialog(
+            asset: 'assets/animations/success.json',
+            content: 'Contrato ha sido marcado como finalizado.',
+          );
+        },
+      );
     } catch (e) {
       Navigator.of(context).pop();
       CustomDialogs.fatalErrorDialog(context, e);
