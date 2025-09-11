@@ -218,7 +218,7 @@ class LeaseBloc with Validators {
         builder: (BuildContext context) {
           return const FullscreenLottieDialog(
             asset: 'assets/animations/success.json',
-            content: '"Contrato ha sido guardado correctamente.',
+            content: 'Contrato ha sido guardado correctamente.',
           );
         },
       );

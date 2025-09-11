@@ -589,7 +589,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ],
                     ));
                   } else {
-                    return CustomDialogs.dotsLoader("Espere por favor...");
+                    return CustomDialogs.navigationLoader(
+                        "Espere por favor...");
                   }
                 }),
               ),
@@ -609,7 +610,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
       builder: (BuildContext context) {
         return const FullscreenLottieDialog(
           asset: 'assets/animations/success.json',
-          content: '"Contrato ha sido guardado correctamente.',
+          content: 'Contrato ha sido guardado correctamente.',
         );
       },
     );
