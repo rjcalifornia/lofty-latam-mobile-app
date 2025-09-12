@@ -2,14 +2,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/models/PaymentClass.dart';
+import 'package:home_management_app/modules/lease/models/PaymentClass.dart';
 import 'package:home_management_app/modules/lease/widgets/test.dart';
 import 'package:home_management_app/modules/property/models/RentClass.dart';
-import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/core/config/env.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Lease.dart';
-import 'package:home_management_app/models/PaymentsDetails.dart';
-import 'package:home_management_app/modules/home/screens/app.dart';
+import 'package:home_management_app/modules/lease/models/Lease.dart';
+import 'package:home_management_app/modules/lease/models/PaymentsDetails.dart';
+import 'package:home_management_app/app.dart';
 import 'package:home_management_app/modules/property/screens/property_details.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -22,7 +22,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:home_management_app/validators/validators.dart';
+import 'package:home_management_app/core/validators/validators.dart';
 import 'package:uuid/uuid.dart';
 
 class LeaseBloc with Validators {

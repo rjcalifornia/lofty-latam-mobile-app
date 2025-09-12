@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/models/PaymentsDetails.dart';
+import 'package:home_management_app/modules/lease/models/PaymentsDetails.dart';
 
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
