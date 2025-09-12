@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/modules/lease/widgets/test.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class BrandColors {
@@ -91,21 +92,11 @@ class CustomDialogs {
   }
 
   static dotsLoader(message) {
-    return Center(
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            LoadingAnimationWidget.waveDots(color: BrandColors.fty, size: 26),
-            const SizedBox(
-              height: 12,
-            ),
-            Text(
-              message.toString(),
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: BrandColors.foggy),
-            )
-          ]),
+    return const Center(
+      child: FullscreenLottieDialog(
+        asset: 'assets/animations/loader.json',
+        content: 'Espere por favor',
+      ),
     );
   }
 

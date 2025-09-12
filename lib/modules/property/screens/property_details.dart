@@ -9,12 +9,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
+import 'package:home_management_app/modules/lease/widgets/test.dart';
 import 'package:home_management_app/modules/property/models/Property.dart';
 import 'package:home_management_app/modules/lease/screens/create_lease.dart';
 import 'package:home_management_app/modules/lease/screens/lease_details.dart';
 import 'package:home_management_app/modules/property/screens/edit_property.dart';
-import 'package:home_management_app/ui/widgets/home_leases_container.dart';
-import 'package:home_management_app/ui/widgets/home_services_container.dart';
+import 'package:home_management_app/modules/property/widgets/home_leases_container.dart';
+import 'package:home_management_app/modules/property/widgets/home_services_container.dart';
 import 'package:image_picker/image_picker.dart';
 //import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -588,7 +589,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                       ],
                     ));
                   } else {
-                    return CustomDialogs.dotsLoader("Espere por favor...");
+                    return CustomDialogs.navigationLoader(
+                        "Espere por favor...");
                   }
                 }),
               ),
@@ -598,6 +600,19 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> waitingDialogBuilder(BuildContext context) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return const FullscreenLottieDialog(
+          asset: 'assets/animations/success.json',
+          content: 'Contrato ha sido guardado correctamente.',
+        );
+      },
     );
   }
 

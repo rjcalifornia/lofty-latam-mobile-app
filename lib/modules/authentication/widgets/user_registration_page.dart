@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/user_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/utils/formTextField.dart';
+import 'package:home_management_app/core/utils/formTextField.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:url_launcher/url_launcher.dart';
 

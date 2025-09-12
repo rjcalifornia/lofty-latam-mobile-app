@@ -5,11 +5,11 @@ import 'package:home_management_app/bloc/lease_bloc.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/Lease.dart';
-import 'package:home_management_app/models/PaymentsDetails.dart';
+import 'package:home_management_app/modules/lease/models/Lease.dart';
+import 'package:home_management_app/modules/lease/models/PaymentsDetails.dart';
 import 'package:home_management_app/modules/lease/screens/edit_lease.dart';
 import 'package:home_management_app/modules/lease/screens/create_payment_receipt.dart';
-import 'package:home_management_app/ui/widgets/tenant_info_container.dart';
+import 'package:home_management_app/modules/lease/widgets/tenant_info_container.dart';
 //import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LeaseDetailsScreen extends StatefulWidget {

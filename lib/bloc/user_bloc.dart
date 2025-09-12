@@ -2,16 +2,16 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/core/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/modules/authentication/models/User.dart';
-import 'package:home_management_app/modules/home/screens/app.dart';
+import 'package:home_management_app/app.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:home_management_app/validators/validators.dart';
+import 'package:home_management_app/core/validators/validators.dart';
 
 class UserBloc with Validators {
   final _nameController = BehaviorSubject<String>();

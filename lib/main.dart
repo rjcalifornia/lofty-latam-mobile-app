@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/modules/home/screens/app.dart';
+import 'package:home_management_app/app.dart';
 import 'package:home_management_app/modules/authentication/screens/register.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/models/PaymentsDetails.dart';
+import 'package:home_management_app/modules/lease/models/PaymentsDetails.dart';
 
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
@@ -264,7 +264,7 @@ class _CreateReceiptScreenState extends State<CreateReceiptScreen> {
                               context, widget.lease.id);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: BrandColors.arches,
+                          backgroundColor: BrandColors.fty,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),

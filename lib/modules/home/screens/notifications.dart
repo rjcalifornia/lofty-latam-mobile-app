@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_management_app/bloc/payments_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/ui/widgets/notifications_container.dart';
+import 'package:home_management_app/modules/home/widgets/notifications_container.dart';
 import 'package:http/http.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

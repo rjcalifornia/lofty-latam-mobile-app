@@ -2,10 +2,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:home_management_app/config/env.dart';
+import 'package:home_management_app/core/config/env.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/models/PaymentsDetails.dart';
-import 'package:home_management_app/modules/home/screens/app.dart';
+import 'package:home_management_app/modules/lease/models/PaymentsDetails.dart';
+import 'package:home_management_app/app.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,7 +17,7 @@ import 'dart:convert';
 import 'dart:io';
 //import 'package:path_provider/path_provider.dart';
 
-import 'package:home_management_app/validators/validators.dart';
+import 'package:home_management_app/core/validators/validators.dart';
 import 'package:uuid/uuid.dart';
 
 class PaymentsBloc with Validators {
