@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_management_app/modules/lease/widgets/test.dart';
+import 'package:home_management_app/core/widgets/success_message_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class BrandColors {

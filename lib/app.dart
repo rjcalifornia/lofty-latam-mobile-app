@@ -33,28 +33,72 @@ class _AppPageState extends State<AppPage> {
       child: Scaffold(
           backgroundColor: Colors.white,
           body: _screens.elementAt(_currentIndex),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: _onItemTapped,
-            //  type: BottomNavigationBarType.shifting,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Propiedades',
-                backgroundColor: Color(0xff071d40),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                label: 'Notificaciones',
-                backgroundColor: Colors.green,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Perfil',
-                backgroundColor: Colors.pink,
-              ),
-            ],
-            selectedItemColor: BrandColors.fty,
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 6,
+                  offset: const Offset(0, -3), // negative Y → shadow on top
+                ),
+              ],
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.white,
+              elevation: 0, // disable internal elevation
+              currentIndex: _currentIndex,
+              type: BottomNavigationBarType.fixed,
+              selectedFontSize: 12, // keep font size same
+              unselectedFontSize: 12, // same as selected
+              onTap: _onItemTapped,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/home.png',
+                    width: 22,
+                    height: 22,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/icons/home_active.png',
+                    width: 22,
+                    height: 22,
+                  ),
+                  label: 'Inicio',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/notification.png',
+                    width: 22,
+                    height: 22,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/icons/notification_active.png',
+                    width: 22,
+                    height: 22,
+                  ),
+                  label: 'Notificaciones',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/profile.png',
+                    width: 22,
+                    height: 22,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/icons/profile_active.png',
+                    width: 22,
+                    height: 22,
+                  ),
+                  label: 'Mi perfil',
+                ),
+              ],
+              selectedItemColor: BrandColors.loft,
+              unselectedItemColor: BrandColors.loft,
+              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w800),
+              unselectedLabelStyle:
+                  const TextStyle(fontWeight: FontWeight.w400),
+            ),
           )),
     );
   }

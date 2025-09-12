@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class FullscreenLottieDialog extends StatefulWidget {
-  const FullscreenLottieDialog(
-      {super.key, required this.asset, required this.content});
+  const FullscreenLottieDialog({
+    super.key,
+    required this.asset,
+    required this.content,
+    this.closeScreen = false,
+  });
   final String asset;
   final String content;
-
+  final bool closeScreen;
   @override
   State<FullscreenLottieDialog> createState() => _FullscreenLottieDialogState();
 }
@@ -22,7 +26,10 @@ class _FullscreenLottieDialogState extends State<FullscreenLottieDialog>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.of(context).pop(); // Automatically close dialog
+        Navigator.of(context, rootNavigator: true).pop();
+        if (widget.closeScreen) {
+          Navigator.of(context).pop();
+        }
       }
     });
   }
@@ -61,7 +68,7 @@ class _FullscreenLottieDialogState extends State<FullscreenLottieDialog>
                       const SizedBox(height: 20),
                       Text(
                         widget.content,
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
                     ],

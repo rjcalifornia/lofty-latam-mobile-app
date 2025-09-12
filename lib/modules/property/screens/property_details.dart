@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:home_management_app/bloc/properties_bloc.dart';
 import 'package:home_management_app/global.dart';
-import 'package:home_management_app/modules/lease/widgets/test.dart';
+import 'package:home_management_app/core/widgets/success_message_widget.dart';
 import 'package:home_management_app/modules/property/models/Property.dart';
 import 'package:home_management_app/modules/lease/screens/create_lease.dart';
 import 'package:home_management_app/modules/lease/screens/lease_details.dart';
@@ -157,7 +157,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                 bottom: 150,
                                 child: Container(
                                   alignment: Alignment.topCenter,
-                                  color: const Color(0xffFF5A5F),
+                                  color: BrandColors.fty,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15.0),
                                   child: const Row(children: []),

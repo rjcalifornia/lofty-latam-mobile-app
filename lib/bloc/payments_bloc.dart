@@ -6,6 +6,7 @@ import 'package:home_management_app/core/config/env.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/modules/lease/models/PaymentsDetails.dart';
 import 'package:home_management_app/app.dart';
+import 'package:home_management_app/core/widgets/success_message_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:rxdart/rxdart.dart';
@@ -98,6 +99,7 @@ class PaymentsBloc with Validators {
     String? getAdditionalNote = "";
     CustomDialogs.loadingDialog(
         context, "Procesando, espere un momento por favor");
+
     if (_additionalNoteController.hasValue) {
       getAdditionalNote = additionalNote.toString();
     }
@@ -122,26 +124,16 @@ class PaymentsBloc with Validators {
       });
       Navigator.of(context).pop();
       showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: Text("Recibo ha sido generado correctamente."),
-              surfaceTintColor: Colors.white,
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      "Aceptar",
-                      style: TextStyle(color: Colors.blue),
-                    ))
-              ],
-            );
-          });
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return const FullscreenLottieDialog(
+            closeScreen: true,
+            asset: 'assets/animations/success.json',
+            content: 'Recibo ha sido generado correctamente.',
+          );
+        },
+      );
     } catch (e) {
       CustomDialogs.fatalErrorDialog(context, e);
     }

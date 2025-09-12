@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:home_management_app/modules/lease/models/PaymentClass.dart';
-import 'package:home_management_app/modules/lease/widgets/test.dart';
+import 'package:home_management_app/core/widgets/success_message_widget.dart';
 import 'package:home_management_app/modules/property/models/RentClass.dart';
 import 'package:home_management_app/core/config/env.dart';
 import 'package:home_management_app/global.dart';
