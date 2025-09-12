@@ -8,23 +8,21 @@
 - Flutter Channel stable, 3.0.5  
 - Visual Studio Code  
 
-## Instalacion
+## Instalación
 
-1. Con la consola de comandos (CLI), ejecutar el comando:  
+1. Con la consola de comandos (CLI), para verificar que cumple con todos los prerequisitos de Flutter, ejecute el comando:  
    ```bash
    flutter doctor
    ```  
-   para verificar que cumple con todos los prerequisitos de Flutter.  
-
+     
 2. Clonar este repositorio.  
 
 3. Copiar archivo `env.dart.example` como `env.dart` y configurar los endpoints correctamente.  
 
-4. Con la consola de comandos (CLI), ir a la carpeta root de la app y ejecutar el comando:  
+4. Para instalar las librerías necesarias para el funcionamiento de la app, con la consola de comandos (CLI), ir a la carpeta root de la app y ejecutar el comando:  
    ```bash
    flutter pub get
-   ```  
-   Esto instalará las librerías necesarias para el funcionamiento de la app.  
+   ```   
 
 5. Una vez se haya terminado de instalar las librerías, ya podrá ejecutar la App con Visual Studio Code o Android Studio.  
 
@@ -38,7 +36,7 @@ flutter build apk --release
 
 Esto generará un APK de pruebas en dispositivos Android.  
 
-## Estructura de Carpetas
+## Estructura de carpetas
 
 ```plaintext
 lib/
@@ -86,8 +84,6 @@ lib/
 - Imagen de portada inicial por [Pexels](https://pixabay.com/users/pexels-2286921/)  
 
 ## Informacion Adicional
-
-![Flutter](https://raw.githubusercontent.com/flutter/website/archived-master/src/_assets/image/flutter-lockup-bg.jpg "Flutter")
 
 ![alt text](https://raw.githubusercontent.com/flutter/website/archived-master/src/_assets/image/flutter-lockup-bg.jpg "Flutter")
 
