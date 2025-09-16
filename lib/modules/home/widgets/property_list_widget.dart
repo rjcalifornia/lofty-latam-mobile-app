@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:home_management_app/global.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class PropertiesContainer extends StatelessWidget {
+class PropertyListWidget extends StatelessWidget {
   final int id;
 
   final token;
   final property;
-  const PropertiesContainer(
+  const PropertyListWidget(
       {super.key,
       required this.id,
       required this.property,
@@ -44,7 +44,7 @@ class PropertiesContainer extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             colorFilter: ColorFilter.mode(
-                                Colors.grey.withValues(alpha: 0.3),
+                                Colors.blue.withValues(alpha: 0.1),
                                 BlendMode.srcOver),
                             image: CachedNetworkImageProvider(
                                 property[id]['property_pictures']
@@ -69,12 +69,9 @@ class PropertiesContainer extends StatelessWidget {
                           children: [
                             Text(
                               "${property[id]['name']}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800),
                             ),
                           ],
                         ),
@@ -88,35 +85,23 @@ class PropertiesContainer extends StatelessWidget {
           },
         ),
         const SizedBox(
-          height: 14,
+          height: 4,
         ),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
                 child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("${property[id]['address']}",
-                    style: const TextStyle(color: BrandColors.foggy))
+                    style: const TextStyle(color: BrandColors.hof))
               ],
             ))
           ],
         ),
-        const SizedBox(height: 3),
-        /*
-        Row(
-          children: const <Widget>[
-            Text(
-              "Precio de la propiedad",
-              style: (TextStyle(color: Color.fromARGB(255, 151, 155, 156))),
-            )
-          ],
-        ),*/
-        const SizedBox(height: 6),
-        const Divider(
-          height: 21,
-          color: BrandColors.hof,
-        ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 26),
       ],
     );
   }

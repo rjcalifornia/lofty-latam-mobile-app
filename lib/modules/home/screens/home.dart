@@ -4,7 +4,7 @@ import 'package:home_management_app/classes/UserPreferences.dart';
 import 'package:home_management_app/global.dart';
 import 'package:home_management_app/modules/property/screens/property_details.dart';
 import 'package:home_management_app/modules/home/widgets/home_options_container.dart';
-import 'package:home_management_app/modules/home/widgets/properties_container.dart';
+import 'package:home_management_app/modules/home/widgets/property_list_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             if (value == true)
                                               {_getPropertiesList()}
                                           }),
-                                      child: PropertiesContainer(
+                                      child: PropertyListWidget(
                                         id: i,
                                         property: listProperties,
                                         token: accessToken,
