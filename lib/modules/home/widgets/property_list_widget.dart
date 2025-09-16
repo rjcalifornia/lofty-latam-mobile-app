@@ -101,7 +101,7 @@ class PropertyListWidget extends StatelessWidget {
             ))
           ],
         ),
-        const SizedBox(height: 26),
+        const SizedBox(height: 24),
       ],
     );
   }
