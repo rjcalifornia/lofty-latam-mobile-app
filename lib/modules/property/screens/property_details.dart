@@ -220,7 +220,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               child: Row(
                                 children: <Widget>[
                                   Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
                                     ),
@@ -242,7 +242,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   ),
                                   const Spacer(),
                                   Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white,
                                         shape: BoxShape.circle,
                                       ),
@@ -355,7 +355,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               Expanded(
                                   child: Text(
                                 propertyDetails!.name.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: BrandColors.rausch,
                                     fontSize: 20),
@@ -367,62 +367,54 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                Column(
-                                  children: [
-                                    Text(
-                                      "${propertyDetails!.bedrooms}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                              color: BrandColors.hof,
-                                              fontSize: 16),
-                                    ),
-                                    Text("Cuartos",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: BrandColors.hof,
-                                                fontSize: 16)),
-                                  ],
+                                Container(
+                                  padding: const EdgeInsets.all(24),
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        'assets/icons/bedrooms.png',
+                                        width: 50,
+                                      ),
+                                      Text(
+                                          "${propertyDetails!.bedrooms} Cuartos",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: BrandColors.loft,
+                                              fontSize: 12)),
+                                    ],
+                                  ),
                                 ),
-                                Column(
-                                  children: [
-                                    Text("${propertyDetails!.beds}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: BrandColors.hof,
-                                                fontSize: 16)),
-                                    Text("Camas",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: BrandColors.hof,
-                                                fontSize: 16)),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text("${propertyDetails!.bathrooms}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: BrandColors.hof,
-                                                fontSize: 16)),
-                                    Text("Baños",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color: BrandColors.hof,
-                                                fontSize: 16)),
-                                  ],
-                                ),
+                                Container(
+                                    padding: const EdgeInsets.all(24),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/icons/bed.png',
+                                          width: 50,
+                                        ),
+                                        Text("${propertyDetails!.beds} camas",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: BrandColors.loft,
+                                                fontSize: 12)),
+                                      ],
+                                    )),
+                                Container(
+                                    padding: const EdgeInsets.all(24),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/icons/bathroom.png',
+                                          width: 50,
+                                        ),
+                                        Text(
+                                            "${propertyDetails!.bathrooms} baño",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: BrandColors.loft,
+                                                fontSize: 12)),
+                                      ],
+                                    )),
                               ],
                             ),
                             const SizedBox(

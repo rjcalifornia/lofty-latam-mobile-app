@@ -69,7 +69,7 @@ class PropertyListWidget extends StatelessWidget {
                           children: [
                             Text(
                               "${property[id]['name']}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w800),
                             ),

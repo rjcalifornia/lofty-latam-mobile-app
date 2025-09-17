@@ -73,9 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 getProperties: getProperties,
               ),
               const SizedBox(height: 30),
-              Text(
+              const Text(
                 "Propiedades",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: BrandColors.loft,

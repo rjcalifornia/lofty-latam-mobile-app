@@ -38,7 +38,7 @@ class _AppPageState extends State<AppPage> {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 6,
                   offset: const Offset(0, -3), // negative Y → shadow on top
                 ),
