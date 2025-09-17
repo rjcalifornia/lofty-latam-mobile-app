@@ -44,7 +44,7 @@ class PropertyListWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             colorFilter: ColorFilter.mode(
-                                Colors.blue.withValues(alpha: 0.1),
+                                Colors.white.withValues(alpha: 0.1),
                                 BlendMode.srcOver),
                             image: CachedNetworkImageProvider(
                                 property[id]['property_pictures']
