@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_management_app/global.dart';
 import 'package:lottie/lottie.dart';
 
 class FullscreenLottieDialog extends StatefulWidget {
@@ -68,7 +69,10 @@ class _FullscreenLottieDialogState extends State<FullscreenLottieDialog>
                       const SizedBox(height: 20),
                       Text(
                         widget.content,
-                        style: const TextStyle(fontSize: 16),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: BrandColors.loft),
                         textAlign: TextAlign.center,
                       ),
                     ],

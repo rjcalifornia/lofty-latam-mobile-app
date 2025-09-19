@@ -157,19 +157,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                         height: imageHeight,
                         child: Stack(
                           children: [
-                            // Positioned(
-                            //   top: 0,
-                            //   right: 0,
-                            //   left: 0,
-                            //   bottom: 150,
-                            //   child: Container(
-                            //     alignment: Alignment.topCenter,
-                            //     color: BrandColors.fty,
-                            //     padding: const EdgeInsets.symmetric(
-                            //         horizontal: 15.0),
-                            //     child: const Row(children: []),
-                            //   ),
-                            // ),
                             Positioned.fill(
                               left: 0,
                               right: 0,
@@ -214,7 +201,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                   ),
                                 )),
                             Positioned(
-                              top: 32,
+                              top: 44,
                               left: 14,
                               right: 14,
                               child: Row(
@@ -376,7 +363,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         width: 50,
                                       ),
                                       Text(
-                                          "${propertyDetails!.bedrooms} Cuartos",
+                                          "${propertyDetails!.bedrooms} cuartos",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: BrandColors.loft,

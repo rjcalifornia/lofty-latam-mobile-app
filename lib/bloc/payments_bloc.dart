@@ -169,25 +169,16 @@ class PaymentsBloc with Validators {
       Navigator.of(context).pop();
 
       showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Atención"),
-              content: Text("Recibo ha sido descargado correctamente."),
-              surfaceTintColor: Colors.white,
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      "Aceptar",
-                      style: TextStyle(color: Colors.blue),
-                    ))
-              ],
-            );
-          });
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return const FullscreenLottieDialog(
+            closeScreen: false,
+            asset: 'assets/animations/success.json',
+            content: 'Recibo ha sido guardado correctamente.',
+          );
+        },
+      );
     } catch (e) {
       Future.delayed(Duration(seconds: 2)).then((_) {
         Navigator.of(context).pop();
