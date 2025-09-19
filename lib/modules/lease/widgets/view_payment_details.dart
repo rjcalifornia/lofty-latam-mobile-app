@@ -34,10 +34,10 @@ class PaymentDetailsScreen extends StatelessWidget {
         elevation: 0.0,
         title: const Text(
           "Detalles de pago",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.chevron_left, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
